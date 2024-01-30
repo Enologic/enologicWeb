@@ -36,8 +36,6 @@ return new class extends Migration
            ]);*/
            $table->text('description');
            $table->decimal('price', 7, 2);
-           $table->foreignId('grapes_id')->references('id')->on('grapes');
-           $table->foreignId('images_id')->references('id')->on('images');
             $table->timestamps();
         });
     }

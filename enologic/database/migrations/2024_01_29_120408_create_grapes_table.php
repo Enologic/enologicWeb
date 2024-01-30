@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('grapes', function (Blueprint $table) {
             $table->id();
             $table->string('grape_name')->unique();
+            $table->foreignId('product_id')->references('id')->on('products');
             $table->timestamps();
         });
     }
