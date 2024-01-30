@@ -8,4 +8,12 @@ use Illuminate\Database\Eloquent\Model;
 class Product extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'name',//Añadir enums
+        'description',
+        'price',
+        'age',
+        'reservation'
+    ];
 }
