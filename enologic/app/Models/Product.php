@@ -16,4 +16,9 @@ class Product extends Model
         'age',
         'reservation'
     ];
+
+    public function images(){
+        return $this->hasMany(Image::class,  "product_id");
+    }
+
 }
