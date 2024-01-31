@@ -19,4 +19,8 @@ class Cart extends Model
 
         //Falta modelo pivote
 
+
+        public function products(){
+        return $this->belongsToMany(Product::class);
+    }
 }

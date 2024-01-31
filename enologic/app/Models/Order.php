@@ -12,7 +12,7 @@ class Order extends Model
     protected $fillable = [
         'user_id'
     ];
-   
+
     public function user() {
         return $this->belongsTo(User::class);
         }
@@ -21,9 +21,9 @@ class Order extends Model
         return $this->hasOne(Invoice::class);
     }
 
-    //Falta modelo pivote
+    public function products(){
+        return $this->belongsToMany(Product::class);
+    }
 
-
-    
 
 }

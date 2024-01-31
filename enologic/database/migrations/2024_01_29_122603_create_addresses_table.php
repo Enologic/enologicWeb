@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('street');
             $table->string('city');
-            $table->string('state');
+            $table->string('country');
             $table->string('zipcode');
             $table->timestamps();
             $table->foreignId('users_id')->references('id')->on('users');
