@@ -21,9 +21,6 @@ return new class extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->rememberToken();
             $table->timestamps();
-            $table->foreignId('orders_id')->references('id')->on('orders');
-            $table->foreignId('carts_id')->references('id')->on('carts');
-            $table->foreignId('wishlists_id')->references('id')->on('wishlists');
         });
     }
 
