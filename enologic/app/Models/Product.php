@@ -14,7 +14,7 @@ class Product extends Model
         'description',
         'price',
         'age',
-        'reservation'
+        'origin'
     ];
 
     public function images(){

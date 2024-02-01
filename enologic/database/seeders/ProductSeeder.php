@@ -18,7 +18,7 @@ class ProductSeeder extends Seeder
        $product->description = "Prueba de producto";
        $product->price = 60;
        $product->age = 5;
-       $product->reservation = 2018;
+       $product->origin = "Jerez de la frontera";
 
        $product->save();
         }
