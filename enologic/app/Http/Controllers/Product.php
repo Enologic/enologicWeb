@@ -11,6 +11,12 @@ class Product extends Controller
         return view('layouts.add');
     }
 
+    public function show()
+    {
+        
+        return view('layouts.show');
+    }
+
     public function guardarProducto(Request $request)
     {
         $request->validate([

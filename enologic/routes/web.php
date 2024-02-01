@@ -26,5 +26,7 @@ Route::get('/home', function () {
 
 
 Route::get('add', [Product::class, 'mostrar'])->name('add');
+
 Route::post('guardar-producto', [Product::class, 'guardarProducto'])->name('guardar.producto');
 
+Route::get('show', [Product::class, 'show'])->name('show');
