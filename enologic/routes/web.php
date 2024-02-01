@@ -13,11 +13,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+// RUTA INICIAL
 Route::get('/', function () {
-    return view('welcome');
+    return view('auth/login');
 });
 
-
+// RUTA INICIAL SI ESTA VERIFICADO/LOGGED
 Route::get('/home', function () {
     return view('auth.dashboard');
 })->middleware(['auth', 'verified']);
