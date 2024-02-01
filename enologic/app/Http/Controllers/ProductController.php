@@ -1,10 +1,10 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Models\Product;
 use Illuminate\Http\Request;
 
-class Product extends Controller
+class ProductController extends Controller
 {
     public function mostrar()
     {
@@ -13,8 +13,9 @@ class Product extends Controller
 
     public function show()
     {
-        
-        return view('layouts.show');
+        $products = Product::all();
+                
+        return view('layouts.show', compact('products'));
     }
 
     public function guardarProducto(Request $request)

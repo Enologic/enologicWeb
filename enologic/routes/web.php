@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\Product;
+use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -25,8 +25,8 @@ Route::get('/home', function () {
 })->middleware(['auth', 'verified']);
 
 
-Route::get('add', [Product::class, 'mostrar'])->name('add');
+Route::get('add', [ProductController::class, 'mostrar'])->name('add');
 
-Route::post('guardar-producto', [Product::class, 'guardarProducto'])->name('guardar.producto');
+Route::post('guardar-producto', [ProductController::class, 'guardarProducto'])->name('guardar.producto');
 
-Route::get('show', [Product::class, 'show'])->name('show');
+Route::get('show', [ProductController::class, 'show'])->name('show');
