@@ -19,6 +19,7 @@ class ProductSeeder extends Seeder
        $product->price = 60;
        $product->age = 5;
        $product->origin = "Jerez de la frontera";
+       $product->country = "Spain";
 
        $product->save();
         }

@@ -38,6 +38,7 @@ return new class extends Migration
            $table->decimal('price', 7, 2);
            $table->integer('age');
            $table->string('origin');
+           $table->string('country');
             $table->timestamps();
         });
     }
