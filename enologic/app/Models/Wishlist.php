@@ -13,11 +13,14 @@ class Wishlist extends Model
         'name',
         'user_id'
     ];
-   
-    public function user() {
+
+    public function user()
+    {
         return $this->belongsTo(User::class);
-        }
+    }
 
-        //Falta modelo pivote
-
+    public function products()
+    {
+        return $this->belongsToMany(Product::class);
+    }
 }
