@@ -13,26 +13,35 @@ class UserSeeder extends Seeder
      */
     public function run(): void
     {
-          // Ejemplo de datos de usuarios
-          $user = new User();
-          $user->username = 'Admin';
-          $user->password = bcrypt('contrasena123');
-          $user->email = 'admin@admin.com';
-          $user->phone = '657483923';
-          $user->name = 'Carlos Santana';
+        $users = [
+            [
+                'username' => 'Admin',
+                'password' => bcrypt('contrasena123'),
+                'email' => 'admin@admin.com',
+                'email_verified_at' => now(),
+                'phone' => '657483923',
+                'name' => 'Carlos Santana',
+            ],
+            [
+                'username' => 'PussyDestroyer69',
+                'password' => bcrypt('password123'),
+                'email' => 'usuario1@example.com',
+                'email_verified_at' => now(),
+                'phone' => '123456789',
+                'name' => 'Thanos',
+            ],
+            [
+                'username' => 'MissMeat',
+                'password' => bcrypt('password456'),
+                'email' => 'usuario2@example.com',
+                'email_verified_at' => now(),
+                'phone' => '987654321',
+                'name' => 'Lady Gaga',
+            ],
+        ];  
 
-
-          $user->save();
-
-           // Ejemplo de datos de usuarios
-           $user2 = new User();
-           $user2->username = 'Juancc12';
-           $user2->password = bcrypt('contrasena123');
-           $user2->email = 'ejemplo1@gmail.com';
-           $user2->phone = '655344872';
-           $user2->name = 'Juan Cutino';
-
-
-           $user2->save();
+        foreach ($users as $user) {
+            User::create($user);
+        }
     }
 }
