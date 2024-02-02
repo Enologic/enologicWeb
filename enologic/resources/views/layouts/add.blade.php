@@ -58,8 +58,12 @@
                 <td>{{$product->origin}}</td>
                 <td>{{$product->country}}</td>
                 <td> <div class="d-flex justify-content-center">
-
-                    {{-- Botón para eliminar un Pokémon --}}
+                    {{-- Botón para editar un Producto --}}
+                    <a href="#editModal{{ $product->id }}" id="img-style-size" class="btn btn-warning mx-1"
+                        data-bs-toggle="modal" data-bs-target="#editModal{{ $product->id }}">
+                        <i class="fa-solid fa-pencil"></i>
+                    </a>
+                    {{-- Botón para eliminar un Producto --}}
                     <a href="#deleteModal{{ $product->id }}" id="img-style-size" class="btn btn-danger mx-1"
                         data-bs-toggle="modal" data-bs-target="#deleteModal{{ $product->id }}">
                         <i class="fa-solid fa-trash"></i>
