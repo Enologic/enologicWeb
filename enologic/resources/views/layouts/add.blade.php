@@ -67,12 +67,7 @@
 
                 </div></td>
             </tr>
-        @endforeach
 
-            <!-- Puedes agregar más filas según sea necesario -->
-        </tbody>
-    </table>
-</div>
 
  {{-- Modal para eliminar un producto --}}
  <div class="modal fade" id="deleteModal{{ $product->id }}" tabindex="-1"
@@ -102,4 +97,11 @@
         </div>
     </div>
 </div>
+        @endforeach
+
+            <!-- Puedes agregar más filas según sea necesario -->
+        </tbody>
+    </table>
+</div>
+
 @endsection
