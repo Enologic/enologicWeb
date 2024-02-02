@@ -8,7 +8,9 @@ class ProductController extends Controller
 {
     public function mostrar()
     {
-        return view('layouts.add');
+        $products = Product::all();
+
+        return view('layouts.add', compact('products'));
     }
 
     public function show()
@@ -40,5 +42,15 @@ class ProductController extends Controller
         return redirect()->route('add')
             ->with('success', 'Product added successfully');
     }
+
+    // ELIMINAR EL Producto SELECCIONADO
+    public function deleteProducto($id){
+        $product = Product::where('id', $id)->first();
+
+        $product->forceDelete();
+
+        return back()->with('success', 'Product deleted successfully');
+    }
+
 
 }

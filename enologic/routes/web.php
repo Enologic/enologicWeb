@@ -32,5 +32,7 @@ Route::prefix('')->middleware('auth', 'verified')->group(function () {
 
     Route::post('guardar-producto', [ProductController::class, 'guardarProducto'])->name('guardar.producto');
 
+    Route::post('delete-producto/{id}', [ProductController::class, 'deleteProducto'])->name('delete.producto');
+
     Route::get('show', [ProductController::class, 'show'])->name('show');
 });
