@@ -29,4 +29,5 @@ Route::get('add', [ProductController::class, 'mostrar'])->name('add');
 
 Route::post('guardar-producto', [ProductController::class, 'guardarProducto'])->name('guardar.producto');
 
+
 Route::get('show', [ProductController::class, 'show'])->name('show');
