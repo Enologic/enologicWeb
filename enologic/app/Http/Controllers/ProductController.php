@@ -52,5 +52,25 @@ class ProductController extends Controller
         return back()->with('success', 'Product deleted successfully');
     }
 
+    public function updateProducto(Request $request, $id)
+{
+    // Lógica para actualizar el producto
+
+    $product = Product::find($id);
+
+    // Actualiza los campos del producto con los datos del formulario
+    $product->update([
+        'product_name' => $request->input('product_name'),
+        'description'  => $request->input('description'),
+        'price'        => $request->input('price'),
+        'age'          => $request->input('age'),
+        'origin'       => $request->input('origin'),
+        'country'      => $request->input('country'),
+    ]);
+
+    return back()->with('success', 'Product updated successfully');
+}
+
+
 
 }

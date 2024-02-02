@@ -34,5 +34,7 @@ Route::prefix('')->middleware('auth', 'verified')->group(function () {
 
     Route::post('delete-producto/{id}', [ProductController::class, 'deleteProducto'])->name('delete.producto');
 
+    Route::put('update-producto/{id}', [ProductController::class, 'updateProducto'])->name('update.producto');
+
     Route::get('show', [ProductController::class, 'show'])->name('show');
 });

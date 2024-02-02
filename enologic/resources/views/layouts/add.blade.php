@@ -101,6 +101,62 @@
         </div>
     </div>
 </div>
+
+
+{{-- Modal para editar un producto --}}
+<div class="modal fade" id="editModal{{ $product->id }}" tabindex="-1"
+    aria-labelledby="editModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editModalLabel">Edit Product</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                    aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form action="{{ route('update.producto', $product->id) }}" method="POST">
+                    @csrf
+                    @method('PUT') {{-- Utilizamos PUT para la actualización --}}
+
+                    <div class="form-group">
+                        <label for="product_name">Name:</label>
+                        <input type="text" name="product_name" class="form-control" value="{{ $product->product_name }}" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="description">Description:</label>
+                        <textarea name="description" class="form-control" required>{{ $product->description }}</textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="price">Price:</label>
+                        <input type="number" name="price" class="form-control" value="{{ $product->price }}" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="age">Age:</label>
+                        <input type="number" name="age" class="form-control" value="{{ $product->age }}" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="origin">Origin:</label>
+                        <input type="text" name="origin" class="form-control" value="{{ $product->origin }}" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="country">Country:</label>
+                        <input type="text" name="country" class="form-control" value="{{ $product->country }}" required>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Save Changes</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
         @endforeach
 
             <!-- Puedes agregar más filas según sea necesario -->
