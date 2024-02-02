@@ -25,9 +25,12 @@ Route::get('/home', function () {
 })->middleware(['auth', 'verified']);
 
 
-Route::get('add', [ProductController::class, 'mostrar'])->name('add');
+// RUTAS AUTH
+Route::prefix('')->middleware('auth', 'verified')->group(function () {
 
-Route::post('guardar-producto', [ProductController::class, 'guardarProducto'])->name('guardar.producto');
+    Route::get('add', [ProductController::class, 'mostrar'])->name('add');
 
+    Route::post('guardar-producto', [ProductController::class, 'guardarProducto'])->name('guardar.producto');
 
-Route::get('show', [ProductController::class, 'show'])->name('show');
+    Route::get('show', [ProductController::class, 'show'])->name('show');
+});
