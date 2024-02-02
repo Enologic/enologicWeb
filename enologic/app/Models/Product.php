@@ -10,11 +10,12 @@ class Product extends Model
     use HasFactory;
 
     protected $fillable = [
-        'name',//Añadir enums
+        'product_name',//Añadir enums
         'description',
         'price',
         'age',
-        'reservation'
+        'origin',
+        'country'
     ];
 
     public function images(){
@@ -26,7 +27,7 @@ class Product extends Model
         return $this->belongsToMany(Cart::class);
     }
 
-    public function ordes()
+    public function orders()
     {
         return $this->belongsToMany(Order::class);
     }
