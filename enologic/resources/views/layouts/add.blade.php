@@ -6,8 +6,8 @@
     <form action="{{ route('guardar.producto') }}" method="POST">
         @csrf
         <div class="form-group">
-            <label for="name">Name:</label>
-            <input type="text" name="name" class="form-control" required>
+            <label for="product_name">Name:</label>
+            <input type="name" name="product_name" class="form-control" required>
         </div>
         <div class="form-group">
             <label for="description">Description:</label>
@@ -22,11 +22,12 @@
             <input type="number" name="age" class="form-control" required>
         </div>
         <div class="form-group">
-            <label for="reservation">Reservation:</label>
-            <select name="reservation" class="form-control" required>
-                <option value="1">Yes</option>
-                <option value="0">No</option>
-            </select>
+            <label for="origin">Origin:</label>
+            <input type="text" name="origin" class="form-control" required>
+        </div>
+        <div class="form-group">
+            <label for="country">Country:</label>
+            <input type="text" name="country" class="form-control" required>
         </div>
         <button type="submit" class="btn btn-primary">Add Product</button>
     </form>

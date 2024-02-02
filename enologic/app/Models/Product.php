@@ -10,7 +10,7 @@ class Product extends Model
     use HasFactory;
 
     protected $fillable = [
-        'name',//Añadir enums
+        'product_name',//Añadir enums
         'description',
         'price',
         'age',

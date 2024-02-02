@@ -14,23 +14,31 @@ class ProductController extends Controller
     public function show()
     {
         $products = Product::all();
-                
+
         return view('layouts.show', compact('products'));
     }
 
     public function guardarProducto(Request $request)
     {
+        // Validación
         $request->validate([
-            'productname' => 'required',
-            'description' => 'required',
-            'price' => 'required|numeric',
-            'age' => 'required|integer',
-            'reservation' => 'required|boolean',
+            'product_name' => 'required',
         ]);
 
-        Product::mostrar($request->all());
+        // Crear un nuevo producto y asignar los valores
+        $productoNuevo = new Product;
+        $productoNuevo->product_name = $request->product_name;
+        $productoNuevo->description = $request->description;
+        $productoNuevo->price = $request->price;
+        $productoNuevo->age = $request->age;
+        $productoNuevo->origin = $request->origin;
+        $productoNuevo->country = $request->country;
+
+        // Guardar el producto
+        $productoNuevo->save();
 
         return redirect()->route('add')
             ->with('success', 'Product added successfully');
     }
+
 }
