@@ -1,37 +1,6 @@
 @extends('layouts.template')
 
 @section('general')
-<div class="container">
-    <h2>Add Product</h2>
-    <form action="{{ route('guardar.producto') }}" method="POST">
-        @csrf
-        <div class="form-group">
-            <label for="product_name">Name:</label>
-            <input type="name" name="product_name" class="form-control" required>
-        </div>
-        <div class="form-group">
-            <label for="description">Description:</label>
-            <textarea name="description" class="form-control" required></textarea>
-        </div>
-        <div class="form-group">
-            <label for="price">Price:</label>
-            <input type="number" name="price" class="form-control" required>
-        </div>
-        <div class="form-group">
-            <label for="age">Age:</label>
-            <input type="number" name="age" class="form-control" required>
-        </div>
-        <div class="form-group">
-            <label for="origin">Origin:</label>
-            <input type="text" name="origin" class="form-control" required>
-        </div>
-        <div class="form-group">
-            <label for="country">Country:</label>
-            <input type="text" name="country" class="form-control" required>
-        </div>
-        <button type="submit" class="btn btn-primary">Add Product</button>
-    </form>
-</div>
 
 <div class="container mt-5">
     <h1>Tabla Productos</h1>
@@ -162,6 +131,59 @@
             <!-- Puedes agregar más filas según sea necesario -->
         </tbody>
     </table>
+</div>
+
+<div class="container">
+    <div class="row justify-content-center text-center">
+        <div class="d-inline-block"> <!-- Contenedor adicional para limitar el tamaño -->
+            <a href="#" class="btn btn-success mx-1" data-bs-toggle="modal" data-bs-target="#addProductModal">
+                <i class="fa-solid fa-plus"></i>
+            </a>
+        </div>
+    </div>
+</div>
+<!-- Enlace para abrir el modal -->
+
+{{-- Modal para agregar un producto --}}
+<div class="modal fade" id="addProductModal" tabindex="-1" aria-labelledby="addProductModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addProductModalLabel">Add Product</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form action="{{ route('guardar.producto') }}" method="POST">
+                    @csrf
+                    <div class="form-group">
+                        <label for="product_name">Name:</label>
+                        <input type="name" name="product_name" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="description">Description:</label>
+                        <textarea name="description" class="form-control" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="price">Price:</label>
+                        <input type="number" name="price" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="age">Age:</label>
+                        <input type="number" name="age" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="origin">Origin:</label>
+                        <input type="text" name="origin" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="country">Country:</label>
+                        <input type="text" name="country" class="form-control" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Add Product</button>
+                </form>
+            </div>
+        </div>
+    </div>
 </div>
 
 @endsection
