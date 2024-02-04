@@ -8,7 +8,9 @@ class ProductController extends Controller
 {
     public function mostrar()
     {
-        return view('layouts.add');
+        $products = Product::all();
+
+        return view('layouts.add', compact('products'));
     }
 
     public function show()
@@ -40,5 +42,35 @@ class ProductController extends Controller
         return redirect()->route('add')
             ->with('success', 'Product added successfully');
     }
+
+    // ELIMINAR EL Producto SELECCIONADO
+    public function deleteProducto($id){
+        $product = Product::where('id', $id)->first();
+
+        $product->forceDelete();
+
+        return back()->with('success', 'Product deleted successfully');
+    }
+
+    public function updateProducto(Request $request, $id)
+{
+    // Lógica para actualizar el producto
+
+    $product = Product::find($id);
+
+    // Actualiza los campos del producto con los datos del formulario
+    $product->update([
+        'product_name' => $request->input('product_name'),
+        'description'  => $request->input('description'),
+        'price'        => $request->input('price'),
+        'age'          => $request->input('age'),
+        'origin'       => $request->input('origin'),
+        'country'      => $request->input('country'),
+    ]);
+
+    return back()->with('success', 'Product updated successfully');
+}
+
+
 
 }
