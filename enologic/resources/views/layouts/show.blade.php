@@ -59,7 +59,8 @@
                                                 </div>
 
                                                 <div class="col-6">
-                                                    <select class="form-select" id="quantitySelect" name="quantity">
+                                                    <select class="form-select" id="quantitySelect{{ $product->id }}"
+                                                        name="quantity">
                                                         @for ($i = 1; $i <= 10; $i++)
                                                             <option value="{{ $i }}">{{ $i }}
                                                             </option>
@@ -73,7 +74,7 @@
                                             </div>
                                             <div class="modal-footer justify-content-center">
                                                 <button type="button" class=" px-4 btn btn-success"
-                                                    data-bs-dismiss="modal">Add</button>
+                                                    onclick="addToCart({{ $product->id }})">Add</button>
                                                 <button type="button" class=" px-4 btn btn-secondary"
                                                     data-bs-dismiss="modal">Back</button>
 

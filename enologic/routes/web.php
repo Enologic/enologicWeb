@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\CartController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -28,6 +29,7 @@ Route::get('/home', function () {
 // RUTAS AUTH
 Route::prefix('')->middleware('auth', 'verified')->group(function () {
 
+    // ADMIN - AÑADIR PRODUCTOS A LA BB.DD.
     Route::get('add', [ProductController::class, 'mostrar'])->name('add');
 
     Route::post('guardar-producto', [ProductController::class, 'guardarProducto'])->name('guardar.producto');
@@ -36,5 +38,10 @@ Route::prefix('')->middleware('auth', 'verified')->group(function () {
 
     Route::put('update-producto/{id}', [ProductController::class, 'updateProducto'])->name('update.producto');
 
+    // USER - VER PRODUCTOS DISPONIBLES
     Route::get('show', [ProductController::class, 'show'])->name('show');
+
+    // USER - AÑADIR PRODUCTOS AL CARRITO
+    Route::post('/addToCart', [CartController::class, 'addToCart'])->name('addToCart');
+
 });
