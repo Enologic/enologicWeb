@@ -4,17 +4,17 @@
     <div class="container my-5">
         <div class="container d-flex">
 
-            <h1 class="col-9">Products - USER</h1>
+            <h1 class="col-9">Products - ADMIN</h1>
 
             <div class="container d-flex justify-content-end">
 
                 <div class="">
-                    {{-- Boton para volver a DASHBOARD --}}
+                    {{-- Botón para volver a DASHBOARD --}}
                     <a class="btn btn-dark mb-3" href="{{ 'home' }}">
                         {{ __('Back') }}
                     </a>
                 </div>
-
+                {{-- Botón para añadir un producto --}}
                 <div class="">
                     <div class="d-inline-block"> <!-- Contenedor adicional para limitar el tamaño -->
                         <a href="#" class="btn btn-success mx-1" data-bs-toggle="modal"
