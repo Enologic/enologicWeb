@@ -2,7 +2,7 @@
 
 @section('general')
     <div class="container mt-5">
-        <h1>Tabla Productos</h1>
+        <h1>Tabla Productos - USER</h1>
 
         <table class="table">
             <thead>

@@ -2,8 +2,18 @@
 
 @section('general')
 
-<div class="container mt-5">
-    <h1>Tabla Productos</h1>
+<div class="container my-5">
+    <h1>Tabla Productos - ADMIN</h1>
+
+    <div class="container">
+        <div class="row justify-content-center text-center">
+            <div class="d-inline-block"> <!-- Contenedor adicional para limitar el tamaño -->
+                <a href="#" class="btn btn-success mx-1" data-bs-toggle="modal" data-bs-target="#addProductModal">
+                    <i class="fa-solid fa-plus"></i>
+                </a>
+            </div>
+        </div>
+    </div>
 
     <table class="table">
         <thead>
@@ -22,8 +32,8 @@
            <tr>
                 <td>{{$product->product_name}}</td>
                 <td>{{$product->description}}</td>
-                <td>{{$product->price}}</td>
-                <td>{{$product->age}}</td>
+                <td>{{$product->price}}€</td>
+                <td>{{$product->age}} years</td>
                 <td>{{$product->origin}}</td>
                 <td>{{$product->country}}</td>
                 <td> <div class="d-flex justify-content-center">
@@ -133,15 +143,7 @@
     </table>
 </div>
 
-<div class="container">
-    <div class="row justify-content-center text-center">
-        <div class="d-inline-block"> <!-- Contenedor adicional para limitar el tamaño -->
-            <a href="#" class="btn btn-success mx-1" data-bs-toggle="modal" data-bs-target="#addProductModal">
-                <i class="fa-solid fa-plus"></i>
-            </a>
-        </div>
-    </div>
-</div>
+
 <!-- Enlace para abrir el modal -->
 
 {{-- Modal para agregar un producto --}}
