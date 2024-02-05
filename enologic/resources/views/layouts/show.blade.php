@@ -6,9 +6,9 @@
 
         <table class="table">
             <thead>
-                <tr class="text-center">
+                <tr class="">
                     <th scope="col">Name</th>
-                    <th scope="col">Description</th>
+                    {{-- <th scope="col">Description</th> --}}
                     <th scope="col">Price</th>
                     <th scope="col">Age</th>
                     <th scope="col">Origin</th>
@@ -20,9 +20,9 @@
                 @foreach ($products as $product)
                     <tr class="align-middle">
                         <td class="">{{ $product->product_name }}</td>
-                        <td class="">{{ $product->description }}</td>
+                        {{-- <td class="">{{ $product->description }}</td> --}}
                         <td class="">{{ $product->price }}€</td>
-                        <td class="">{{ $product->age }}</td>
+                        <td class="">{{ $product->age }} years</td>
                         <td class="">{{ $product->origin }}</td>
                         <td class="">{{ $product->country }}</td>
 
@@ -53,20 +53,28 @@
                                                     aria-label="Close"></button>
                                             </div>
                                             <div class="modal-body d-flex align-items-center">
-                                                
-                                                <p class="col-6 m-0 fw-medium">
+
+                                                <div class="col-6 m-0 fw-medium">
                                                     Selecciona una cantidad:
-                                                </p>
-                                                <select class="form-select" id="quantitySelect" name="quantity">
-                                                    @for ($i = 1; $i <= 10; $i++)
-                                                        <option value="{{ $i }}">{{ $i }}</option>
-                                                    @endfor
-                                                </select>
+                                                </div>
+
+                                                <div class="col-6">
+                                                    <select class="form-select" id="quantitySelect" name="quantity">
+                                                        @for ($i = 1; $i <= 10; $i++)
+                                                            <option value="{{ $i }}">{{ $i }}
+                                                            </option>
+                                                        @endfor
+                                                    </select>
+                                                </div>
+
+                                            </div>
+                                            <div class="container pb-3 px-3 ">
+                                                {{ $product->description }}
                                             </div>
                                             <div class="modal-footer justify-content-center">
-                                                <button type="button" class="btn btn-success"
+                                                <button type="button" class=" px-4 btn btn-success"
                                                     data-bs-dismiss="modal">Add</button>
-                                                <button type="button" class="btn btn-secondary"
+                                                <button type="button" class=" px-4 btn btn-secondary"
                                                     data-bs-dismiss="modal">Back</button>
 
                                             </div>
