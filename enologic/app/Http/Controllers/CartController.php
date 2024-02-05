@@ -76,6 +76,6 @@ public function deleteProduct($productId)
 
     return back()->with('success', 'Product deleted successfully');
 
-    //Update para merge (Olga esto no es para inflar commits)
+  
 }
 }
