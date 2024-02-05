@@ -41,6 +41,4 @@ Route::prefix('')->middleware('auth', 'verified')->group(function () {
     // USER - VER PRODUCTOS DISPONIBLES
     Route::get('show', [ProductController::class, 'show'])->name('show');
 
-   
-
 });
