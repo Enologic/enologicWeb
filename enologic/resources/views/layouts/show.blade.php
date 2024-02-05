@@ -34,12 +34,6 @@
                                     data-bs-toggle="modal" data-bs-target="#addProductModal{{ $product->id }}">
                                     <i class="fa-regular fa-plus"></i>
                                 </a>
-                                {{-- Botón para eliminar un producto --}}
-                                <a href="#deleteProductModal{{ $product->id }}" id="img-style-size"
-                                    class="btn btn-danger mx-1" data-bs-toggle="modal"
-                                    data-bs-target="#deleteProductModal{{ $product->id }}">
-                                    <i class="fa-solid fa-trash"></i>
-                                </a>
 
                                 {{-- Modal para añadir un producto --}}
                                 <div class="modal fade" id="addProductModal{{ $product->id }}" tabindex="-1"
