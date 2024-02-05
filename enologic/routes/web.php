@@ -26,7 +26,7 @@ Route::get('/home', function () {
     return view('auth.dashboard');
 })->middleware(['auth', 'verified']);
 
-// RUTA A LA QUE SOLO PUEDE ACCEDER EL ADMIN
+// RUTAS A LA QUE SOLO PUEDE ACCEDER EL ADMIN
 Route::middleware(['auth', 'admin'])->group(function () {
     // ADMIN - AÑADIR PRODUCTOS A LA BB.DD.
     Route::get('add', [ProductController::class, 'mostrar'])->name('add');
