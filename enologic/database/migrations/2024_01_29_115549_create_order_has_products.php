@@ -15,8 +15,8 @@ return new class extends Migration
             $table->id();
             $table->integer('quantity');
             $table->timestamps();
-            $table->foreignId('products_id')->references('id')->on('products');
-            $table->foreignId('orders_id')->references('id')->on('orders');
+            $table->foreignId('product_id')->references('id')->on('products');
+            $table->foreignId('order_id')->references('id')->on('orders');
 
         });
     }

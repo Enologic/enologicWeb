@@ -41,4 +41,14 @@ Route::prefix('')->middleware('auth', 'verified')->group(function () {
     // USER - VER PRODUCTOS DISPONIBLES
     Route::get('show', [ProductController::class, 'show'])->name('show');
 
+    Route::post('/cart/add/{productId}', [CartController::class, 'addToCart'])->name('cart.add');
+
+    Route::get('cart', [CartController::class, 'viewCart'])->name('viewCart');
+
+    Route::delete('/delete-producto/{id}', [CartController::class, 'deleteProduct'])->name('delete.producto');
+
+    //Intento de solucion merge
+
+
+
 });
