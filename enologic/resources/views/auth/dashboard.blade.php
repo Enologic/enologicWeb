@@ -38,7 +38,7 @@
                             <a class="btn btn-info border-dark mb-3" href="{{ route('add') }}">
                                 {{ __('Blade add') }}
                             </a>
-                            <p>Vista para el user</p>
+                            <p>Vista para el admin</p>
                         </div>
                     </div>
                 </div>
