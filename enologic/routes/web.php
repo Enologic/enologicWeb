@@ -53,7 +53,7 @@ Route::prefix('')->middleware('auth', 'verified')->group(function () {
 
     Route::delete('/delete-producto/{id}', [CartController::class, 'deleteProduct'])->name('delete.producto');
 
-    //Intento de solucion merge
+    Route::post('/confirmar-pedido', [OrderController::class, 'confirmOrder'])->name('confirmar.pedido');
 
 
 
