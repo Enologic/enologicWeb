@@ -47,6 +47,8 @@ Route::prefix('')->middleware('auth', 'verified')->group(function () {
 
     Route::delete('/delete-producto/{id}', [CartController::class, 'deleteProduct'])->name('delete.producto');
 
+    //Intento de solucion merge
+
 
 
 });
