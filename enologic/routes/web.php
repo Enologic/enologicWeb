@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\OrderController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -47,7 +48,8 @@ Route::prefix('')->middleware('auth', 'verified')->group(function () {
 
     Route::delete('/delete-producto/{id}', [CartController::class, 'deleteProduct'])->name('delete.producto');
 
-    //Intento de solucion merge
+    Route::post('/confirmar-pedido', [OrderController::class, 'confirmOrder'])->name('confirmar.pedido');
+
 
 
 
