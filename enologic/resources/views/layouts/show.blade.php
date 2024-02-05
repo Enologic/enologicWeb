@@ -2,8 +2,19 @@
 
 @section('general')
     <div class="container mt-5">
-        <h1>Tabla Productos - USER</h1>
+        
+       <div class="container d-flex">
+        
+        <h1 class="col-9">Tabla Productos - USER</h1>
 
+        <div class="col-3 text-end"> 
+         {{-- Boton para volver a DASHBOARD --}}
+         <a class="btn btn-dark mb-3" href="{{ ('home') }}">
+             {{ __('Volver') }}
+         </a>
+        </div>
+
+       </div>
         <table class="table">
             <thead>
                 <tr class="">
