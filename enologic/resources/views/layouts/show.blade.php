@@ -74,7 +74,7 @@
                                             </div>
                                             <div class="modal-footer justify-content-center">
                                                 <button type="button" class=" px-4 btn btn-success"
-                                                    onclick="addToCart({{ $product->id }})">Add</button>
+                                                data-bs-dismiss="modal">Add</button>
                                                 <button type="button" class=" px-4 btn btn-secondary"
                                                     data-bs-dismiss="modal">Back</button>
 
