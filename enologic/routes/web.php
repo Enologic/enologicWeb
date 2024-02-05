@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\AdminController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -25,18 +26,22 @@ Route::get('/home', function () {
     return view('auth.dashboard');
 })->middleware(['auth', 'verified']);
 
+// RUTA A LA QUE SOLO PUEDE ACCEDER EL ADMIN
+Route::middleware(['auth', 'admin'])->group(function () {
+    // ADMIN - AÑADIR PRODUCTOS A LA BB.DD.
+    Route::get('add', [ProductController::class, 'mostrar'])->name('add');
+    
+    Route::post('guardar-producto', [ProductController::class, 'guardarProducto'])->name('guardar.producto');
+    
+    Route::post('delete-producto/{id}', [ProductController::class, 'deleteProducto'])->name('delete.producto');
+    
+    Route::put('update-producto/{id}', [ProductController::class, 'updateProducto'])->name('update.producto');
+});
+
 
 // RUTAS AUTH
 Route::prefix('')->middleware('auth', 'verified')->group(function () {
 
-    // ADMIN - AÑADIR PRODUCTOS A LA BB.DD.
-    Route::get('add', [ProductController::class, 'mostrar'])->name('add');
-
-    Route::post('guardar-producto', [ProductController::class, 'guardarProducto'])->name('guardar.producto');
-
-    Route::post('delete-producto/{id}', [ProductController::class, 'deleteProducto'])->name('delete.producto');
-
-    Route::put('update-producto/{id}', [ProductController::class, 'updateProducto'])->name('update.producto');
 
     // USER - VER PRODUCTOS DISPONIBLES
     Route::get('show', [ProductController::class, 'show'])->name('show');
@@ -48,7 +53,4 @@ Route::prefix('')->middleware('auth', 'verified')->group(function () {
     Route::delete('/delete-producto/{id}', [CartController::class, 'deleteProduct'])->name('delete.producto');
 
     //Intento de solucion merge
-
-
-
 });
