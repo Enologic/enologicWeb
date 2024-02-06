@@ -4,17 +4,20 @@ namespace App\Http\Controllers;
 use App\Models\Cart;
 use App\Models\Order;
 use App\Models\Product;
+use App\Models\Address;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Mail\OrderConfirmation;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Contracts\Mail\Mailable;
-
+use App\Http\Controllers\AddressController; 
 
 class OrderController extends Controller
 {
-    public function confirmOrder()
-    {
+
+public function confirmOrder(Request $request)
+{
+    try {
         // Obtener el usuario autenticado
         $user = Auth::user();
 
@@ -28,7 +31,6 @@ class OrderController extends Controller
         foreach ($productsInCart as $product) {
             $quantity = $product->pivot->quantity;
 
-
             // Asociar el producto a la orden con la cantidad
             $order->products()->attach($product, ['quantity' => $quantity]);
         }
@@ -36,11 +38,22 @@ class OrderController extends Controller
         // Eliminar los productos del carrito
         $user->cart->products()->detach($productsInCart);
 
-        //Enviar Order al correo
+        // Enviar Order al correo
         Mail::to($order->user->email)->send(new OrderConfirmation($order));
 
-        return back()->with('success', 'Order added successfully');
+        // Llamar al método saveAddress del controlador AddressController
+        $addressController = new AddressController();
+        $addressController->saveAddress($request);
+
+   // Retorna a la página del carrito
+   return redirect()->route('viewCart')->with('success', 'Order added successfully');
+    } catch (\Exception $e) {
+        // Manejar cualquier excepción capturada
+        \Log::error('Error confirming order: ' . $e->getMessage());
+        echo ($e->getMessage());
     }
+}
+
 
     public function viewCheckout()
     {
