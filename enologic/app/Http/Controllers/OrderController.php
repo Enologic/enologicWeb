@@ -6,6 +6,9 @@ use App\Models\Order;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Mail\OrderConfirmation;
+use Illuminate\Support\Facades\Mail;
+
 
 class OrderController extends Controller
 {
@@ -13,26 +16,30 @@ class OrderController extends Controller
     {
         // Obtener el usuario autenticado
         $user = Auth::user();
-    
+
         // Obtener los productos en el carrito
         $productsInCart = $user->cart->products;
-    
+
         // Crear una nueva orden para el usuario
         $order = Order::create(['user_id' => $user->id]);
-    
+
         // Asociar los productos a la orden y obtener la cantidad del carrito
         foreach ($productsInCart as $product) {
             $quantity = $product->pivot->quantity;
-    
+
+
             // Asociar el producto a la orden con la cantidad
             $order->products()->attach($product, ['quantity' => $quantity]);
         }
-    
+
         // Eliminar los productos del carrito
         $user->cart->products()->detach($productsInCart);
-    
+
+        //Enviar Order al correo
+        Mail::to($order->user->email)->send(new OrderConfirmation($order));
+
         return back()->with('success', 'Order added successfully');
     }
-    
+
 }
 
