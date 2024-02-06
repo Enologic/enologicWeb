@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Mail\OrderConfirmation;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Contracts\Mail\Mailable;
 
 
 class OrderController extends Controller
@@ -41,5 +42,24 @@ class OrderController extends Controller
         return back()->with('success', 'Order added successfully');
     }
 
+    public function viewCheckout()
+    {
+        // Obtener el usuario autenticado
+        $user = Auth::user();
+
+        // Obtener el carrito del usuario con sus productos
+        $cart = Cart::with('products')->where('user_id', $user->id)->first();
+
+        // Verificar si el carrito existe
+        if (!$cart) {
+            // Puedes manejar la lógica si el usuario no tiene un carrito, por ejemplo, redireccionar a una página de mensajes
+            return redirect()->route('show')->with('error', 'No se encontró el carrito del usuario.');
+        }
+
+        // Obtener los productos asociados al carrito
+        $products = $cart->products;
+
+        return view('layouts.checkout', compact('products'));
+    }
 }
 
