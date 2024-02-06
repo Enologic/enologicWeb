@@ -10,7 +10,7 @@ class AdminMiddleware
 {
     public function handle(Request $request, Closure $next)
     {
-        $allowedEmail = 'admin@admin.com';
+        $allowedEmail = 'admin@enologic.com';
 
         if (auth()->check() && auth()->user()->email == $allowedEmail) {
             return $next($request);
