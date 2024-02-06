@@ -1,6 +1,8 @@
 @extends('layouts.template')
 
 @section('general')
+
+
     <div class="container mt-5">
 
         <div class="container d-flex">
