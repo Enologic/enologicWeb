@@ -12,11 +12,12 @@
 
     {{-- Rutas css/js --}}
     @vite([
-        'resources/css/app.scss',// Bootstrap 
+        'resources/css/app.scss', // Bootstrap
         'resources/css/app.css',
-        'resources/css/custom.scss',// CSS principal
+        'resources/css/custom.scss', // CSS principal
         'resources/css/custom.css',
         'resources/js/app.js',
+        'resources/js/validation-forms.js', // Add product, edit product y cart
     ])
 
     {{-- Iconos --}}
@@ -27,50 +28,50 @@
 
 <body class="bg-general-img">
 
-{{-- HEADER --}}
-<nav class="navbar navbar-expand navbar-light bg-warning shadow-sm">
-    <div class="container">
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-            data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-            aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
+    {{-- HEADER --}}
+    <nav class="navbar navbar-expand navbar-light bg-warning shadow-sm">
+        <div class="container">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
 
-        <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
-            <!-- Right Side Of Navbar -->
-            <ul class="navbar-nav">
-                <!-- Authentication Links -->
-                @guest
-                    <li class="nav-item">
-                        <a class="nav-link fw-medium" href="{{ route('login') }}">{{ __('Login') }}</a>
-                    </li>
-                    @if (Route::has('register'))
+            <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
+                <!-- Right Side Of Navbar -->
+                <ul class="navbar-nav">
+                    <!-- Authentication Links -->
+                    @guest
                         <li class="nav-item">
-                            <a class="nav-link fw-medium" href="{{ route('register') }}">{{ __('Register') }}</a>
+                            <a class="nav-link fw-medium" href="{{ route('login') }}">{{ __('Login') }}</a>
                         </li>
-                    @endif
-                @else
-                    {{-- @if (Auth::user()->email_verified_at) --}}
-                    <div class="dropdown">
-                        <button class="btn btn-dark dropdown-toggle" type="button" id="dropdownMenuButton1"
-                            data-bs-toggle="dropdown" aria-expanded="false">
-                            {{ Auth::user()->name }}
-                        </button>
-                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                            <li><a class="dropdown-item" href="{{ route('logout') }}"
-                                    onclick="event.preventDefault(); document.getElementById('logout-form').submit();">{{ __('Logout') }}</a>
+                        @if (Route::has('register'))
+                            <li class="nav-item">
+                                <a class="nav-link fw-medium" href="{{ route('register') }}">{{ __('Register') }}</a>
                             </li>
-                        </ul>
-                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                            @csrf
-                        </form>
-                        {{-- @endif --}}
-                    </div>
-                @endguest
-            </ul>
+                        @endif
+                    @else
+                        {{-- @if (Auth::user()->email_verified_at) --}}
+                        <div class="dropdown">
+                            <button class="btn btn-dark dropdown-toggle" type="button" id="dropdownMenuButton1"
+                                data-bs-toggle="dropdown" aria-expanded="false">
+                                {{ Auth::user()->name }}
+                            </button>
+                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                <li><a class="dropdown-item" href="{{ route('logout') }}"
+                                        onclick="event.preventDefault(); document.getElementById('logout-form').submit();">{{ __('Logout') }}</a>
+                                </li>
+                            </ul>
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                @csrf
+                            </form>
+                            {{-- @endif --}}
+                        </div>
+                    @endguest
+                </ul>
+            </div>
         </div>
-    </div>
-</nav>
+    </nav>
 
 
     @yield('general')

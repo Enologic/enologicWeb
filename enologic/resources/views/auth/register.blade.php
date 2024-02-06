@@ -7,7 +7,7 @@
                     <div class="card-header bg-warning fw-medium border-dark">{{ __('Register') }}</div>
 
                     <div class="card-body">
-                        <form method="POST" action="{{ route('register') }}">
+                        <form method="POST" id="register-form" action="{{ route('register') }}">
                             @csrf
 
                             {{-- NAME --}}

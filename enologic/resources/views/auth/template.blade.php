@@ -17,6 +17,7 @@
         'resources/css/custom.scss', // CSS principal
         'resources/css/custom.css',
         'resources/js/app.js',
+        'resources/js/validation-auth.js', // Login y registro
     ])
 
     <!-- Fonts -->

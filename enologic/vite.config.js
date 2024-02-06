@@ -10,6 +10,8 @@ export default defineConfig({
                 'resources/css/custom.scss', 
                 'resources/css/custom.css', 
                 'resources/js/app.js',
+                'resources/js/validation-auth.js', // Login y registro
+                'resources/js/validation-forms.js', // Add product, edit product y cart
             ],
             refresh: true,
         }),
