@@ -17,7 +17,7 @@ class UserSeeder extends Seeder
             [
                 'username' => 'Admin',
                 'password' => bcrypt('contrasena123'),
-                'email' => 'admin@admin.com',
+                'email' => 'admin@enologic.com',
                 'email_verified_at' => now(),
                 'phone' => '657483923',
                 'name' => 'Carlos Santana',
