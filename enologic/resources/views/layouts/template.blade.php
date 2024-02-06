@@ -28,7 +28,7 @@
 <body class="bg-general-img">
 
 {{-- HEADER --}}
-<nav class="navbar navbar-expand-md navbar-light bg-warning shadow-sm">
+<nav class="navbar navbar-expand navbar-light bg-warning shadow-sm">
     <div class="container">
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
             data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
