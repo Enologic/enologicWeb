@@ -31,11 +31,11 @@ Route::get('/home', function () {
 Route::middleware(['auth', 'admin'])->group(function () {
     // ADMIN - AÑADIR PRODUCTOS A LA BB.DD.
     Route::get('add', [ProductController::class, 'mostrar'])->name('add');
-    
+
     Route::post('guardar-producto', [ProductController::class, 'guardarProducto'])->name('guardar.producto');
-    
+
     Route::post('delete-producto/{id}', [ProductController::class, 'deleteProducto'])->name('delete.producto');
-    
+
     Route::put('update-producto/{id}', [ProductController::class, 'updateProducto'])->name('update.producto');
 });
 
@@ -55,6 +55,6 @@ Route::prefix('')->middleware('auth', 'verified')->group(function () {
 
     Route::post('/confirmar-pedido', [OrderController::class, 'confirmOrder'])->name('confirmar.pedido');
 
-
+    Route::get('order', [OrderController::class, 'viewCheckout'])->name('viewCheckout');
 
 });

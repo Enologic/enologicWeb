@@ -100,8 +100,7 @@
                     aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form action="{{ route('confirmar.pedido') }}" method="POST">
-                    @csrf
+
 
                     <table class="table">
                         <thead>
@@ -130,9 +129,9 @@
                     </h5>
 
                     <div class="modal-footer justify-content-center bg-dark">
-                        <button type="submit" class="btn btn-success">Confirm order</button>
+                        <a href="{{ 'order' }}" type="submit" class="btn btn-success">Confirm order</a>
                     </div>
-                </form>
+
             </div>
         </div>
     </div>
