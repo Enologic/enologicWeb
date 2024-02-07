@@ -98,7 +98,12 @@ public function increaseQuantity($productId)
         // Si el producto no está en el carrito, agregarlo con una cantidad de 1
         $cart->products()->attach($product, ['quantity' => 1]);
     }
+// Calcula el nuevo total
+$total = $cart->products->sum(function ($product) {
+    return $product->price * $product->pivot->quantity;
+});
 
+return response()->json(['success' => true, 'total' => $total]);
 }
 
 public function decreaseQuantity($productId)
@@ -119,9 +124,15 @@ public function decreaseQuantity($productId)
             // Disminuir la cantidad del producto en 1
             $cart->products()->updateExistingPivot($productId, ['quantity' => $currentQuantity - 1]);
         } else {
-            // Si la cantidad es 1, eliminar el producto del carrito
-            $cart->products()->detach($productId);
+
         }
             }
-                }
+
+        // Calcula el nuevo total
+    $total = $cart->products->sum(function ($product) {
+        return $product->price * $product->pivot->quantity;
+    });
+
+    return response()->json(['success' => true, 'total' => $total]);
+        }
 }
