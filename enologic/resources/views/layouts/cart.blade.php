@@ -38,7 +38,8 @@
                         <td class="text-center">{{ $product->price }} €</td>
                         <td class="text-center">{{ $product->pivot->quantity }}</td>
                         <td class="text-center">{{ $product->price * $product->pivot->quantity }} €</td>
-                        <td><a href="#deleteModal{{ $product->id }}" id="img-style-size" class="btn btn-danger mx-1"
+                        {{-- Botón para eliminar un producto del cart --}}
+                        <td class="text-center"><a href="#deleteModal{{ $product->id }}" id="img-style-size" class="btn btn-danger mx-1"
                                 data-bs-toggle="modal" data-bs-target="#deleteModal{{ $product->id }}">
                                 <i class="fa-solid fa-trash"></i>
                             </a></td>
@@ -79,7 +80,7 @@
             <h5>Total:
                 {{ $products->sum(function ($product) {return $product->price * $product->pivot->quantity;}) }} €
             </h5>
-            {{-- Botón para añadir un producto --}}
+            {{-- Botón para finalizar compra e ir a checkout --}}
             <div class="mt-3">
                 <div class="d-inline-block">
                     <a href="#" class="btn btn-success mx-1" data-bs-toggle="modal" data-bs-target="#sendOrderModal">
@@ -90,17 +91,15 @@
         </div>
     </div>
     {{-- Modal para confirmar un pedido --}}
-<div class="modal fade" id="sendOrderModal" tabindex="-1" aria-labelledby="addProductModalLabel"
-    aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header bg-dark text-white">
-                <h5 class="modal-title" id="addProductModalLabel">Confirm order</h5>
-                <button type="button" class="btn-close bg-danger rounded-5" data-bs-dismiss="modal"
-                    aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-
+    <div class="modal fade" id="sendOrderModal" tabindex="-1" aria-labelledby="addProductModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header bg-dark text-white">
+                    <h5 class="modal-title" id="addProductModalLabel">Confirm order</h5>
+                    <button type="button" class="btn-close bg-danger rounded-5" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
 
                     <table class="table">
                         <thead>
@@ -128,17 +127,11 @@
                         {{ $products->sum(function ($product) {return $product->price * $product->pivot->quantity;}) }} €
                     </h5>
 
-                    <div class="modal-footer justify-content-center bg-dark">
-                        <a href="{{ 'order' }}" type="submit" class="btn btn-success">Confirm order</a>
-                    </div>
-
+                </div>
+                <div class="modal-footer justify-content-center bg-dark">
+                    <a href="{{ 'order' }}" type="submit" class="btn btn-success">Confirm order</a>
+                </div>
             </div>
         </div>
     </div>
-</div>
-
-
-    {{-- FOOTER --}}
-    <footer>
-    </footer>
 @endsection
