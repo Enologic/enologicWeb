@@ -14,3 +14,22 @@ footer {
     left: 0;
     width: 100%;
 }
+
+/* CHECKOUT/ORDER */
+.form-check-input:checked {
+    background-color:black; /* Cambia el color del círculo a negro */
+    border-color: black;
+    box-shadow: 0 0 0 4px rgb(223, 223, 223); /* Cambia el color del glow a rojo */
+}
+
+.form-check-input:active {
+    /* Estilos que deseas aplicar cuando el radio está activamente siendo pulsado */
+    box-shadow: 0 0 0 4px rgb(223, 223, 223); /* Por ejemplo, cambia el color de fondo a azul */
+    border-color: grey;
+}
+
+.form-check-input:focus {
+    /* Estilos que deseas aplicar cuando el radio está activamente siendo pulsado */
+    box-shadow: 0 0 0 4px rgb(223, 223, 223); /* Por ejemplo, cambia el color de fondo a azul */
+    border-color: grey;
+}

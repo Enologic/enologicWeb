@@ -129,7 +129,7 @@
 
                 </div>
                 <div class="modal-footer justify-content-center bg-dark">
-                    <a href="{{ 'order' }}" type="submit" class="btn btn-success">Confirm order</a>
+                    <a href="{{ 'order' }}" type="submit" class="btn btn-success">Checkout</a>
                 </div>
             </div>
         </div>
