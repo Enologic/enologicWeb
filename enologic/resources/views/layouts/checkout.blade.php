@@ -50,7 +50,7 @@
 
                       <div class="col-12">
                         <label for="address" class="form-label">Street</label>
-                        <input type="text" class="form-control" id="street" placeholder="1234 Main St" required="">
+                        <input type="text" class="form-control" id="street" name="street" placeholder="1234 Main St" required="">
                         <div class="invalid-feedback">
                           Please enter your shipping street.
                         </div>
@@ -58,25 +58,33 @@
 
 
 
-                      <div class="col-md-5">
+                      <div class="col-md-6">
                         <label for="country" class="form-label">Country</label>
-                        <input type="text" class="form-control" id="country" placeholder="Spain" required="">
+                        <input type="text" class="form-control" id="country" name="country"placeholder="Spain" required="">
                         <div class="invalid-feedback">
                           Please select a valid country.
                         </div>
                       </div>
 
-                      <div class="col-md-4">
-                        <label for="state" class="form-label">State</label>
-                        <input type="text" class="form-control" id="state" placeholder="Sevilla" required="">
+                      <div class="col-md-6">
+                        <label for="city" class="form-label">City</label>
+                        <input type="text" class="form-control" id="city" name="city" placeholder="Sevilla" required="">
                         <div class="invalid-feedback">
                           Please provide a valid state.
                         </div>
                       </div>
 
-                      <div class="col-md-3">
-                        <label for="zip" class="form-label">Zipcode</label>
-                        <input type="text" class="form-control" id="zip" placeholder="41019" required="">
+                      <div class="col-md-6">
+                        <label for="state" class="form-label">State</label>
+                        <input type="text" class="form-control" id="state" name="state" placeholder="Burguillos" required="">
+                        <div class="invalid-feedback">
+                          Please provide a valid state.
+                        </div>
+                      </div>
+
+                      <div class="col-md-6">
+                        <label for="zipcode" class="form-label">Zipcode</label>
+                        <input type="text" class="form-control" id="zipcode" name="zipcode" placeholder="41019" required="">
                         <div class="invalid-feedback">
                           Zip code required.
                         </div>
@@ -151,7 +159,7 @@
 
                     <hr class="my-4">
 
-                    <button class="w-100 btn btn-primary btn-lg" type="submit">Continue to checkout</button>
+                    <button class="w-100 btn btn-primary btn-lg mb-5" type="submit">Continue to checkout</button>
                 </form>
             </div>
         </div>
