@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Mail\OrderConfirmation;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Contracts\Mail\Mailable;
-use App\Http\Controllers\AddressController; 
+use App\Http\Controllers\AddressController;
 
 class OrderController extends Controller
 {
@@ -46,7 +46,7 @@ public function confirmOrder(Request $request)
         $addressController->saveAddress($request);
 
    // Retorna a la página del carrito
-   return redirect()->route('viewCart')->with('success', 'Order added successfully');
+   return redirect()->route('show')->with('success', 'Order added successfully');
     } catch (\Exception $e) {
         // Manejar cualquier excepción capturada
         \Log::error('Error confirming order: ' . $e->getMessage());
