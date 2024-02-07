@@ -7,6 +7,11 @@
 
     {{-- Vista principal --}}
     {{-- Aquí irán todos los yields de las vistas que tengamos. --}}
+    <script>
+
+       let increaseUrl = "{{ route('cart.increase', '?') }}";
+       let decreaseUrl = "{{ route('cart.decrease', '?') }}";
+    </script>
 
     <div class="container mt-5">
         <div class="container d-flex">
@@ -35,9 +40,18 @@
                 @foreach ($products as $product)
                     <tr class="align-middle">
                         <td>{{ $product->product_name }}</td>
-                        <td class="text-center">{{ $product->price }} €</td>
-                        <td class="text-center">{{ $product->pivot->quantity }}</td>
-                        <td class="text-center">{{ $product->price * $product->pivot->quantity }} €</td>
+                        <td class="text-center price">{{ $product->price }} €</td>
+                        <td class="text-center">
+                            <div class="input-group">
+                                <!-- Botón de disminución -->
+                                <button class="btn btn-outline-secondary decrease" type="button" data-product-id="{{ $product->id }}">-</button>
+                                <!-- Cantidad actual -->
+                                <input type="text" class="form-control text-center quantity" value="{{ $product->pivot->quantity }}" readonly>
+                                <!-- Botón de aumento -->
+                                <button class="btn btn-outline-secondary increase" type="button" data-product-id="{{ $product->id }}">+</button>
+                            </div>
+                        </td>
+                        <td class="text-center subtotal">{{ $product->price * $product->pivot->quantity }} €</td>
                         {{-- Botón para eliminar un producto del cart --}}
                         <td class="text-center"><a href="#deleteModal{{ $product->id }}" id="img-style-size" class="btn btn-danger mx-1"
                                 data-bs-toggle="modal" data-bs-target="#deleteModal{{ $product->id }}">
@@ -58,7 +72,7 @@
                                     <p class="m-0 fw-medium">Do you want to remove from cart this product?
                                     </p>
                                     <p class="fw-bolder mt-3">{{ $product->product_name }}</p>
-                                    <p class="mt-3"><span class="fw-medium">x{{ $product->pivot->quantity }}</span> Units
+                                    <p class="mt-3"><span class="fw-medium quantity-modal">x{{ $product->pivot->quantity }}</span> Units
                                     </p>
                                 </div>
                                 <div class="bg-dark modal-footer justify-content-center">
@@ -77,7 +91,7 @@
         </table>
 
         <div class="text-end mt-3">
-            <h5>Total:
+            <h5 id="total">Total:
                 {{ $products->sum(function ($product) {return $product->price * $product->pivot->quantity;}) }} €
             </h5>
             {{-- Botón para finalizar compra e ir a checkout --}}

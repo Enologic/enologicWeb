@@ -57,4 +57,8 @@ Route::prefix('')->middleware('auth', 'verified')->group(function () {
 
     Route::get('order', [OrderController::class, 'viewCheckout'])->name('viewCheckout');
 
+    Route::post('/cart/increase/{productId}', [CartController::class, 'increaseQuantity'])->name('cart.increase');
+
+    Route::post('/cart/decrease/{productId}', [CartController::class, 'decreaseQuantity'])->name('cart.decrease');
+
 });

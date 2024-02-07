@@ -77,9 +77,9 @@
                                                             @endfor
                                                         </select>
                                                     </div>
-                                                    <div class="container pb-3 px-3 text-center">
-                                                        {{ $product->description }}
-                                                    </div>
+                                                </div>
+                                                <div class="container pb-3 px-3 text-center">
+                                                    {{ $product->description }}
                                                 </div>
                                                 <div class="modal-footer justify-content-center bg-dark">
                                                     <button type="submit" class="px-4 btn btn-success">Add</button>
