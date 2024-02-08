@@ -25,7 +25,7 @@ class UserSeeder extends Seeder
             [
                 'username' => 'PussyDestroyer69',
                 'password' => bcrypt('password123'),
-                'email' => 'usuario1@example.com',
+                'email' => 'usuario1@enologic.com',
                 'email_verified_at' => now(),
                 'phone' => '123456789',
                 'name' => 'Thanos',
@@ -33,7 +33,7 @@ class UserSeeder extends Seeder
             [
                 'username' => 'MissMeat',
                 'password' => bcrypt('password456'),
-                'email' => 'usuario2@example.com',
+                'email' => 'usuario2@enologic.com',
                 'email_verified_at' => now(),
                 'phone' => '987654321',
                 'name' => 'Lady Gaga',
