@@ -79,4 +79,14 @@ document.addEventListener('DOMContentLoaded', function () {
             ], 'reset-form');
         });
     }
+
+     // Fragmento que valida forgot-password
+     let forgotForm = document.getElementById('forgot-form');
+     if (forgotForm) {
+         forgotForm.addEventListener('submit', function (event) {
+             validarFormulario(event, [
+                { inputId: 'email', validator: validarEmail, errorMessage: 'El email debe tener este formato "xxx@enologic.com".' },
+            ], 'forgot-form');
+         });
+     }
 });

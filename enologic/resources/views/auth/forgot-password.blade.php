@@ -17,7 +17,7 @@
                     <div class="card-header bg-warning fw-medium border-dark">{{ __('Reset password') }}</div>
 
                     <div class="card-body">
-                        <form method="POST" action="{{ route('password.request') }}">
+                        <form method="POST" id="forgot-form" action="{{ route('password.request') }}">
                             @csrf
 
                             <div class="form-group row mb-3 justify-content-center d-flex">
