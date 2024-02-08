@@ -30,7 +30,6 @@ document.addEventListener('DOMContentLoaded', function () {
         return passwordRegex.test(password);
     }
 
-
     function validarFormulario(event, validations) {
         for (let validation of validations) {
             let input = document.getElementById(validation.inputId);
@@ -41,6 +40,19 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         }
     }
+
+    // Función que borra el alert de registro cuando se pulsa en resend email
+    document.addEventListener('DOMContentLoaded', function () {
+        var resendButton = document.getElementById('resend-button');
+        var successAlert = document.getElementById('success-alert');
+
+        if (resendButton && successAlert) {
+            resendButton.addEventListener('click', function () {
+                successAlert.style.display = 'none';
+            });
+        }
+    });
+
 
     // Solo validará el fragmento que tenga el id del formulario de la vista
     // Fragmento que valida registro
@@ -80,13 +92,13 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
-     // Fragmento que valida forgot-password
-     let forgotForm = document.getElementById('forgot-form');
-     if (forgotForm) {
-         forgotForm.addEventListener('submit', function (event) {
-             validarFormulario(event, [
+    // Fragmento que valida forgot-password
+    let forgotForm = document.getElementById('forgot-form');
+    if (forgotForm) {
+        forgotForm.addEventListener('submit', function (event) {
+            validarFormulario(event, [
                 { inputId: 'email', validator: validarEmail, errorMessage: 'El email debe tener este formato "xxx@enologic.com".' },
             ], 'forgot-form');
-         });
-     }
+        });
+    }
 });
