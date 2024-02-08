@@ -53,6 +53,26 @@ class ProductSeeder extends Seeder
                 'origin' => 'Tuscany',
                 'country' => 'Italy',
             ],
+            [
+                'product_name' => 'Chardonnay de la Valle',
+                'description' => 'Un vino blanco fresco y afrutado con notas cítricas y un toque de vainilla. Ideal para mariscos y platos ligeros.',
+                'price' => 25,
+                'age' => 2,
+                'origin' => 'California',
+                'country' => 'USA',
+                'grape_type' => 'Chardonnay',
+                'wine_type' => 'Blanco',
+            ],
+            [
+                'product_name' => 'Dom Pérignon Vintage',
+                'description' => 'Un champagne elegante y sofisticado de la prestigiosa casa de Champagne Dom Pérignon. Con burbujas finas y sabores complejos, es perfecto para celebraciones especiales.',
+                'price' => 200,
+                'age' => 6,
+                'origin' => 'Champagne',
+                'country' => 'France',
+                'grape_type' => 'Pinot Noir',
+                'wine_type' => 'Espumoso',
+            ],
         ];
 
         foreach ($products as $product) {

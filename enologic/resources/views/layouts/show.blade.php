@@ -28,6 +28,8 @@
                     <th scope="col">Age</th>
                     <th scope="col">Origin</th>
                     <th scope="col">Country</th>
+                    <th scope="col">Grape Type</th>
+                    <th scope="col">Wine Type</th>
                     <th scope="col">Actions</th>
                 </tr>
             </thead>
@@ -40,6 +42,8 @@
                         <td class="">{{ $product->age }} years</td>
                         <td class="">{{ $product->origin }}</td>
                         <td class="">{{ $product->country }}</td>
+                        <td>{{ $product->grape_type }}</td>
+                        <td>{{ $product->wine_type }}</td>
 
                         <td class="">
                             <div class="d-flex justify-content-center">
