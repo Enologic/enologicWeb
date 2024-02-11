@@ -5,134 +5,166 @@ use App\Models\Cart;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+
 
 class CartController extends Controller
 {
 
-    public function viewCart()
-    {
-        // Obtener el usuario autenticado
-        $user = Auth::user();
+    public function viewCart(){
+        try {
+            DB::beginTransaction();
+    
+            $user = Auth::user();
+    
+            $cart = Cart::with('products')->where('user_id', $user->id)->first();
+    
+            if (!$cart) {
 
-        // Obtener el carrito del usuario con sus productos
-        $cart = Cart::with('products')->where('user_id', $user->id)->first();
+                DB::rollBack();
+                return redirect()->route('show')->with('error', 'No se encontró el carrito del usuario.');
+            }
+    
+            $products = $cart->products;
+    
+            DB::commit();
+    
+            return view('layouts.cart', compact('products'));
+        } catch (\Exception $e) {
 
-        // Verificar si el carrito existe
-        if (!$cart) {
-            // Puedes manejar la lógica si el usuario no tiene un carrito, por ejemplo, redireccionar a una página de mensajes
-            return redirect()->route('show')->with('error', 'No se encontró el carrito del usuario.');
+            DB::rollBack();
+            return redirect()->route('show')->with('error', 'Error al cargar el carrito: ' . $e->getMessage());
         }
-
-        // Obtener los productos asociados al carrito
-        $products = $cart->products;
-
-        return view('layouts.cart', compact('products'));
     }
 
-    public function addToCart(Request $request, $productId)
-    {
-        // Obtener el usuario autenticado
+    public function addToCart(Request $request, $productId){
+    try {
+        DB::beginTransaction();
+
         $user = Auth::user();
 
-        // Verificar si el usuario tiene un carrito o crear uno nuevo
         $cart = $user->cart ?? Cart::create(['user_id' => $user->id]);
 
-        // Obtener el producto que se va a agregar al carrito
         $product = Product::findOrFail($productId);
 
-        // Obtener la cantidad seleccionada desde el formulario
         $quantity = $request->input('quantity', 1);
 
-        // Verificar si el producto ya está en el carrito
         if ($cart->products->contains($product)) {
-            // Incrementar la cantidad si el producto ya está en el carrito
+
             $pivotRow = $cart->products()->where('product_id', $product->id)->first()->pivot;
             $pivotRow->quantity += $quantity;
             $pivotRow->save();
         } else {
-            // Agregar el producto al carrito con la cantidad seleccionada
+
             $cart->products()->attach($product, ['quantity' => $quantity]);
         }
 
-        return redirect()->route('show')
-        ->with('success', 'Product added successfully');    }
+        DB::commit();
 
+        return redirect()->route('show')->with('success', 'Product added successfully');
+    } catch (\Exception $e) {
+
+        DB::rollBack();
+        return redirect()->route('show')->with('error', 'Error adding product to cart: ' . $e->getMessage());
+    }
+}
 
 
 public function deleteProduct($productId)
 {
-    // Obtener el usuario autenticado
-    $user = Auth::user();
+    try {
+        DB::beginTransaction();
 
-    // Obtener el carrito del usuario con sus productos
-    $cart = Cart::where('user_id', $user->id)->first();
+        $user = Auth::user();
 
-    if (!$cart) {
-        return redirect()->route('home')->with('error', 'No se encontró el carrito del usuario.');
+        $cart = Cart::where('user_id', $user->id)->first();
+
+        if (!$cart) {
+            return redirect()->route('home')->with('error', 'No se encontró el carrito del usuario.');
+        }
+
+        $cart->products()->detach($productId);
+
+        DB::commit();
+
+        return back()->with('success', 'Product deleted successfully');
+    } catch (\Exception $e) {
+
+        DB::rollBack();
+        return back()->with('error', 'Error deleting product: ' . $e->getMessage());
     }
-
-    // Eliminar el producto del carrito
-    $cart->products()->detach($productId);
-
-    return back()->with('success', 'Product deleted successfully');
-
 }
-public function increaseQuantity($productId)
-{
-    // Obtener el usuario autenticado
-    $user = Auth::user();
+public function increaseQuantity($productId){
+    try {
+        DB::beginTransaction();
 
-    // Verificar si el usuario tiene un carrito o crear uno nuevo
-    $cart = $user->cart ?? Cart::create(['user_id' => $user->id]);
+        $user = Auth::user();
 
-    // Obtener el producto que se va a aumentar en cantidad en el carrito
-    $product = Product::findOrFail($productId);
+        $cart = $user->cart ?? Cart::create(['user_id' => $user->id]);
 
-    // Verificar si el producto ya está en el carrito
-    if ($cart->products->contains($product)) {
-        // Incrementar la cantidad del producto en 1 si ya está en el carrito
-        $pivotRow = $cart->products()->where('product_id', $product->id)->first()->pivot;
-        $pivotRow->quantity += 1;
-        $pivotRow->save();
-    } else {
-        // Si el producto no está en el carrito, agregarlo con una cantidad de 1
-        $cart->products()->attach($product, ['quantity' => 1]);
+        $product = Product::findOrFail($productId);
+
+        if ($cart->products->contains($product)) {
+
+            $pivotRow = $cart->products()->where('product_id', $product->id)->first()->pivot;
+            $pivotRow->quantity += 1;
+            $pivotRow->save();
+        } else {
+
+            $cart->products()->attach($product, ['quantity' => 1]);
+        }
+
+        $total = $cart->products->sum(function ($product) {
+            return $product->price * $product->pivot->quantity;
+        });
+
+        DB::commit();
+
+        return response()->json(['success' => true, 'total' => $total]);
+    } catch (\Exception $e) {
+
+        DB::rollBack();
+        return response()->json(['success' => false, 'message' => 'Error increasing product quantity: ' . $e->getMessage()], 500);
     }
-// Calcula el nuevo total
-$total = $cart->products->sum(function ($product) {
-    return $product->price * $product->pivot->quantity;
-});
-
-return response()->json(['success' => true, 'total' => $total]);
 }
 
 public function decreaseQuantity($productId)
 {
-    // Obtener el usuario autenticado
-    $user = Auth::user();
+    try {
+        DB::beginTransaction();
 
-    // Obtener el carrito del usuario
-    $cart = $user->cart;
+        $user = Auth::user();
 
-    // Verificar si el carrito existe y si el producto está en el carrito
-    if ($cart && $cart->products->contains($productId)) {
-        // Obtener la cantidad actual del producto en el carrito
-        $currentQuantity = $cart->products()->where('product_id', $productId)->first()->pivot->quantity;
+        $cart = $user->cart;
 
-        // Verificar si la cantidad actual es mayor que 1 para poder disminuir
-        if ($currentQuantity > 1) {
-            // Disminuir la cantidad del producto en 1
-            $cart->products()->updateExistingPivot($productId, ['quantity' => $currentQuantity - 1]);
-        } else {
 
-        }
+        if ($cart && $cart->products->contains($productId)) {
+
+            $currentQuantity = $cart->products()->where('product_id', $productId)->first()->pivot->quantity;
+
+            if ($currentQuantity > 1) {
+
+                $cart->products()->updateExistingPivot($productId, ['quantity' => $currentQuantity - 1]);
+            } else {
+              
+                throw new \Exception('La cantidad del producto ya es mínima.');
             }
-
-        // Calcula el nuevo total
-    $total = $cart->products->sum(function ($product) {
-        return $product->price * $product->pivot->quantity;
-    });
-
-    return response()->json(['success' => true, 'total' => $total]);
+        } else {
+          
+            throw new \Exception('El producto no está en el carrito.');
         }
+
+        $total = $cart->products->sum(function ($product) {
+            return $product->price * $product->pivot->quantity;
+        });
+
+        DB::commit();
+
+        return response()->json(['success' => true, 'total' => $total]);
+    } catch (\Exception $e) {
+
+        DB::rollBack();
+        return response()->json(['success' => false, 'message' => 'Error decreasing product quantity: ' . $e->getMessage()], 500);
+    }
+}
 }

@@ -11,48 +11,46 @@ use App\Mail\OrderConfirmation;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Contracts\Mail\Mailable;
 use App\Http\Controllers\AddressController;
+use Illuminate\Support\Facades\DB;
+
 
 class OrderController extends Controller
 {
 
-public function confirmOrder(Request $request)
-{
-    try {
-        // Obtener el usuario autenticado
-        $user = Auth::user();
+    public function confirmOrder(Request $request){
+        try {
 
-        // Obtener los productos en el carrito
-        $productsInCart = $user->cart->products;
+            DB::beginTransaction();
+    
+            $user = Auth::user();
+    
+            $productsInCart = $user->cart->products;
+    
+            $order = Order::create(['user_id' => $user->id]);
+    
+            foreach ($productsInCart as $product) {
+                $quantity = $product->pivot->quantity;
+    
+                $order->products()->attach($product, ['quantity' => $quantity]);
+            }
+    
+            $user->cart->products()->detach($productsInCart);
+    
+            // Mail::to($order->user->email)->send(new OrderConfirmation($order));
+    
+            $addressController = new AddressController();
+            $addressController->saveAddress($request);
+    
+            DB::commit();
+    
+            return redirect()->route('show')->with('success', 'Order added successfully');
+        } catch (\Exception $e) {
 
-        // Crear una nueva orden para el usuario
-        $order = Order::create(['user_id' => $user->id]);
-
-        // Asociar los productos a la orden y obtener la cantidad del carrito
-        foreach ($productsInCart as $product) {
-            $quantity = $product->pivot->quantity;
-
-            // Asociar el producto a la orden con la cantidad
-            $order->products()->attach($product, ['quantity' => $quantity]);
+            DB::rollBack();
+            \Log::error('Error confirming order: ' . $e->getMessage());
+            return redirect()->route('show')->with('error', 'Error confirming order: ' . $e->getMessage());
         }
-
-        // Eliminar los productos del carrito
-        $user->cart->products()->detach($productsInCart);
-
-        // Enviar Order al correo
-        Mail::to($order->user->email)->send(new OrderConfirmation($order));
-
-        // Llamar al método saveAddress del controlador AddressController
-        $addressController = new AddressController();
-        $addressController->saveAddress($request);
-
-   // Retorna a la página del carrito
-   return redirect()->route('show')->with('success', 'Order added successfully');
-    } catch (\Exception $e) {
-        // Manejar cualquier excepción capturada
-        \Log::error('Error confirming order: ' . $e->getMessage());
-        echo ($e->getMessage());
     }
-}
 
 
     public function viewCheckout()
