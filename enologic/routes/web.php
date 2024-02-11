@@ -4,6 +4,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\WishlistController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -60,5 +61,8 @@ Route::prefix('')->middleware('auth', 'verified')->group(function () {
     Route::post('/cart/increase/{productId}', [CartController::class, 'increaseQuantity'])->name('cart.increase');
 
     Route::post('/cart/decrease/{productId}', [CartController::class, 'decreaseQuantity'])->name('cart.decrease');
+
+    Route::post('/wishlist/add/{productId}', [WishlistController::class, 'addToWishlist'])->name('wishlist.add');
+
 
 });
