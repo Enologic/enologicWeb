@@ -7,6 +7,7 @@ use App\Http\Controllers\OrderController;
 use App\Http\Controllers\WishlistController;
 use Illuminate\Support\Facades\Route;
 
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -63,6 +64,9 @@ Route::prefix('')->middleware('auth', 'verified')->group(function () {
     Route::post('/cart/decrease/{productId}', [CartController::class, 'decreaseQuantity'])->name('cart.decrease');
 
     Route::post('/wishlist/add/{productId}', [WishlistController::class, 'addToWishlist'])->name('wishlist.add');
+
+    Route::get('/wishlist', [WishlistController::class, 'viewWishlist'])->name('wishlist.viewWishlist');
+
 
 
 });

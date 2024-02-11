@@ -8,8 +8,7 @@ use Illuminate\Support\Facades\Auth;
 
 class WishlistController extends Controller
 {
-    public function addToWishlist(Request $request, $productId)
-    {
+    public function addToWishlist(Request $request, $productId){
         $user = Auth::user();
 
         $wishlist = $user->wishlist ?? Wishlist::create(['user_id' => $user->id]);
@@ -24,4 +23,16 @@ class WishlistController extends Controller
             return back()->with('success', 'Product added to wishlist successfully');
         }
     }
+
+    public function viewWishlist(){
+    $user = Auth::user();
+    
+    $wishlist = Wishlist::with('products')->where('user_id', $user->id)->first();
+
+    // Obtener todos los productos en la wishlist del usuario
+    $products = $wishlist->products;
+
+    return view('layouts.wishlist', compact('products'));
+}
+
 }
