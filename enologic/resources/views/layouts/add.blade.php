@@ -248,14 +248,14 @@
     </div>
     
     <div class="container mb-5">
-    <h2>Top 3 Productos Favoritos</h2>
+    <h2>Top 3 Favorite Products</h2>
     <div class="table-responsive">
         <table class="table">
             <thead>
                 <tr>
-                    <th scope="col">Nombre</th>
-                    <th scope="col">Precio</th>
-                    <th scope="col">Veces añadido a favoritos</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Price</th>
+                    <th scope="col">Times Added to Favorites</th>
                 </tr>
             </thead>
             <tbody>
