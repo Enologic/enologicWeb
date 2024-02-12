@@ -6,6 +6,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\WishlistController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Auth\AuthenticatedSessionController;
 
 
 /*
@@ -23,6 +24,9 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('auth/login');
 });
+
+// RUTA LOGOUT
+Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout');
 
 // RUTA INICIAL SI ESTA VERIFICADO/LOGGED
 Route::get('/home', function () {

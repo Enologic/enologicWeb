@@ -3,15 +3,14 @@
 @section('content')
     <div class="container">
         <div class="row justify-content-center">
-            @if (session('status'))  
+            @if(!session('status'))
             <div class="container d-flex justify-content-center">
-                <div class="col-4 alert alert-info alert-dismissible fade show text-center" role="alert">
-                    <strong>You have been registered successfuly</strong> 
+                <div id="success-alert" class="col-4 alert alert-info alert-dismissible fade show text-center" role="alert">
+                    <strong>You have been registered successfully</strong>
                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>
             </div>
             @endif
-
 
             <div class="col-md-8">
                 <div class="card border-dark">
@@ -25,12 +24,24 @@
 
                             <div class="form-group row mb-0">
                                 <div class="text-center">
-                                    <button type="submit" class="btn btn-dark" value="Resend">
+                                    <button id="resend-button" type="submit" class="btn btn-dark" value="Resend">
                                         {{ __('Resend Email') }}
                                     </button>
 
                                 </div>
                             </div>
+
+                            @if (session('status'))
+                                <div class="container d-flex justify-content-center">
+                                    <div class="col-8 mt-4 alert alert-info alert-dismissible fade show text-center"
+                                        role="alert">
+                                        <strong>Email resent. Check your SPAM folder</strong>
+                                        <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                            aria-label="Close"></button>
+                                    </div>
+                                </div>
+                            @endif
+
                         </form>
                     </div>
                 </div>
