@@ -3,13 +3,16 @@
 @section('content')
     <div class="container">
         <div class="row justify-content-center">
-            @if(!session('status'))
-            <div class="container d-flex justify-content-center">
-                <div id="success-alert" class="col-4 alert alert-info alert-dismissible fade show text-center" role="alert">
-                    <strong>You have been registered successfully</strong>
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            
+            @if (session('showAlert'))
+                <div class="container d-flex justify-content-center">
+                    <div id="success-alert" class="col-6 col-md-7 alert alert-info alert-dismissible fade show text-center"
+                        role="alert">
+                        <strong>You are logged in</strong>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
                 </div>
-            </div>
+                {{ session()->forget('showAlert') }}
             @endif
 
             <div class="col-md-8">

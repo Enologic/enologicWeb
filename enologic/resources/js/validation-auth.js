@@ -2,6 +2,7 @@
 
 /* Login y registro */
 
+
 document.addEventListener('DOMContentLoaded', function () {
 
     // Las 4 regex que necesitamos para el formato correcto
@@ -85,11 +86,12 @@ document.addEventListener('DOMContentLoaded', function () {
     if (resetForm) {
         resetForm.addEventListener('submit', function (event) {
             validarFormulario(event, [
-                { inputId: 'password', validator: (value) => value.length >= 8, errorMessage: 'La contraseña debe tener al menos 8 caracteres, 1 mayúscula, 1 número y 1 carácter especial.' },
+                { inputId: 'password', validator: validarPassword, errorMessage: 'La contraseña debe tener al menos 8 caracteres, 1 mayúscula, 1 número y 1 carácter especial.' },
                 { inputId: 'password-confirm', validator: (value) => value === document.getElementById('password').value, errorMessage: 'La confirmación de la contraseña no coincide.' }
             ], 'reset-form');
         });
     }
+
 
     // Fragmento que valida forgot-password
     let forgotForm = document.getElementById('forgot-form');

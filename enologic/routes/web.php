@@ -25,8 +25,9 @@ Route::get('/', function () {
     return view('auth/login');
 });
 
-// RUTA LOGOUT
+// RUTAS LOGOUT, LOGIN DESDE CONTROLADOR MODIFICADO DE FORTIFY
 Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout');
+Route::post('/login', [AuthenticatedSessionController::class, 'store']);
 
 // RUTA INICIAL SI ESTA VERIFICADO/LOGGED
 Route::get('/home', function () {

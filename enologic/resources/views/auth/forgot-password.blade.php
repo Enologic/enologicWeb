@@ -4,7 +4,7 @@
         <div class="row justify-content-center">
             @if (session('status'))
                 <div class="container d-flex justify-content-center">
-                    <div class="col-4 alert alert-info alert-dismissible fade show text-center" role="alert">
+                    <div class="col-10 col-md-7 alert alert-info alert-dismissible fade show text-center" role="alert">
                         <strong>Reset link send. Check your SPAM folder</strong> 
                         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                     </div>

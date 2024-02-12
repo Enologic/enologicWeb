@@ -58,6 +58,14 @@ class AuthenticatedSessionController extends Controller
     public function store(LoginRequest $request)
     {
         return $this->loginPipeline($request)->then(function ($request) {
+
+            // Añadir el mensaje de alerta al iniciar sesión
+            $request->session()->flash('alert', [
+                'type' => 'success',
+                'message' => 'Login successful'
+            ]);
+
+            // Retornar una respuesta de inicio de sesión
             return app(LoginResponse::class);
         });
     }
