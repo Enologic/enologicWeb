@@ -33,11 +33,15 @@ class WishlistController extends Controller
 
     
    
-   
-    public function addToWishlist(Request $request, $productId){
+public function addToWishlist(Request $request, $productId){
+    try {
         $user = Auth::user();
 
-        $wishlist = $user->wishlist ?? Wishlist::create(['user_id' => $user->id]);
+        if ($user->wishlist) {
+            $wishlist = $user->wishlist;
+        } else {
+            $wishlist = Wishlist::create(['user_id' => $user->id]);
+        }
 
         $product = Product::findOrFail($productId);
 
@@ -48,9 +52,13 @@ class WishlistController extends Controller
             $wishlist->products()->attach($product);
             return back()->with('success', 'Product added to wishlist successfully');
         }
+    } catch (\Exception $e) {
+        return back()->with('error', 'Error adding product to wishlist: ' . $e->getMessage());
     }
-    public function removeFromWishlist($productId)
-{
+}
+
+    
+    public function removeFromWishlist($productId){
     try {
         DB::beginTransaction();
 
