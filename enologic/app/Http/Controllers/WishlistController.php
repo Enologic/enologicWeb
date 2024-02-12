@@ -81,6 +81,33 @@ public function addToWishlist(Request $request, $productId){
     }
 }
 
+public function mostAddedProductsInWishlists()
+{
+    try {
+        // Obtener los productos más añadidos en las listas de deseos
+        $mostAddedProducts = DB::table('product_wishlist')
+            ->select('product_id', DB::raw('COUNT(*) as total'))
+            ->groupBy('product_id')
+            ->orderByDesc('total')
+            ->limit(3) // Limitar a los 10 productos más añadidos, por ejemplo
+            ->get();
+
+        // Obtener los detalles de los productos más añadidos
+        $productIds = $mostAddedProducts->pluck('product_id')->toArray();
+        $products = Product::whereIn('id', $productIds)->get();
+
+        // Devolver los productos más añadidos y el total
+        return [
+            'mostAddedProducts' => $mostAddedProducts,
+            'totalMostAddedProducts' => $mostAddedProducts->count(),
+        ];
+    } catch (\Exception $e) {
+        // Manejar el error adecuadamente
+        return [
+            'error' => 'Error retrieving most added products: ' . $e->getMessage(),
+        ];
+    }
+}
 
 
 

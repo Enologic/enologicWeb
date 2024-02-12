@@ -246,4 +246,33 @@
             </div>
         </div>
     </div>
+    
+    <div class="container mb-5">
+    <h2>Top 3 Productos Favoritos</h2>
+    <div class="table-responsive">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Nombre</th>
+                    <th scope="col">Precio</th>
+                    <th scope="col">Veces añadido a favoritos</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach($mostAddedProducts as $product)
+                <tr>
+                    @php
+                        // Obtener el producto correspondiente de la base de datos
+                        $productDetails = $products->where('id', $product->product_id)->first();
+                    @endphp
+                    <td>{{ $productDetails->product_name }}</td>
+                    <td>{{ $productDetails->price }}</td>
+                    <td>{{ $product->total }}</td>
+                </tr>
+                @endforeach
+            </tbody>
+        </table>
+    </div>
+</div>
+    
 @endsection
