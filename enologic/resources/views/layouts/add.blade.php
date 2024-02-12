@@ -1,3 +1,4 @@
+
 @extends('layouts.template')
 
 @section('general')
@@ -36,19 +37,23 @@
                     <th scope="col">Age</th>
                     <th scope="col">Origin</th>
                     <th scope="col">Country</th>
-                    <th scope="col">Action </th>
+                    <th scope="col">Grape Type</th>
+                    <th scope="col">Wine Type</th>
+                    <th scope="col">Action</th>
                 </tr>
             </thead>
             <tbody>
                 @foreach ($products as $product)
-                    <tr class="align-middle">
-                        <td>{{ $product->product_name }}</td>
-                        {{-- <td>{{ $product->description }}</td> --}}
-                        <td>{{ $product->price }}€</td>
-                        <td>{{ $product->age }} years</td>
-                        <td>{{ $product->origin }}</td>
-                        <td>{{ $product->country }}</td>
-                        <td>
+                <tr class="align-middle">
+                    <td>{{ $product->product_name }}</td>
+                    {{-- <td>{{ $product->description }}</td> --}}
+                    <td>{{ $product->price }}€</td>
+                    <td>{{ $product->age }} years</td>
+                    <td>{{ $product->origin }}</td>
+                    <td>{{ $product->country }}</td>
+                    <td>{{ $product->grape_type }}</td>
+                    <td>{{ $product->wine_type }}</td>
+                    <td>
                             <div class="d-flex justify-content-center">
                                 {{-- Botón para editar un Producto --}}
                                 <a href="#editModal{{ $product->id }}" id="img-style-size" class="btn btn-warning mx-1"
@@ -79,7 +84,7 @@
                                 <div class="modal-body mt-2 text-center">
                                     <p class="m-0 fw-medium">Do you want to delete this product from database?
                                     </p>
-                                    <p class="fw-bolder mt-3">{{ $product->product_name }}</p> 
+                                    <p class="fw-bolder mt-3">{{ $product->product_name }}</p>
                                 </div>
                                 <div class="modal-footer justify-content-center bg-dark">
                                     <form action="{{ route('delete.producto', $product->id) }}" method="POST">
@@ -144,6 +149,23 @@
                                             <input type="text" name="country" class="form-control"
                                                 value="{{ $product->country }}" required>
                                         </div>
+                                        <div class="form-group mb-3">
+                                            <label for="grape_type" class="fw-medium">Grape Type:</label>
+                                            <select name="grape_type" class="form-control" required>
+                                                @foreach($grapeTypes as $grapeType)
+                                                    <option value="{{ $grapeType }}">{{ $grapeType }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+
+                                        <div class="form-group mb-3">
+                                            <label for="wine_type" class="fw-medium">Wine Type:</label>
+                                            <select name="wine_type" class="form-control" required>
+                                                @foreach($wineTypes as $wineType)
+                                                    <option value="{{ $wineType }}">{{ $wineType }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
                                 </div>
                                 <div class="modal-footer justify-content-center bg-dark">
                                     <button type="submit" class="btn btn-success">Save Changes</button>
@@ -198,6 +220,24 @@
                             <label for="country"class="fw-medium">Country:</label>
                             <input type="text" name="country" class="form-control" required>
                         </div>
+                        <div class="form-group mb-3">
+                            <label for="grape_type" class="fw-medium">Grape Type:</label>
+                            <select name="grape_type" class="form-control" required>
+                                @foreach($grapeTypes as $grapeType)
+                                    <option value="{{ $grapeType }}">{{ $grapeType }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label for="wine_type" class="fw-medium">Wine Type:</label>
+                            <select name="wine_type" class="form-control" required>
+                                @foreach($wineTypes as $wineType)
+                                    <option value="{{ $wineType }}">{{ $wineType }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+
                 </div>
                 <div class="modal-footer justify-content-center bg-dark">
                     <button type="submit" class="btn btn-success">Add Product</button>

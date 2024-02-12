@@ -11,11 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('products_wishlists', function (Blueprint $table) {
+        Schema::create('product_wishlist', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
-            $table->foreignId('products_id')->references('id')->on('products');
-            $table->foreignId('wishlists_id')->references('id')->on('wishlists');
+            $table->foreignId('product_id')->references('id')->on('products');
+            $table->foreignId('wishlist_id')->references('id')->on('wishlists');
         });
     }
 

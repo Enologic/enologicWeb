@@ -14,26 +14,30 @@ return new class extends Migration
         Schema::create('products', function (Blueprint $table) {
             $table->id();
             $table->string('product_name')->unique();
-           /* $table->enum('flavour', [
-                'Bug',
-                'Dark',
-                'Dragon',
-                'Electric',
-                'Fairy',
-                'Fighting',
-                'Fire',
-                'Flying',
-                'Ghost',
-                'Grass',
-                'Ground',
-                'Ice',
-                'Normal',
-                'Poison',
-                'Psychic',
-                'Rock',
-                'Steel',
-                'Water',
-           ]);*/
+            $table->enum('grape_type', [
+                'Chardonnay',
+                'Sauvignon Blanc',
+                'Riesling',
+                'Cabernet Sauvignon',
+                'Merlot',
+                'Pinot Noir',
+                'Syrah',
+                'Zinfandel',
+                'Malbec',
+                'Tempranillo',
+                'Sangiovese',
+                'Chenin Blanc',
+                'Gewürztraminer',
+            ]);
+            $table->enum('wine_type', [
+                'Tinto',
+                'Blanco',
+                'Rosado',
+                'Espumoso',
+                'Dulce',
+                'Fortificado',
+                'Natural',
+            ]);
            $table->text('description');
            $table->decimal('price', 7, 2);
            $table->integer('age');
