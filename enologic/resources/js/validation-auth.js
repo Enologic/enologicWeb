@@ -76,7 +76,6 @@ document.addEventListener('DOMContentLoaded', function () {
         loginForm.addEventListener('submit', function (event) {
             validarFormulario(event, [
                 { inputId: 'email', validator: validarEmail, errorMessage: 'El email debe tener este formato "xxx@enologic.com".' },
-                { inputId: 'password', validator: (value) => value.length >= 8, errorMessage: 'La contraseña debe tener al menos 8 caracteres.' }
             ], 'login-form');
         });
     }

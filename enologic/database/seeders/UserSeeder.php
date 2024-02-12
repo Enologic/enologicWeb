@@ -16,7 +16,7 @@ class UserSeeder extends Seeder
         $users = [
             [
                 'username' => 'Admin',
-                'password' => bcrypt('contrasena123'),
+                'password' => bcrypt('1'),
                 'email' => 'admin@enologic.com',
                 'email_verified_at' => now(),
                 'phone' => '657483923',
@@ -24,7 +24,7 @@ class UserSeeder extends Seeder
             ],
             [
                 'username' => 'PussyDestroyer69',
-                'password' => bcrypt('password123'),
+                'password' => bcrypt('1'),
                 'email' => 'usuario1@enologic.com',
                 'email_verified_at' => now(),
                 'phone' => '123456789',
@@ -32,7 +32,7 @@ class UserSeeder extends Seeder
             ],
             [
                 'username' => 'MissMeat',
-                'password' => bcrypt('password456'),
+                'password' => bcrypt('1'),
                 'email' => 'usuario2@enologic.com',
                 'email_verified_at' => now(),
                 'phone' => '987654321',
