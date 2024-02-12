@@ -136,5 +136,7 @@ class ProductController extends Controller
 
         // Filtrar los productos por la categoría de uva seleccionada
         $filteredProducts = Product::where('grape_type', $grapeType)->get();
+
+        return view('layouts.show')->with('filteredProducts', $filteredProducts);
     }
 }

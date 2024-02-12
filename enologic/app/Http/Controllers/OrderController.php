@@ -21,28 +21,28 @@ class OrderController extends Controller
         try {
 
             DB::beginTransaction();
-    
+
             $user = Auth::user();
-    
+
             $productsInCart = $user->cart->products;
-    
+
             $order = Order::create(['user_id' => $user->id]);
-    
+
             foreach ($productsInCart as $product) {
                 $quantity = $product->pivot->quantity;
-    
+
                 $order->products()->attach($product, ['quantity' => $quantity]);
             }
-    
+
             $user->cart->products()->detach($productsInCart);
-    
+
             // Mail::to($order->user->email)->send(new OrderConfirmation($order));
-    
+
             $addressController = new AddressController();
             $addressController->saveAddress($request);
-    
+
             DB::commit();
-    
+
             return redirect()->route('show')->with('success', 'Order added successfully');
         } catch (\Exception $e) {
 
@@ -72,5 +72,23 @@ class OrderController extends Controller
 
         return view('layouts.checkout', compact('products'));
     }
+
+    public function viewUserOrders()
+{
+    // Obtener el usuario autenticado
+    $user = Auth::user();
+
+    // Verificar si el usuario está autenticado
+    if ($user) {
+        // Obtener todos los pedidos del usuario
+        $userOrders = Order::where('user_id', $user->id)->get();
+
+        // Pasar los pedidos a la vista
+        return view('layouts.show')->with('userOrders', $userOrders);
+    } else {
+        // Manejar el caso en el que el usuario no está autenticado
+        return redirect()->route('login')->with('error', 'Debes iniciar sesión para ver tus pedidos.');
+    }
 }
 
+}
