@@ -95,9 +95,8 @@
                 <button type="button" class="btn-close bg-danger rounded-5" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form action="" method="POST">
+                <form action="{{ route('user.edit') }}" method="POST">
                     @csrf
-                    @method('PUT')
 
                     <div class="form-group mb-3">
                         <label for="username" class="fw-medium">Username:</label>
@@ -106,7 +105,7 @@
 
                     <div class="form-group mb-3">
                         <label for="email" class="fw-medium">Email:</label>
-                        <input type="email" name="email" class="form-control" value="{{ $user->email }}" required>
+                        <input type="email" name="email" class="form-control" value="{{ $user->email }}" readonly>
                     </div>
 
                     <div class="form-group mb-3">

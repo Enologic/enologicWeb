@@ -82,6 +82,7 @@ Route::prefix('')->middleware('auth', 'verified')->group(function () {
 
     Route::post('/address/edit', [AddressController::class, 'editAddress'])->name('address.edit');
 
+    Route::post('/user/edit', [UserController::class, 'editUser'])->name('user.edit');
 
 
 });
