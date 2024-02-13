@@ -120,7 +120,7 @@ class ProductSeeder extends Seeder
                 'age' => 8,
                 'origin' => 'South Australia',
                 'country' => 'Australia',
-                'grape_type' => 'Syrah',
+                'grape_type' => 'Zinfandel',
                 'wine_type' => 'Tinto',
             ],
             [

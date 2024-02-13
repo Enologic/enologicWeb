@@ -74,21 +74,11 @@ class OrderController extends Controller
     }
 
     public function viewUserOrders()
-{
-    // Obtener el usuario autenticado
-    $user = Auth::user();
+    {
+        $orders = Order::all();
 
-    // Verificar si el usuario está autenticado
-    if ($user) {
-        // Obtener todos los pedidos del usuario
-        $userOrders = Order::where('user_id', $user->id)->get();
-
-        // Pasar los pedidos a la vista
-        return view('layouts.show')->with('userOrders', $userOrders);
-    } else {
-        // Manejar el caso en el que el usuario no está autenticado
-        return redirect()->route('login')->with('error', 'Debes iniciar sesión para ver tus pedidos.');
+        return view('layouts.viewOrders', compact('orders'));
     }
-}
+
 
 }
