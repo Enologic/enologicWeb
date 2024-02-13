@@ -33,11 +33,15 @@ class WishlistController extends Controller
 
     
    
-   
-    public function addToWishlist(Request $request, $productId){
+public function addToWishlist(Request $request, $productId){
+    try {
         $user = Auth::user();
 
-        $wishlist = $user->wishlist ?? Wishlist::create(['user_id' => $user->id]);
+        if ($user->wishlist) {
+            $wishlist = $user->wishlist;
+        } else {
+            $wishlist = Wishlist::create(['user_id' => $user->id]);
+        }
 
         $product = Product::findOrFail($productId);
 
@@ -48,9 +52,13 @@ class WishlistController extends Controller
             $wishlist->products()->attach($product);
             return back()->with('success', 'Product added to wishlist successfully');
         }
+    } catch (\Exception $e) {
+        return back()->with('error', 'Error adding product to wishlist: ' . $e->getMessage());
     }
-    public function removeFromWishlist($productId)
-{
+}
+
+    
+    public function removeFromWishlist($productId){
     try {
         DB::beginTransaction();
 
@@ -73,6 +81,33 @@ class WishlistController extends Controller
     }
 }
 
+public function mostAddedProductsInWishlists()
+{
+    try {
+        // Obtener los productos más añadidos en las listas de deseos
+        $mostAddedProducts = DB::table('product_wishlist')
+            ->select('product_id', DB::raw('COUNT(*) as total'))
+            ->groupBy('product_id')
+            ->orderByDesc('total')
+            ->limit(3) // Limitar a los 10 productos más añadidos, por ejemplo
+            ->get();
+
+        // Obtener los detalles de los productos más añadidos
+        $productIds = $mostAddedProducts->pluck('product_id')->toArray();
+        $products = Product::whereIn('id', $productIds)->get();
+
+        // Devolver los productos más añadidos y el total
+        return [
+            'mostAddedProducts' => $mostAddedProducts,
+            'totalMostAddedProducts' => $mostAddedProducts->count(),
+        ];
+    } catch (\Exception $e) {
+        // Manejar el error adecuadamente
+        return [
+            'error' => 'Error retrieving most added products: ' . $e->getMessage(),
+        ];
+    }
+}
 
 
 
