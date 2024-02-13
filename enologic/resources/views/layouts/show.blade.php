@@ -9,13 +9,13 @@
 
         <div class="col-3 text-end">
             {{-- Boton para volver a DASHBOARD --}}
-            <a class="btn btn-dark mb-3" href="{{ 'home' }}">
+            <a class="btn btn-dark mb-3" href="{{ url('/home') }}">
                 {{ __('Back') }}
             </a>
 
 
             {{-- Boton para ir a CART --}}
-            <a class="btn btn-secondary mb-3" href="{{ 'cart' }}">
+            <a class="btn btn-secondary mb-3" href="{{ url('/home')}}">
                 <i class="fa-solid fa-cart-shopping"></i>
             </a>
              <!-- Agregar el campo de filtrado por categorías -->
