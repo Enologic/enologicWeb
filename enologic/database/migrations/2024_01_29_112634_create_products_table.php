@@ -21,13 +21,14 @@ return new class extends Migration
                 'Cabernet Sauvignon',
                 'Merlot',
                 'Pinot Noir',
-                'Syrah',
+                'Shiraz',
                 'Zinfandel',
                 'Malbec',
                 'Tempranillo',
                 'Sangiovese',
                 'Chenin Blanc',
                 'Gewürztraminer',
+                'Blend',
             ]);
             $table->enum('wine_type', [
                 'Tinto',
