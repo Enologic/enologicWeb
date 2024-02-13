@@ -5,9 +5,35 @@ use App\Models\Wishlist;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class WishlistController extends Controller
 {
+   
+    public function viewWishlist()
+{
+    try {
+        $user = Auth::user();
+
+        $wishlists = Wishlist::with('products')->where('user_id', $user->id)->get();
+
+        $products = collect(); // Inicializamos una colección vacía para almacenar los productos
+
+        foreach ($wishlists as $wishlist) {
+            $products = $products->merge($wishlist->products); // Agregamos los productos de cada lista de deseos a la colección
+        }
+
+        return view('layouts.wishlist', compact('products'));
+    } catch (\Exception $e) {
+        // Maneja adecuadamente la excepción, por ejemplo, mostrando un mensaje de error
+        return view('layouts.wishlist')->with('error', 'Error al cargar la lista de deseos: ' . $e->getMessage());
+    }
+}
+
+
+    
+   
+   
     public function addToWishlist(Request $request, $productId){
         $user = Auth::user();
 
@@ -23,16 +49,32 @@ class WishlistController extends Controller
             return back()->with('success', 'Product added to wishlist successfully');
         }
     }
+    public function removeFromWishlist($productId)
+{
+    try {
+        DB::beginTransaction();
 
-    public function viewWishlist(){
-    $user = Auth::user();
-    
-    $wishlist = Wishlist::with('products')->where('user_id', $user->id)->first();
+        $user = Auth::user();
 
-    // Obtener todos los productos en la wishlist del usuario
-    $products = $wishlist->products;
+        $wishlist = Wishlist::where('user_id', $user->id)->first();
 
-    return view('layouts.wishlist', compact('products'));
+        if (!$wishlist) {
+            return redirect()->route('show')->with('error', 'No se encontró la lista de deseos del usuario.');
+        }
+
+        $wishlist->products()->detach($productId);
+
+        DB::commit();
+
+        return back()->with('success', 'Product removed from wishlist successfully');
+    } catch (\Exception $e) {
+        DB::rollBack();
+        return back()->with('error', 'Error removing product from wishlist: ' . $e->getMessage());
+    }
 }
 
+
+
+
+   
 }

@@ -26,44 +26,44 @@ class ProductController extends Controller
     }
 
     public function guardarProducto(Request $request)
-{
-    try {
-        // Validación
-        $request->validate([
-            'product_name' => 'required',
-            'grape_type' => 'required', // Asegúrate de tener estos campos en tu formulario
-            'wine_type' => 'required',
-        ]);
+    {
+        try {
+            // Validación
+            $request->validate([
+                'product_name' => 'required',
+                'grape_type' => 'required', // Asegúrate de tener estos campos en tu formulario
+                'wine_type' => 'required',
+            ]);
 
-        // Crear un nuevo producto y asignar los valores
-        $productoNuevo = new Product;
-        $productoNuevo->product_name = $request->product_name;
-        $productoNuevo->description = $request->description;
-        $productoNuevo->price = $request->price;
-        $productoNuevo->age = $request->age;
-        $productoNuevo->origin = $request->origin;
-        $productoNuevo->country = $request->country;
-        $productoNuevo->grape_type = $request->grape_type; // Asignar el valor del enum grape_type
-        $productoNuevo->wine_type = $request->wine_type; // Asignar el valor del enum wine_type
+            // Crear un nuevo producto y asignar los valores
+            $productoNuevo = new Product;
+            $productoNuevo->product_name = $request->product_name;
+            $productoNuevo->description = $request->description;
+            $productoNuevo->price = $request->price;
+            $productoNuevo->age = $request->age;
+            $productoNuevo->origin = $request->origin;
+            $productoNuevo->country = $request->country;
+            $productoNuevo->grape_type = $request->grape_type; // Asignar el valor del enum grape_type
+            $productoNuevo->wine_type = $request->wine_type; // Asignar el valor del enum wine_type
 
-        // Comienza una transacción
-        DB::beginTransaction();
+            // Comienza una transacción
+            DB::beginTransaction();
 
-        // Guardar el producto
-        $productoNuevo->save();
+            // Guardar el producto
+            $productoNuevo->save();
 
-        // Commit de la transacción si todo va bien
-        DB::commit();
+            // Commit de la transacción si todo va bien
+            DB::commit();
 
-        return redirect()->route('add')->with('success', 'Product added successfully');
-    } catch (\Exception $e) {
-        // Manejar cualquier excepción capturada
-        \Log::error('Error saving product: ' . $e->getMessage());
-        // Rollback de la transacción en caso de error
-        DB::rollback();
-        return redirect()->back()->with('error', 'Error adding product: ' . $e->getMessage());
+            return redirect()->route('add')->with('success', 'Product added successfully');
+        } catch (\Exception $e) {
+            // Manejar cualquier excepción capturada
+            \Log::error('Error saving product: ' . $e->getMessage());
+            // Rollback de la transacción en caso de error
+            DB::rollback();
+            return redirect()->back()->with('error', 'Error adding product: ' . $e->getMessage());
+        }
     }
-}
 
 
     // ELIMINAR EL Producto SELECCIONADO
@@ -81,20 +81,20 @@ class ProductController extends Controller
         try {
             // Iniciar una transacción
             DB::beginTransaction();
-    
+
             // Lógica para actualizar el producto
             $product = Product::find($id);
-    
+
             // Validación
             $request->validate([
                 'product_name' => 'required',
                 'grape_type' => 'required', // Asegúrate de tener estos campos en tu formulario
                 'wine_type' => 'required',
             ]);
-    
+
             // Almacena los datos originales del producto antes de la actualización
             $originalData = $product->toArray();
-    
+
             // Actualiza los campos del producto con los datos del formulario
             $product->update([
                 'product_name' => $request->input('product_name'),
@@ -106,17 +106,37 @@ class ProductController extends Controller
                 'grape_type'   => $request->input('grape_type'), // Actualiza el campo grape_type
                 'wine_type'    => $request->input('wine_type'), // Actualiza el campo wine_type
             ]);
-    
+
             // Commit de la transacción si no hay errores
             DB::commit();
-    
+
             return back()->with('success', 'Product updated successfully');
         } catch (\Exception $e) {
             // Rollback de la transacción en caso de error
             DB::rollBack();
-    
+
             // Retornar con un mensaje de error
             return back()->with('error', 'Error updating product: ' . $e->getMessage());
         }
+    }
+
+
+    public function filterByGrapeType(Request $request)
+    {
+        // Obtener la categoría de uva seleccionada por el usuario desde el formulario
+        $grapeType = $request->input('grape_type');
+
+        // Validar que la categoría de uva sea una opción válida (opcional, dependiendo de tus necesidades)
+        $validGrapeTypes = ['Chardonnay', 'Sauvignon Blanc', 'Riesling', 'Cabernet Sauvignon', 'Merlot', 'Pinot Noir', 'Syrah', 'Zinfandel', 'Malbec', 'Tempranillo', 'Sangiovese', 'Chenin Blanc', 'Gewürztraminer'];
+
+        if (!in_array($grapeType, $validGrapeTypes)) {
+            // Manejar el caso en que la categoría de uva no sea válida
+            return redirect()->back()->with('error', 'Categoría de uva no válida');
+        }
+
+        // Filtrar los productos por la categoría de uva seleccionada
+        $filteredProducts = Product::where('grape_type', $grapeType)->get();
+
+        return view('layouts.show')->with('filteredProducts', $filteredProducts);
     }
 }

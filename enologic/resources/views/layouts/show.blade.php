@@ -52,12 +52,74 @@
                         <a href="#addProductModal{{ $product->id }}" class="btn btn-success mx-1" data-bs-toggle="modal" data-bs-target="#addProductModal{{ $product->id }}">
                             <i class="fa-regular fa-plus"></i>
                         </a>
-
+                        @if ($product->wishlists()->where('user_id', Auth::id())->exists())
+                        <a href="#removeFromWishlist{{ $product->id }}" class="btn btn-danger mx-1" data-bs-toggle="modal" data-bs-target="#removeFromWishlist{{ $product->id }}">
+                            <i class="fa-solid fa-heart-circle-minus"></i>
+                        </a>
+                        <!-- Modal for removing from wishlist -->
+                        <div class="modal fade" id="removeFromWishlist{{ $product->id }}" tabindex="-1" aria-labelledby="removeFromWishlistModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header bg-dark text-white">
+                                        <h5 class="modal-title" id="removeFromWishlistModalLabel">Remove from Wishlist</h5>
+                                        <button type="button" class="btn-close bg-danger rounded-5" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body d-flex align-items-center justify-content-center">
+                                        <div class="col-12 fw-medium text-center">
+                                            <h5>Are you sure you want to remove this product from your wishlist?</h5>
+                                            <p>Product Name: {{ $product->product_name }}</p>
+                                        </div>
+                                    </div>
+                                    <div class="container pb-3 px-3 text-center">
+                                        {{ $product->description }}
+                                    </div>
+                                    <div class="modal-footer justify-content-center bg-dark">
+                                        <form action="{{ route('wishlist.remove', ['productId' => $product->id]) }}" method="post">
+                                            @csrf
+                                            <button type="submit" class="px-4 btn btn-danger">Remove from Wishlist</button>
+                                        </form>
+                                        <button type="button" class="px-4 btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        @else
                         {{-- Botón para añadir a la lista de deseos --}}
                         <a href="#addToWishlist{{ $product->id }}" class="btn btn-danger mx-1" data-bs-toggle="modal" data-bs-target="#addToWishlist{{ $product->id }}">
                             <i class="fa-regular fa-heart"></i>
                         </a>
+                        {{-- Modal for adding to wishlist --}}
+                        <div class="modal fade" id="addToWishlist{{ $product->id }}" tabindex="-1" aria-labelledby="addToWishlistModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header bg-dark text-white">
+                                        <h5 class="modal-title" id="addToWishlistModalLabel">Add to Wishlist</h5>
+                                        <button type="button" class="btn-close bg-danger rounded-5" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body d-flex align-items-center justify-content-center">
+                                        <!-- You can show more product details here if you want -->
+                                        <div class="col-12 fw-medium text-center">
+                                            <h5>Are you sure you want to add this product to your wishlist?</h5>
 
+                                            Product Name: {{ $product->product_name }}
+                                        </div>
+                                        <!-- You can add more product details here -->
+                                    </div>
+                                    <div class="container pb-3 px-3 text-center">
+                                        {{ $product->description }}
+                                    </div>
+                                    <div class="modal-footer justify-content-center bg-dark">
+                                        <form action="{{ route('wishlist.add', ['productId' => $product->id]) }}" method="post">
+                                            @csrf
+                                            <button type="submit" class="px-4 btn btn-success">Add to Wishlist</button>
+                                        </form>
+                                        <button type="button" class="px-4 btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                       
+                        @endif
                         {{-- Modal para añadir un producto --}}
                         <div class="modal fade" id="addProductModal{{ $product->id }}" tabindex="-1" aria-labelledby="addProductModalLabel" aria-hidden="true">
                             <div class="modal-dialog">
@@ -93,38 +155,6 @@
                                 </div>
                             </div>
                         </div>
-
-                        {{-- Modal for adding to wishlist --}}
-                        <div class="modal fade" id="addToWishlist{{ $product->id }}" tabindex="-1" aria-labelledby="addToWishlistModalLabel" aria-hidden="true">
-                            <div class="modal-dialog">
-                                <div class="modal-content">
-                                    <div class="modal-header bg-dark text-white">
-                                        <h5 class="modal-title" id="addToWishlistModalLabel">Add to Wishlist</h5>
-                                        <button type="button" class="btn-close bg-danger rounded-5" data-bs-dismiss="modal" aria-label="Close"></button>
-                                    </div>
-                                    <div class="modal-body d-flex align-items-center justify-content-center">
-                                        <!-- You can show more product details here if you want -->
-                                        <div class="col-12 fw-medium text-center">
-                                        <h5>Are you sure you want to add this product to your wishlist?</h5>
-
-                                            Product Name: {{ $product->product_name }}
-                                        </div>
-                                        <!-- You can add more product details here -->
-                                    </div>
-                                    <div class="container pb-3 px-3 text-center">
-                                        {{ $product->description }}
-                                    </div>
-                                    <div class="modal-footer justify-content-center bg-dark">
-                                        <form action="{{ route('wishlist.add', ['productId' => $product->id]) }}" method="post">
-                                            @csrf
-                                            <button type="submit" class="px-4 btn btn-success">Add to Wishlist</button>
-                                        </form>
-                                        <button type="button" class="px-4 btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
 
                 </td>
 
