@@ -12,6 +12,8 @@
             <a class="btn btn-dark mb-3" href="{{ 'home' }}">
                 {{ __('Back') }}
             </a>
+
+
             {{-- Boton para ir a CART --}}
             <a class="btn btn-secondary mb-3" href="{{ 'cart' }}">
                 <i class="fa-solid fa-cart-shopping"></i>
@@ -118,7 +120,7 @@
                                 </div>
                             </div>
                         </div>
-                       
+
                         @endif
                         {{-- Modal para añadir un producto --}}
                         <div class="modal fade" id="addProductModal{{ $product->id }}" tabindex="-1" aria-labelledby="addProductModalLabel" aria-hidden="true">
