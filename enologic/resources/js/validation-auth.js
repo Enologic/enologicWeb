@@ -2,6 +2,7 @@
 
 /* Login y registro */
 
+
 document.addEventListener('DOMContentLoaded', function () {
 
     // Las 4 regex que necesitamos para el formato correcto
@@ -43,16 +44,14 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Función que borra el alert de registro cuando se pulsa en resend email
     document.addEventListener('DOMContentLoaded', function () {
-        var resendButton = document.getElementById('resend-button');
-        var successAlert = document.getElementById('success-alert');
+        let resendButton = document.getElementById('resend-button');
+        let successAlert = document.getElementById('success-alert');
 
-        if (resendButton && successAlert) {
-            resendButton.addEventListener('click', function () {
-                successAlert.style.display = 'none';
+            resendButton.addEventListener('click', function() {
+                // Oculta el alert de éxito
+                successAlert.classList.add('d-none');
             });
-        }
     });
-
 
     // Solo validará el fragmento que tenga el id del formulario de la vista
     // Fragmento que valida registro
@@ -77,17 +76,6 @@ document.addEventListener('DOMContentLoaded', function () {
             validarFormulario(event, [
                 { inputId: 'email', validator: validarEmail, errorMessage: 'El email debe tener este formato "xxx@enologic.com".' },
             ], 'login-form');
-        });
-    }
-
-    // Fragmento que valida reset-password
-    let resetForm = document.getElementById('reset-form');
-    if (resetForm) {
-        resetForm.addEventListener('submit', function (event) {
-            validarFormulario(event, [
-                { inputId: 'password', validator: (value) => value.length >= 8, errorMessage: 'La contraseña debe tener al menos 8 caracteres, 1 mayúscula, 1 número y 1 carácter especial.' },
-                { inputId: 'password-confirm', validator: (value) => value === document.getElementById('password').value, errorMessage: 'La confirmación de la contraseña no coincide.' }
-            ], 'reset-form');
         });
     }
 

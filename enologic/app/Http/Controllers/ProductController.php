@@ -5,18 +5,44 @@ namespace App\Http\Controllers;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\WishlistController;
+
 
 
 class ProductController extends Controller
 {
     public function mostrar()
     {
-        $products = Product::all();
-        $grapeTypes = Product::getGrapeTypes();
-        $wineTypes = Product::getWineTypes();
-
-        return view('layouts.add', compact('products', 'grapeTypes', 'wineTypes'));
+        try {
+            // Obtener todos los productos
+            $products = Product::all();
+            // Obtener los tipos de uva y tipos de vino
+            $grapeTypes = Product::getGrapeTypes();
+            $wineTypes = Product::getWineTypes();
+            
+            // Instanciar el controlador de Wishlist
+            $wishlistController = new WishlistController();
+            // Llamada al método para obtener los productos más añadidos en las listas de deseos
+            $mostAddedProductsData = $wishlistController->mostAddedProductsInWishlists();
+    
+            // Verificar si se obtuvo un error al recuperar los productos más añadidos
+            if (isset($mostAddedProductsData['error'])) {
+                // Manejar el error adecuadamente, por ejemplo, redirigiendo con un mensaje de error
+               return redirect()->back()->with('error', $mostAddedProductsData['error']);
+            }
+    
+            // Obtener los productos más añadidos y el total
+            $mostAddedProducts = $mostAddedProductsData['mostAddedProducts'];
+            $totalMostAddedProducts = $mostAddedProductsData['totalMostAddedProducts'];
+    
+            // Pasar los productos, tipos de uva, tipos de vino y productos más añadidos a la vista
+            return view('layouts.add', compact('products', 'grapeTypes', 'wineTypes', 'mostAddedProducts', 'totalMostAddedProducts'));
+        } catch (\Exception $e) {
+            // Manejar el error apropiadamente, por ejemplo, redirigiendo con un mensaje de error
+            return redirect()->back()->with('error', 'Error: ' . $e->getMessage());
+        }
     }
+    
 
     public function show()
     {

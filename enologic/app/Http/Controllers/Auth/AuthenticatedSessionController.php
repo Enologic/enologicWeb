@@ -58,6 +58,14 @@ class AuthenticatedSessionController extends Controller
     public function store(LoginRequest $request)
     {
         return $this->loginPipeline($request)->then(function ($request) {
+
+            // Añadir el mensaje de alerta al iniciar sesión
+            $request->session()->flash('alert', [
+                'type' => 'success',
+                'message' => 'Login successful'
+            ]);
+
+            // Retornar una respuesta de inicio de sesión
             return app(LoginResponse::class);
         });
     }
@@ -97,14 +105,12 @@ class AuthenticatedSessionController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Laravel\Fortify\Contracts\LogoutResponse
      */
-    public function destroy(Request $request): LogoutResponse
+    public function destroy(Request $request, StatefulGuard $guard): LogoutResponse
     {
-        $this->guard->logout();
+        $guard->logout();
 
-        if ($request->hasSession()) {
-            $request->session()->invalidate();
-            $request->session()->regenerateToken();
-        }
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
 
         // Mostrar el mensaje de alerta
         $request->session()->flash('alert', [
