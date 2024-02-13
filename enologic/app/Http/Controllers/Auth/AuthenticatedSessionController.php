@@ -105,14 +105,12 @@ class AuthenticatedSessionController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Laravel\Fortify\Contracts\LogoutResponse
      */
-    public function destroy(Request $request): LogoutResponse
+    public function destroy(Request $request, StatefulGuard $guard): LogoutResponse
     {
-        $this->guard->logout();
+        $guard->logout();
 
-        if ($request->hasSession()) {
-            $request->session()->invalidate();
-            $request->session()->regenerateToken();
-        }
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
 
         // Mostrar el mensaje de alerta
         $request->session()->flash('alert', [

@@ -2,17 +2,18 @@
 
 @section('content')
     <div class="container">
-
-        @if (session('alert'))
-            <div class="container d-flex justify-content-center text-center">
-                <div class="col-11 col-md-8 fw-medium alert alert-info alert-dismissible fade show alert-{{ session('alert.type') }}" role="alert">
-                    {{ session('alert.message') }}
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                </div>
-            </div>
-        @endif
-
         <div class="row justify-content-center">
+
+            @if (session('alert'))
+                <div class="container d-flex justify-content-center text-center">
+                    <div class="col-11 col-md-7 fw-medium alert alert-info alert-dismissible fade show alert-{{ session('alert.type') }}"
+                        role="alert">
+                        {{ session('alert.message') }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                </div>
+            @endif
+
             <div class="col-md-8">
                 <div class="card border-dark">
                     <div class="card-header bg-warning fw-medium border-dark">{{ __('Login') }}</div>
