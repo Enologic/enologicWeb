@@ -22,7 +22,7 @@
     <div class="mb-3">
         <label for="category" class="fw-medium">Filter by Category:</label>
         <select id="category" class="form-select"  onchange="filterByCategory()">
-            <option value="">{{ $category }}</option>
+        <option value="">{{ isset($category) ? $category : 'All Categories' }}</option>
             {{-- Aquí puedes iterar sobre las categorías disponibles y mostrarlas como opciones --}}
             @foreach ($grapeTypes as $grapeType)
             <option value="{{ $grapeType }}">{{ $grapeType }}</option>
