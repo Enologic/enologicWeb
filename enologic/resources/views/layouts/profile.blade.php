@@ -27,9 +27,8 @@
                 @isset($address)
                     <li><strong>Calle:</strong> {{ $address->street ?? 'unknown' }}</li>
                     <li><strong>Ciudad:</strong> {{ $address->city ?? 'unknown' }}</li>
-                    <li><strong>Estado:</strong> {{ $address->state ?? 'unknown' }}</li>
                     <li><strong>País:</strong> {{ $address->country ?? 'unknown' }}</li>
-                    <li><strong>Código Postal:</strong> {{ $address->postal_code ?? 'unknown' }}</li>
+                    <li><strong>Código Postal:</strong> {{ $address->zipcode ?? 'unknown' }}</li>
                     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editAddressModal">
                 Edit Address
             </button>
@@ -53,8 +52,11 @@
                 <button type="button" class="btn-close bg-danger rounded-5" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form action="" method="POST">
+                <form action="{{ route('address.save') }}" method="POST">
                     @csrf
+
+                    <!-- Campo para indicar la acción -->
+                    <input type="hidden" name="action" value="redirect_here">
 
                     <div class="form-group mb-3">
                         <label for="street" class="fw-medium">Street:</label>
@@ -67,18 +69,13 @@
                     </div>
 
                     <div class="form-group mb-3">
-                        <label for="state" class="fw-medium">State:</label>
-                        <input type="text" name="state" class="form-control">
-                    </div>
-
-                    <div class="form-group mb-3">
                         <label for="country" class="fw-medium">Country:</label>
                         <input type="text" name="country" class="form-control">
                     </div>
 
                     <div class="form-group mb-3">
-                        <label for="postal_code" class="fw-medium">Postal Code:</label>
-                        <input type="text" name="postal_code" class="form-control">
+                        <label for="zipcode" class="fw-medium">Zipcode:</label>
+                        <input type="text" name="zipcode" class="form-control">
                     </div>
             </div>
             <div class="modal-footer justify-content-center bg-dark">
@@ -88,6 +85,7 @@
         </div>
     </div>
 </div>
+
 <!-- Modal para editar perfil -->
 <div class="modal fade" id="editProfileModal" tabindex="-1" aria-labelledby="editProfileModalLabel" aria-hidden="true">
     <div class="modal-dialog">
@@ -138,9 +136,10 @@
                 <button type="button" class="btn-close bg-danger rounded-5" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form action="" method="POST">
+                <form action="{{ route('address.edit') }}" method="POST">
                     @csrf
-                    @method('PUT')
+
+                    <input type="hidden" name="action" value="redirect_here">
 
                     <div class="form-group mb-3">
                         <label for="street" class="fw-medium">Street:</label>
@@ -152,10 +151,6 @@
                         <input type="text" name="city" class="form-control" value="{{ $address->city ?? 'unknown' }}">
                     </div>
 
-                    <div class="form-group mb-3">
-                        <label for="state" class="fw-medium">State:</label>
-                        <input type="text" name="state" class="form-control" value="{{ $address->state ?? 'unknown' }}">
-                    </div>
 
                     <div class="form-group mb-3">
                         <label for="country" class="fw-medium">Country:</label>
@@ -163,8 +158,8 @@
                     </div>
 
                     <div class="form-group mb-3">
-                        <label for="postal_code" class="fw-medium">Postal Code:</label>
-                        <input type="text" name="postal_code" class="form-control" value="{{ $address->postal_code ?? 'unknown' }}">
+                        <label for="zipcode" class="fw-medium">Zipcode:</label>
+                        <input type="text" name="zipcode" class="form-control" value="{{ $address->zipcode ?? 'unknown' }}">
                     </div>
             </div>
             <div class="modal-footer justify-content-center bg-dark">
