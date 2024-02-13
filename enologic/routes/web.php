@@ -84,5 +84,7 @@ Route::prefix('')->middleware('auth', 'verified')->group(function () {
 
     Route::post('/user/edit', [UserController::class, 'editUser'])->name('user.edit');
 
+    Route::get('/products/filterByCategory', [ProductController::class, 'filterByCategory'])->name('filterByCategory');
+
 
 });

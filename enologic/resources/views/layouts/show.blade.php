@@ -18,6 +18,17 @@
             <a class="btn btn-secondary mb-3" href="{{ 'cart' }}">
                 <i class="fa-solid fa-cart-shopping"></i>
             </a>
+             <!-- Agregar el campo de filtrado por categorías -->
+    <div class="mb-3">
+        <label for="category" class="fw-medium">Filter by Category:</label>
+        <select id="category" class="form-select"  onchange="filterByCategory()">
+            <option value="">{{ $category }}</option>
+            {{-- Aquí puedes iterar sobre las categorías disponibles y mostrarlas como opciones --}}
+            @foreach ($grapeTypes as $grapeType)
+            <option value="{{ $grapeType }}">{{ $grapeType }}</option>
+        @endforeach
+        </select>
+    </div>
         </div>
 
     </div>
@@ -167,4 +178,16 @@
         </tbody>
     </table>
 </div>
+
+<script>
+    // Función para manejar el cambio en el menú desplegable de categorías
+    function filterByCategory() {
+        // Obtener el valor seleccionado del menú desplegable
+        var category = document.getElementById("category").value;
+
+        // Redirigir a la página actual con el parámetro de la categoría seleccionada
+        window.location.href = "{{ route('filterByCategory') }}?category=" + category;
+    }
+</script>
+
 @endsection
