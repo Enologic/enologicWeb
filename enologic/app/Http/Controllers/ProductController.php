@@ -18,10 +18,8 @@ class ProductController extends Controller
             $products = Product::all();
             // Obtener los tipos de uva y tipos de vino
             $grapeTypes = Product::getGrapeTypes();
-            array_unshift($grapeTypes, 'All Categories');
 
             $wineTypes = Product::getWineTypes();
-            array_unshift($wineTypes, 'All Categories');
 
             // Instanciar el controlador de Wishlist
             $wishlistController = new WishlistController();

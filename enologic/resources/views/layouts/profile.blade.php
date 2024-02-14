@@ -7,6 +7,23 @@
 
     {{-- Vista principal --}}
     {{-- Aquí irán todos los yields de las vistas que tengamos. --}}
+    <div class="container d-flex my-5">
+
+        <h1 class="col-9">User Profile</h1>
+
+        <div class="col-3 text-end">
+            {{-- Boton para volver a DASHBOARD --}}
+            <a class="btn btn-dark mb-3" href="{{ url('/show') }}">
+                {{ __('Back') }}
+            </a>
+            <a class="btn btn-dark mb-3" href="{{ url('/user/orders') }}">
+                {{ __('View Orders') }}
+            </a>
+
+        </div>
+
+    </div>
+
     <div class="container">
     <div class="row">
         <div class="col-md-6">
@@ -39,7 +56,7 @@
             </button>
                 @endisset
             </ul>
-           
+
         </div>
     </div>
 </div>

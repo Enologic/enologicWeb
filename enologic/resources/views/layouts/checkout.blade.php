@@ -11,6 +11,20 @@
         }
     @endphp
 
+<div class="container d-flex my-5">
+
+    <h1 class="col-9">Confirm Checkout</h1>
+
+    <div class="col-3 text-end">
+        {{-- Boton para volver a DASHBOARD --}}
+        <a class="btn btn-dark mb-3" href="{{ url('/cart') }}">
+            {{ __('Back') }}
+        </a>
+
+    </div>
+
+</div>
+
     <div class="container">
         <div class="row g-5 mt-1">
             <div class="col-md-5 col-lg-4 order-md-last">
@@ -40,7 +54,7 @@
                    <div class="text-center">
                    <!-- Botón para vaciar el carrito -->
                    <button class="col-3 btn btn-danger mt-3" onclick="clearCart()">Remove</button>
-                  </div> 
+                  </div>
                 </form>
 
             </div>

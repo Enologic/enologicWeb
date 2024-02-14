@@ -12,12 +12,16 @@
             <a class="btn btn-dark mb-3" href="{{ url('/home') }}">
                 {{ __('Back') }}
             </a>
+            <a class="btn btn-dark mb-3" href="{{ url('/profile') }}">
+                {{ __('Profile') }}
+            </a>
 
 
             {{-- Boton para ir a CART --}}
-            <a class="btn btn-secondary mb-3" href="{{ url('/home')}}">
+            <a class="btn btn-secondary mb-3" href="{{ url('/cart')}}">
                 <i class="fa-solid fa-cart-shopping"></i>
             </a>
+
              <!-- Agregar el campo de filtrado por categorías -->
     <div class="mb-3">
         <label for="category" class="fw-medium">Filter by Category:</label>
