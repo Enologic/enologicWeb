@@ -9,13 +9,30 @@
 
         <div class="col-3 text-end">
             {{-- Boton para volver a DASHBOARD --}}
-            <a class="btn btn-dark mb-3" href="{{ 'home' }}">
+            <a class="btn btn-dark mb-3" href="{{ url('/home') }}">
                 {{ __('Back') }}
             </a>
+            <a class="btn btn-dark mb-3" href="{{ url('/profile') }}">
+                {{ __('Profile') }}
+            </a>
+
+
             {{-- Boton para ir a CART --}}
-            <a class="btn btn-secondary mb-3" href="{{ 'cart' }}">
+            <a class="btn btn-secondary mb-3" href="{{ url('/cart')}}">
                 <i class="fa-solid fa-cart-shopping"></i>
             </a>
+
+             <!-- Agregar el campo de filtrado por categorías -->
+    <div class="mb-3">
+        <label for="category" class="fw-medium">Filter by Category:</label>
+        <select id="category" class="form-select"  onchange="filterByCategory()">
+        <option value="">{{ isset($category) ? $category : 'All Categories' }}</option>
+            {{-- Aquí puedes iterar sobre las categorías disponibles y mostrarlas como opciones --}}
+            @foreach ($grapeTypes as $grapeType)
+            <option value="{{ $grapeType }}">{{ $grapeType }}</option>
+        @endforeach
+        </select>
+    </div>
         </div>
 
     </div>
@@ -118,7 +135,7 @@
                                 </div>
                             </div>
                         </div>
-                       
+
                         @endif
                         {{-- Modal para añadir un producto --}}
                         <div class="modal fade" id="addProductModal{{ $product->id }}" tabindex="-1" aria-labelledby="addProductModalLabel" aria-hidden="true">
@@ -165,4 +182,16 @@
         </tbody>
     </table>
 </div>
+
+<script>
+    // Función para manejar el cambio en el menú desplegable de categorías
+    function filterByCategory() {
+        // Obtener el valor seleccionado del menú desplegable
+        var category = document.getElementById("category").value;
+
+        // Redirigir a la página actual con el parámetro de la categoría seleccionada
+        window.location.href = "{{ route('filterByCategory') }}?category=" + category;
+    }
+</script>
+
 @endsection

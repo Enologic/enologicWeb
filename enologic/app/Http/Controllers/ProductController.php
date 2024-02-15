@@ -18,23 +18,24 @@ class ProductController extends Controller
             $products = Product::all();
             // Obtener los tipos de uva y tipos de vino
             $grapeTypes = Product::getGrapeTypes();
+
             $wineTypes = Product::getWineTypes();
-            
+
             // Instanciar el controlador de Wishlist
             $wishlistController = new WishlistController();
             // Llamada al método para obtener los productos más añadidos en las listas de deseos
             $mostAddedProductsData = $wishlistController->mostAddedProductsInWishlists();
-    
+
             // Verificar si se obtuvo un error al recuperar los productos más añadidos
             if (isset($mostAddedProductsData['error'])) {
                 // Manejar el error adecuadamente, por ejemplo, redirigiendo con un mensaje de error
-               return redirect()->back()->with('error', $mostAddedProductsData['error']);
+                return redirect()->back()->with('error', $mostAddedProductsData['error']);
             }
-    
+
             // Obtener los productos más añadidos y el total
             $mostAddedProducts = $mostAddedProductsData['mostAddedProducts'];
             $totalMostAddedProducts = $mostAddedProductsData['totalMostAddedProducts'];
-    
+
             // Pasar los productos, tipos de uva, tipos de vino y productos más añadidos a la vista
             return view('layouts.add', compact('products', 'grapeTypes', 'wineTypes', 'mostAddedProducts', 'totalMostAddedProducts'));
         } catch (\Exception $e) {
@@ -42,13 +43,16 @@ class ProductController extends Controller
             return redirect()->back()->with('error', 'Error: ' . $e->getMessage());
         }
     }
-    
+
 
     public function show()
     {
         $products = Product::all();
+        // Obtener los tipos de uva y tipos de vino
+        $grapeTypes = Product::getGrapeTypes();
+        $wineTypes = Product::getWineTypes();
 
-        return view('layouts.show', compact('products'));
+        return view('layouts.show', compact('products',  'grapeTypes', 'wineTypes',));
     }
 
     public function guardarProducto(Request $request)
@@ -146,23 +150,32 @@ class ProductController extends Controller
         }
     }
 
-
-    public function filterByGrapeType(Request $request)
+    public function filterByCategory(Request $request)
     {
-        // Obtener la categoría de uva seleccionada por el usuario desde el formulario
-        $grapeType = $request->input('grape_type');
+        $category = $request->input('category');
 
-        // Validar que la categoría de uva sea una opción válida (opcional, dependiendo de tus necesidades)
-        $validGrapeTypes = ['Chardonnay', 'Sauvignon Blanc', 'Riesling', 'Cabernet Sauvignon', 'Merlot', 'Pinot Noir', 'Syrah', 'Zinfandel', 'Malbec', 'Tempranillo', 'Sangiovese', 'Chenin Blanc', 'Gewürztraminer'];
+        if ($category === "All Categories") {
+            $products = Product::all();
 
-        if (!in_array($grapeType, $validGrapeTypes)) {
-            // Manejar el caso en que la categoría de uva no sea válida
-            return redirect()->back()->with('error', 'Categoría de uva no válida');
+            $grapeTypes = Product::getGrapeTypes();
+            $wineTypes = Product::getWineTypes();
+
+        } else {
+            $products = Product::where('grape_type', $category)->get();
+            // Obtener los tipos de uva y tipos de vino
+            $grapeTypes = Product::getGrapeTypes();
+            array_unshift($grapeTypes, 'All Categories');
+            $grapeTypes = array_diff($grapeTypes, [$category]);
+
+
+            $wineTypes = Product::getWineTypes();
+            array_unshift($wineTypes, 'All Categories');
+            $wineTypes = array_diff($wineTypes, [$category]);
+
         }
 
-        // Filtrar los productos por la categoría de uva seleccionada
-        $filteredProducts = Product::where('grape_type', $grapeType)->get();
 
-        return view('layouts.show')->with('filteredProducts', $filteredProducts);
+
+        return view('layouts.show', compact('products', 'grapeTypes', 'wineTypes', 'category'));
     }
 }

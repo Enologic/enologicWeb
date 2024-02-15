@@ -5,6 +5,8 @@ use App\Http\Controllers\CartController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\WishlistController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\AddressController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 
@@ -69,11 +71,22 @@ Route::prefix('')->middleware('auth', 'verified')->group(function () {
     Route::post('/cart/decrease/{productId}', [CartController::class, 'decreaseQuantity'])->name('cart.decrease');
 
     Route::get('/wishlist', [WishlistController::class, 'viewWishlist'])->name('wishlist.viewWishlist');
-   
+
     Route::post('/wishlist/add/{productId}', [WishlistController::class, 'addToWishlist'])->name('wishlist.add');
 
     Route::post('/wishlist/remove/{productId}', [WishlistController::class, 'removeFromWishlist'])->name('wishlist.remove');
 
+    Route::get('profile', [UserController::class, 'viewProfile'])->name('viewProfile');
+
+    Route::post('/address/save', [AddressController::class, 'saveAddress'])->name('address.save');
+
+    Route::post('/address/edit', [AddressController::class, 'editAddress'])->name('address.edit');
+
+    Route::post('/user/edit', [UserController::class, 'editUser'])->name('user.edit');
+
+    Route::get('/products/filterByCategory', [ProductController::class, 'filterByCategory'])->name('filterByCategory');
+
+    Route::get('/user/orders', [OrderController::class, 'viewUserOrders'])->name('user.orders');
 
 
 });

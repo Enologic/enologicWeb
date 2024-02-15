@@ -20,6 +20,8 @@ class ProductSeeder extends Seeder
                 'age' => 3,
                 'origin' => 'Rioja',
                 'country' => 'Spain',
+                'grape_type' => 'Tempranillo', // Agregado: Tipo de uva
+                'wine_type' => 'Tinto', // Agregado: Tipo de vino
             ],
             [
                 'product_name' => 'Château Margaux Grand Cru Classé',
@@ -28,6 +30,8 @@ class ProductSeeder extends Seeder
                 'age' => 5,
                 'origin' => 'Bordeaux',
                 'country' => 'France',
+                'grape_type' => 'Cabernet Sauvignon', // Agregado: Tipo de uva
+                'wine_type' => 'Tinto', // Agregado: Tipo de vino
             ],
             [
                 'product_name' => 'Barolo Riserva Pio Cesare',
@@ -36,6 +40,8 @@ class ProductSeeder extends Seeder
                 'age' => 4,
                 'origin' => 'Barolo',
                 'country' => 'Italy',
+                'grape_type' => 'Riesling', // Agregado: Tipo de uva
+                'wine_type' => 'Tinto', // Agregado: Tipo de vino
             ],
             [
                 'product_name' => 'Vega Sicilia Único',
@@ -44,6 +50,8 @@ class ProductSeeder extends Seeder
                 'age' => 6,
                 'origin' => 'Ribera del Duero',
                 'country' => 'Spain',
+                'grape_type' => 'Tempranillo', // Agregado: Tipo de uva
+                'wine_type' => 'Tinto', // Agregado: Tipo de vino
             ],
             [
                 'product_name' => 'Antinori Tignanello',
@@ -52,6 +60,8 @@ class ProductSeeder extends Seeder
                 'age' => 8,
                 'origin' => 'Tuscany',
                 'country' => 'Italy',
+                'grape_type' => 'Sangiovese', // Agregado: Tipo de uva
+                'wine_type' => 'Tinto', // Agregado: Tipo de vino
             ],
             [
                 'product_name' => 'Chardonnay de la Valle',
@@ -110,7 +120,7 @@ class ProductSeeder extends Seeder
                 'age' => 8,
                 'origin' => 'South Australia',
                 'country' => 'Australia',
-                'grape_type' => 'Shiraz',
+                'grape_type' => 'Zinfandel',
                 'wine_type' => 'Tinto',
             ],
             [
@@ -130,7 +140,7 @@ class ProductSeeder extends Seeder
                 'age' => 10,
                 'origin' => 'Douro Valley',
                 'country' => 'Portugal',
-                'grape_type' => 'Blend',
+                'grape_type' => 'Malbec',
                 'wine_type' => 'Fortificado',
             ],
             [
@@ -140,7 +150,7 @@ class ProductSeeder extends Seeder
                 'age' => 2,
                 'origin' => 'Napa Valley',
                 'country' => 'USA',
-                'grape_type' => 'Blend',
+                'grape_type' => 'Malbec',
                 'wine_type' => 'Espumoso',
             ]
         ];
