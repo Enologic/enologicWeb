@@ -1,14 +1,19 @@
 @extends('layouts.general')
 
 @section('wishlist')
-{{-- HEADER --}}
-<nav>
-</nav>
 
-{{-- Vista principal --}}
-{{-- Aquí irán todos los yields de las vistas que tengamos. --}}
 <div class="container mt-5">
-    <h1 class="mb-4">Wishlist - USER</h1>
+    <div class="container d-flex">
+
+        <h1 class="col-9">Wishlist - USER</h1>
+
+        <div class="col-3 d-flex align-items-center justify-content-end">
+            {{-- Boton para volver a PROFILE --}}
+            <a class="btn btn-dark" href="{{ url('/show') }}">
+                <i class="fa-solid fa-rotate-left"></i>
+            </a>
+        </div>
+    </div>
 
     <div class="table-responsive">
         <table class="table">

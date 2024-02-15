@@ -1,9 +1,7 @@
 @extends('layouts.general')
 
 @section('checkout')
-    {{-- HEADER --}}
-    <nav>
-    </nav>
+
     @php
         $totalQuantity = 0;
         foreach ($products as $product) {
@@ -11,14 +9,14 @@
         }
     @endphp
 
-<div class="container d-flex my-5">
+<div class="container d-flex my-5 mb-0">
 
     <h1 class="col-9">Confirm Checkout</h1>
 
     <div class="col-3 text-end">
         {{-- Boton para volver a DASHBOARD --}}
         <a class="btn btn-dark mb-3" href="{{ url('/cart') }}">
-            {{ __('Back') }}
+            <i class="fa-solid fa-rotate-left"></i>
         </a>
 
     </div>
@@ -53,7 +51,7 @@
                     </div>
                    <div class="text-center">
                    <!-- Botón para vaciar el carrito -->
-                   <button class="col-3 btn btn-danger mt-3" onclick="clearCart()">Remove</button>
+                   <button class="col-3 col-md-5 col-lg-4 btn btn-danger mt-3" onclick="clearCart()">Remove</button>
                   </div>
                 </form>
 
@@ -192,6 +190,5 @@
             </div>
         </div>
     </div>
-    <footer>
-    </footer>
+
 @endsection

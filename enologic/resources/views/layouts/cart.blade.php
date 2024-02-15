@@ -1,13 +1,9 @@
 @extends('layouts.general')
 
 @section('cart')
-    {{-- HEADER --}}
-    <nav>
-    </nav>
 
-    {{-- Vista principal --}}
-    {{-- Aquí irán todos los yields de las vistas que tengamos. --}}
-    <script>
+
+ <script>
 
        let increaseUrl = "{{ route('cart.increase', '?') }}";
        let decreaseUrl = "{{ route('cart.decrease', '?') }}";
@@ -21,7 +17,7 @@
             <div class="col-3 d-flex justify-content-end align-items-center">
                 {{-- Boton para volver a DASHBOARD --}}
                 <a class="btn btn-dark" href="{{ 'show' }}">
-                    {{ __('Back') }}
+                    <i class="fa-solid fa-rotate-left"></i>
                 </a>
             </div>
 
