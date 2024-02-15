@@ -11,8 +11,11 @@
 
                 <div class="">
                     {{-- Botón para volver a DASHBOARD --}}
-                    <a class="btn btn-dark mb-3" href="{{ 'home' }}">
-                        {{ __('Back') }}
+                    <a class="btn btn-dark mb-3" href="{{ url('/home') }}">
+                        <i class="fa-solid fa-rotate-left"></i>
+                    </a>
+                    <a class="btn btn-dark mb-3" href="{{ url('/profile') }}">
+                        <i class="fa-solid fa-user"></i>
                     </a>
                 </div>
                 {{-- Botón para añadir un producto --}}

@@ -15,6 +15,10 @@
                 <a class="btn btn-dark mb-3" href="{{ url('/profile') }}">
                     <i class="fa-solid fa-user"></i>
                 </a>
+                <a class="btn btn-dark mb-3" href="{{ url('/wishlist') }}">
+                    <i class="fa-solid fa-heart"></i>
+                </a>
+
 
 
                 {{-- Boton para ir a CART --}}
@@ -41,7 +45,7 @@
                 <tr class="">
                     <th scope="col">Name</th>
                     {{-- <th scope="col">Description</th> --}}
-                    <th  scope="col">Price</th>
+                    <th scope="col">Price</th>
                     <th scope="col">Age</th>
                     <th scope="col">Country</th>
                     <th scope="col">Origin</th>
