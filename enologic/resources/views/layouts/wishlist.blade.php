@@ -1,6 +1,6 @@
-@extends('layouts.template')
+@extends('layouts.general')
 
-@section('general')
+@section('wishlist')
 {{-- HEADER --}}
 <nav>
 </nav>

@@ -1,7 +1,7 @@
 
-@extends('layouts.template')
+@extends('layouts.general')
 
-@section('general')
+@section('add')
     <div class="container my-5">
         <div class="container d-flex">
 

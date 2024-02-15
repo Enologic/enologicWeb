@@ -1,6 +1,6 @@
-@extends('layouts.template')
+@extends('layouts.general')
 
-@section('general')
+@section('viewOrders')
     <div class="container mt-5">
         <h1>User Orders</h1>
 

@@ -5,9 +5,18 @@ body {
     margin: 0;
 }
 
+/* NAVBAR */
+.dropdown-menu .dropdown-item:hover {
+    background-color: #6c757d;
+    color: #ffffff; 
+}
+
+.dropdown-menu .dropdown-item:active {
+    background-color: #212529;
+    color: #ffffff; 
+}
 
 /* FOOTER */
-
 footer {
     position: fixed;
     bottom: 0;
