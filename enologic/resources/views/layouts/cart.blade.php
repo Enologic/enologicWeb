@@ -7,6 +7,8 @@
 
        let increaseUrl = "{{ route('cart.increase', '?') }}";
        let decreaseUrl = "{{ route('cart.decrease', '?') }}";
+       let stockUrl = "{{ route('product.stock', ['id' => ':id']) }}";
+
     </script>
 
     <div class="container mt-5">

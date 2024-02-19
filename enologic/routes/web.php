@@ -88,5 +88,6 @@ Route::prefix('')->middleware('auth', 'verified')->group(function () {
 
     Route::get('/user/orders', [OrderController::class, 'viewUserOrders'])->name('user.orders');
 
-
+    Route::get('/products/{id}/stock', [ProductController::class, 'getStock'])->name('product.stock');
+    
 });

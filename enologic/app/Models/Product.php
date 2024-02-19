@@ -18,6 +18,7 @@ class Product extends Model
         'age',
         'origin',
         'country',
+        'stock',
     ];
 
     protected $casts = [

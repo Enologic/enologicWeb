@@ -178,4 +178,10 @@ class ProductController extends Controller
 
         return view('layouts.show', compact('products', 'grapeTypes', 'wineTypes', 'category'));
     }
+
+    public function getStock(Request $request, $id)
+    {
+        $product = Product::findOrFail($id);
+        return (int) $product->stock;
+    }
 }

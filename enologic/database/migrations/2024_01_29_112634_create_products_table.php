@@ -44,7 +44,8 @@ return new class extends Migration
            $table->integer('age');
            $table->string('origin');
            $table->string('country');
-            $table->timestamps();
+           $table->integer('stock')->default(0);
+           $table->timestamps();
         });
     }
 
