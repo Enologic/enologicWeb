@@ -31,7 +31,7 @@
                                 <td>{{ $order->id }}</td>
                                 <td>{{ $order->created_at }}</td>
                                 <td>
-                                    <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                    <button type="button" class="btn btn-dark" data-bs-toggle="modal"
                                         data-bs-target="#orderModal{{ $order->id }}">
                                         View Details
                                     </button>
@@ -57,7 +57,7 @@
                                             <th scope="col">Product Name</th>
                                             <th scope="col">Price</th>
                                             <th scope="col">Quantity</th>
-                                            <th scope="col">Total</th>
+                                            <th scope="col">Subtotal</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -71,6 +71,9 @@
                                         @endforeach
                                     </tbody>
                                 </table>
+                                <h5 class="text-end">Total:
+                                    {{ $order->products->sum(function ($product) {return $product->price * $product->pivot->quantity;}) }} €
+                                </h5>
                             </div>
                             <div class="modal-footer justify-content-center bg-dark">
                                 <button type="button" class="btn btn-success" data-bs-dismiss="modal">Close</button>

@@ -30,7 +30,7 @@
                     <li><strong>Teléfono:</strong> {{ $user->phone }}</li>
                     <li><strong>Nombre:</strong> {{ $user->name }}</li>
                 </ul>
-                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editProfileModal">
+                <button type="button" class="mt-3 btn btn-dark" data-bs-toggle="modal" data-bs-target="#editProfileModal">
                     Edit Profile
                 </button>
             </div>
@@ -42,13 +42,14 @@
                         <li><strong>Ciudad:</strong> {{ $address->city ?? 'unknown' }}</li>
                         <li><strong>País:</strong> {{ $address->country ?? 'unknown' }}</li>
                         <li><strong>Código Postal:</strong> {{ $address->zipcode ?? 'unknown' }}</li>
-                        <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                </ul>
+                        <button type="button" class="mt-3 btn btn-dark" data-bs-toggle="modal"
                             data-bs-target="#editAddressModal">
                             Edit Address
                         </button>
                     @else
                         <li>No hay información de dirección disponible.</li>
-                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addAddressModal">
+                        <button type="button" class="mt-3 btn btn-primary" data-bs-toggle="modal" data-bs-target="#addAddressModal">
                             Add Address
                         </button>
                     @endisset
