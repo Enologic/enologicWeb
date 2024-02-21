@@ -184,7 +184,11 @@
                     <hr class="my-4">
 
                     <div class="container d-flex justify-content-center col-6 mb-5">
+                        @if ($products->sum('pivot.quantity') > 0)
                         <button class="w-50 btn btn-dark btn-lg mb-5" type="submit">Confirm order</button>
+                    @else
+                    <button class="w-50 btn btn-dark btn-lg mb-5" type="submit" disabled>No products</button>
+                    @endif
                     </div>
                 </form>
             </div>

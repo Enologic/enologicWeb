@@ -9,6 +9,8 @@ $(document).ready(function () {
     // Manejar el click en el botón de disminución
     $(".decrease").click(function () {
         let productId = $(this).data("product-id");
+        let unitDeleteSpan = $('#units-delete');
+
 
         // Realizar la solicitud AJAX para disminuir la cantidad
         $.post(decreaseUrl.replace("?", productId), function (data) {
@@ -22,6 +24,7 @@ $(document).ready(function () {
             // Decrementar la cantidad
             let newQuantity = currentQuantity - 1;
             quantityInput.val(newQuantity);
+            unitDeleteSpan.text("x"+newQuantity);
 
             // Actualizar el subtotal
             let price = parseFloat(
@@ -43,6 +46,7 @@ $(document).ready(function () {
     // Manejar el click en el botón de aumento
     $(".increase").click(function () {
         let productId = $(this).data("product-id");
+        let unitDeleteSpan = $('#units-delete');
 
         // Realizar la solicitud AJAX para obtener el stock del producto
         $.get(stockUrl.replace(':id', productId), function (stock) {
@@ -59,6 +63,7 @@ $(document).ready(function () {
                 // Incrementar la cantidad
                 let newQuantity = currentQuantity + 1;
                 quantityInput.val(newQuantity);
+                unitDeleteSpan.text("x"+newQuantity);
 
                 // Actualizar el subtotal
                 let price = parseFloat($(this).closest("tr").find(".price").text().replace(" €", ""));

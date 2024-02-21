@@ -70,7 +70,7 @@
                                     <p class="m-0 fw-medium">Do you want to remove from cart this product?
                                     </p>
                                     <p class="fw-bolder mt-3">{{ $product->product_name }}</p>
-                                    <p class="mt-3"><span class="fw-medium quantity-modal">x{{ $product->pivot->quantity }}</span> Units
+                                    <p class="mt-3"><span id="units-delete" class="fw-medium quantity-modal">x{{ $product->pivot->quantity }}</span> Units
                                     </p>
                                 </div>
                                 <div class="bg-dark modal-footer justify-content-center">
@@ -123,8 +123,7 @@
                                 <th scope="col">Name</th>
                                 <th scope="col" class="text-center">Price</th>
                                 <th scope="col" class="text-center">Quantity</th>
-                                <th scope="col" class="text-center">Total</th>
-                                <th></th>
+                                <th scope="col" class="text-center">Subtotal</th>
                             </tr>
                         </thead>
                         <tbody>
