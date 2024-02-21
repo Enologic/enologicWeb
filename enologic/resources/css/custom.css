@@ -42,3 +42,9 @@ footer {
     box-shadow: 0 0 0 4px rgb(223, 223, 223); /* Por ejemplo, cambia el color de fondo a azul */
     border-color: grey;
 }
+
+/* VISTA ADD - ADMIN */
+
+#add-blade-alert{
+    padding-right: 16px;
+}

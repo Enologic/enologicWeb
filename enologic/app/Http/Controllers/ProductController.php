@@ -97,7 +97,7 @@ class ProductController extends Controller
     }
 
 
-    // ELIMINAR EL Producto SELECCIONADO
+    // ELIMINAR EL PRODUCTO SELECCIONADO
     public function deleteProducto($id)
     {
         $product = Product::where('id', $id)->first();
@@ -107,6 +107,7 @@ class ProductController extends Controller
         return back()->with('success', 'Product deleted successfully');
     }
 
+    // EDITAR EL PRODUCTO SELECCIONADO
     public function updateProducto(Request $request, $id)
     {
         try {
@@ -161,7 +162,6 @@ class ProductController extends Controller
 
             $grapeTypes = Product::getGrapeTypes();
             $wineTypes = Product::getWineTypes();
-
         } else {
             $products = Product::where('grape_type', $category)->get();
             // Obtener los tipos de uva y tipos de vino
@@ -173,7 +173,6 @@ class ProductController extends Controller
             $wineTypes = Product::getWineTypes();
             array_unshift($wineTypes, 'All Categories');
             $wineTypes = array_diff($wineTypes, [$category]);
-
         }
 
 
