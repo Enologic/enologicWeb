@@ -150,7 +150,6 @@
                             <button class="btn btn-success" disabled>Checkout</button>
                         @endif
                     </div>
-
             </div>
         </div>
     </div>
