@@ -42,6 +42,7 @@
                     <th scope="col">Country</th>
                     <th scope="col">Grape Type</th>
                     <th scope="col">Wine Type</th>
+                    <th scope="col">Stock</th>
                     <th scope="col">Action</th>
                 </tr>
             </thead>
@@ -56,6 +57,7 @@
                     <td>{{ $product->country }}</td>
                     <td>{{ $product->grape_type }}</td>
                     <td>{{ $product->wine_type }}</td>
+                    <td>{{ $product->stock }}</td>
                     <td>
                             <div class="d-flex justify-content-center">
                                 {{-- Botón para editar un Producto --}}
@@ -169,6 +171,11 @@
                                                 @endforeach
                                             </select>
                                         </div>
+
+                                        <div class="form-group mb-3">
+                                            <label for="stock"class="fw-medium">Stock:</label>
+                                            <input type="number" name="stock" class="form-control"  value="{{ $product->stock }}" required>
+                                        </div>
                                 </div>
                                 <div class="modal-footer justify-content-center bg-dark">
                                     <button type="submit" class="btn btn-success">Save Changes</button>
@@ -241,6 +248,11 @@
                             </select>
                         </div>
 
+                        <div class="form-group mb-3">
+                            <label for="stock"class="fw-medium">Stock:</label>
+                            <input type="number" name="stock" class="form-control" required>
+                        </div>
+
                 </div>
                 <div class="modal-footer justify-content-center bg-dark">
                     <button type="submit" class="btn btn-success">Add Product</button>
@@ -249,7 +261,7 @@
             </div>
         </div>
     </div>
-    
+
     <div class="container mb-5">
     <h2>Top 3 Favorite Products</h2>
     <div class="table-responsive">
@@ -277,5 +289,5 @@
         </table>
     </div>
 </div>
-    
+
 @endsection
