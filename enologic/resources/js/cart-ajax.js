@@ -44,31 +44,37 @@ $(document).ready(function () {
     $(".increase").click(function () {
         let productId = $(this).data("product-id");
 
-        // Realizar la solicitud AJAX para aumentar la cantidad
-        $.post(increaseUrl.replace("?", productId), function (data) {
-            console.log("La ruta POST de aumento fue llamada correctamente");
-        });
+        // Realizar la solicitud AJAX para obtener el stock del producto
+        $.get(stockUrl.replace(':id', productId), function (stock) {
+            let quantityInput = $(this).siblings(".quantity");
+            let currentQuantity = parseInt(quantityInput.val());
 
-        let quantityInput = $(this).siblings(".quantity");
-        let currentQuantity = parseInt(quantityInput.val());
+            // Verificar si la cantidad actual es menor que el stock disponible
+            if (currentQuantity < stock) {
+                // Realizar la solicitud AJAX para aumentar la cantidad
+                $.post(increaseUrl.replace("?", productId), function (data) {
+                    console.log("La ruta POST de aumento fue llamada correctamente");
+                });
 
-        // Incrementar la cantidad
-        let newQuantity = currentQuantity + 1;
-        quantityInput.val(newQuantity);
+                // Incrementar la cantidad
+                let newQuantity = currentQuantity + 1;
+                quantityInput.val(newQuantity);
 
-        // Actualizar el subtotal
-        let price = parseFloat(
-            $(this).closest("tr").find(".price").text().replace(" €", "")
-        );
-        $(this)
-            .closest("tr")
-            .find(".subtotal")
-            .text(price * newQuantity + " €");
-        let total = 0;
-        $(".subtotal").each(function () {
-            let subtotal = parseFloat($(this).text().replace(" €", ""));
-            total += subtotal;
-        });
-        $("h5#total").text("Total" + ": " + total + " €");
+                // Actualizar el subtotal
+                let price = parseFloat($(this).closest("tr").find(".price").text().replace(" €", ""));
+                $(this)
+                    .closest("tr")
+                    .find(".subtotal")
+                    .text(price * newQuantity + " €");
+                let total = 0;
+                $(".subtotal").each(function () {
+                    let subtotal = parseFloat($(this).text().replace(" €", ""));
+                    total += subtotal;
+                });
+                $("h5#total").text("Total" + ": " + total + " €");
+            } else {
+            }
+        }.bind(this)); // Bind 'this' para mantener la referencia adecuada dentro de la función de devolución de llamada
     });
+
 });

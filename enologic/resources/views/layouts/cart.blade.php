@@ -7,6 +7,8 @@
 
        let increaseUrl = "{{ route('cart.increase', '?') }}";
        let decreaseUrl = "{{ route('cart.decrease', '?') }}";
+       let stockUrl = "{{ route('product.stock', ['id' => ':id']) }}";
+
     </script>
 
     <div class="container mt-5">
@@ -93,9 +95,13 @@
             {{-- Botón para finalizar compra e ir a checkout --}}
             <div class="mt-3">
                 <div class="d-inline-block">
+                    @if ($products->sum('pivot.quantity') > 0)
                     <a href="#" class="btn btn-success mx-1" data-bs-toggle="modal" data-bs-target="#sendOrderModal">
                         Send order
                     </a>
+                        @else
+                            <button class="btn btn-success mx-1" disabled>Send order</button>
+                        @endif
                 </div>
             </div>
         </div>
@@ -136,11 +142,15 @@
                     <h5 class="text-end">Total:
                         {{ $products->sum(function ($product) {return $product->price * $product->pivot->quantity;}) }} €
                     </h5>
+                    </div>
+                    <div class="modal-footer justify-content-center bg-dark">
+                        @if ($products->sum('pivot.quantity') > 0)
+                            <a href="{{ 'order' }}" type="submit" class="btn btn-success">Checkout</a>
+                        @else
+                            <button class="btn btn-success" disabled>Checkout</button>
+                        @endif
+                    </div>
 
-                </div>
-                <div class="modal-footer justify-content-center bg-dark">
-                    <a href="{{ 'order' }}" type="submit" class="btn btn-success">Checkout</a>
-                </div>
             </div>
         </div>
     </div>

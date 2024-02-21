@@ -30,7 +30,8 @@ class OrderController extends Controller
 
             foreach ($productsInCart as $product) {
                 $quantity = $product->pivot->quantity;
-
+                $product->stock -= $quantity;
+                $product->save();
                 $order->products()->attach($product, ['quantity' => $quantity]);
             }
 

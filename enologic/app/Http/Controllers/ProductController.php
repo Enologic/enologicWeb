@@ -75,6 +75,7 @@ class ProductController extends Controller
             $productoNuevo->country = $request->country;
             $productoNuevo->grape_type = $request->grape_type; // Asignar el valor del enum grape_type
             $productoNuevo->wine_type = $request->wine_type; // Asignar el valor del enum wine_type
+            $productoNuevo->stock = $request->stock;
 
             // Comienza una transacción
             DB::beginTransaction();
@@ -135,6 +136,7 @@ class ProductController extends Controller
                 'country'      => $request->input('country'),
                 'grape_type'   => $request->input('grape_type'), // Actualiza el campo grape_type
                 'wine_type'    => $request->input('wine_type'), // Actualiza el campo wine_type
+                'stock'        => $request->input('stock'),
             ]);
 
             // Commit de la transacción si no hay errores
@@ -177,5 +179,11 @@ class ProductController extends Controller
 
 
         return view('layouts.show', compact('products', 'grapeTypes', 'wineTypes', 'category'));
+    }
+
+    public function getStock(Request $request, $id)
+    {
+        $product = Product::findOrFail($id);
+        return (int) $product->stock;
     }
 }

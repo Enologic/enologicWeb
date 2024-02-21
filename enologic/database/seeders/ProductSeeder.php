@@ -22,6 +22,7 @@ class ProductSeeder extends Seeder
                 'country' => 'Spain',
                 'grape_type' => 'Tempranillo', // Agregado: Tipo de uva
                 'wine_type' => 'Tinto', // Agregado: Tipo de vino
+                'stock' => 30,
             ],
             [
                 'product_name' => 'Château Margaux Grand Cru Classé',
@@ -32,6 +33,7 @@ class ProductSeeder extends Seeder
                 'country' => 'France',
                 'grape_type' => 'Cabernet Sauvignon', // Agregado: Tipo de uva
                 'wine_type' => 'Tinto', // Agregado: Tipo de vino
+                'stock' => 20,
             ],
             [
                 'product_name' => 'Barolo Riserva Pio Cesare',
@@ -42,6 +44,7 @@ class ProductSeeder extends Seeder
                 'country' => 'Italy',
                 'grape_type' => 'Riesling', // Agregado: Tipo de uva
                 'wine_type' => 'Tinto', // Agregado: Tipo de vino
+                'stock' => 30,
             ],
             [
                 'product_name' => 'Vega Sicilia Único',
@@ -52,6 +55,7 @@ class ProductSeeder extends Seeder
                 'country' => 'Spain',
                 'grape_type' => 'Tempranillo', // Agregado: Tipo de uva
                 'wine_type' => 'Tinto', // Agregado: Tipo de vino
+                'stock' => 15,
             ],
             [
                 'product_name' => 'Antinori Tignanello',
@@ -62,6 +66,7 @@ class ProductSeeder extends Seeder
                 'country' => 'Italy',
                 'grape_type' => 'Sangiovese', // Agregado: Tipo de uva
                 'wine_type' => 'Tinto', // Agregado: Tipo de vino
+                'stock' => 25,
             ],
             [
                 'product_name' => 'Chardonnay de la Valle',
@@ -72,6 +77,7 @@ class ProductSeeder extends Seeder
                 'country' => 'USA',
                 'grape_type' => 'Chardonnay',
                 'wine_type' => 'Blanco',
+                'stock' => 30,
             ],
             [
                 'product_name' => 'Dom Pérignon Vintage',
@@ -82,6 +88,7 @@ class ProductSeeder extends Seeder
                 'country' => 'France',
                 'grape_type' => 'Pinot Noir',
                 'wine_type' => 'Espumoso',
+                'stock' => 30,
             ],
             [
                 'product_name' => 'Catena Zapata Malbec',
@@ -92,6 +99,7 @@ class ProductSeeder extends Seeder
                 'country' => 'Argentina',
                 'grape_type' => 'Malbec',
                 'wine_type' => 'Tinto',
+                'stock' => 25,
             ],
             [
                 'product_name' => 'Cloudy Bay Sauvignon Blanc',
@@ -102,6 +110,7 @@ class ProductSeeder extends Seeder
                 'country' => 'New Zealand',
                 'grape_type' => 'Sauvignon Blanc',
                 'wine_type' => 'Blanco',
+                'stock' => 15,
             ],
             [
                 'product_name' => 'Stags Leap Cabernet Sauvignon',
@@ -112,6 +121,7 @@ class ProductSeeder extends Seeder
                 'country' => 'USA',
                 'grape_type' => 'Cabernet Sauvignon',
                 'wine_type' => 'Tinto',
+                'stock' => 10,
             ],
             [
                 'product_name' => 'Penfolds Grange Shiraz',
@@ -122,6 +132,7 @@ class ProductSeeder extends Seeder
                 'country' => 'Australia',
                 'grape_type' => 'Zinfandel',
                 'wine_type' => 'Tinto',
+                'stock' => 18,
             ],
             [
                 'product_name' => 'Rombauer Vineyards Zinfandel',
@@ -132,6 +143,7 @@ class ProductSeeder extends Seeder
                 'country' => 'USA',
                 'grape_type' => 'Zinfandel',
                 'wine_type' => 'Tinto',
+                'stock' => 33,
             ],
             [
                 'product_name' => 'Graham\'s Vintage Port',
@@ -142,6 +154,7 @@ class ProductSeeder extends Seeder
                 'country' => 'Portugal',
                 'grape_type' => 'Malbec',
                 'wine_type' => 'Fortificado',
+                'stock' => 22,
             ],
             [
                 'product_name' => 'Mumm Napa Brut Prestige',
@@ -152,6 +165,7 @@ class ProductSeeder extends Seeder
                 'country' => 'USA',
                 'grape_type' => 'Malbec',
                 'wine_type' => 'Espumoso',
+                'stock' => 17,
             ]
         ];
 
