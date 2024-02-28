@@ -9,8 +9,7 @@ use Illuminate\Support\Facades\DB;
 
 class AddressController extends Controller
 {
-    public function saveAddress(Request $request)
-    {
+    public function saveAddress(Request $request){
         try {
             // Iniciamos una transacción en la base de datos
             DB::beginTransaction();
@@ -65,8 +64,7 @@ class AddressController extends Controller
         }
     }
 
-public function editAddress(Request $request)
-{
+public function editAddress(Request $request){
     try {
         // Iniciamos una transacción en la base de datos
         DB::beginTransaction();
