@@ -164,14 +164,15 @@ class ProductController extends Controller
         $category = $request->input('category');
 
         if ($category === "All Categories") {
-            $products = Product::all();
+            $products = Product::paginate(10);
 
             $grapeTypes = Product::getGrapeTypes();
             $wineTypes = Product::getWineTypes();
 
         } else {
-            $products = Product::where('grape_type', $category)->get();
+            $products = Product::where('grape_type', $category)->paginate(10);
             // Obtener los tipos de uva y tipos de vino
+
             $grapeTypes = Product::getGrapeTypes();
             array_unshift($grapeTypes, 'All Categories');
             $grapeTypes = array_diff($grapeTypes, [$category]);

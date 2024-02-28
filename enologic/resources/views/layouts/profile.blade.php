@@ -95,16 +95,21 @@
                         </div>
                         <div class="modal-footer justify-content-center bg-dark">
                             <button type="submit" class="btn btn-success">Save Changes</button>
-                        </div>
+                        
                         </form>
+                        <form id="deleteAddressForm{{ $address->id }}" action="{{ route('address.delete') }}" method="POST">
+                            @csrf
+                            <input type="hidden" name="address_id" value="{{ $address->id }}">
+                            <button type="submit" class="btn btn-danger">Delete Address</button>
+                        </form>
+                        </div>
+                        
                     </div>
                 </div>
             </div>
         </div>
         @endforeach
-    
-
-    @else
+     @else
     <p>No hay información de dirección disponible.</p>
     @endif
     @else

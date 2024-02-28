@@ -124,5 +124,35 @@ public function editAddress(Request $request){
     }
 }
 
+public function deleteAddress(Request $request){
+    try {
+        // Validar la solicitud para asegurarnos de que contiene la ID de la dirección
+        $request->validate([
+            'address_id' => 'required|integer|exists:addresses,id',
+        ]);
+
+        // Obtener la ID de la dirección de la solicitud
+        $addressId = $request->input('address_id');
+
+        // Buscar la dirección por su ID
+        $address = Address::find($addressId);
+
+        // Verificar si la dirección existe
+        if (!$address) {
+         return redirect()->back()->with('error', 'Address not found.');
+        }
+
+        // Eliminar la dirección
+        $address->delete();
+
+        return redirect()->back()->with('success', 'Address deleted successfully');
+    } catch (\Exception $e) {
+        // Manejar cualquier excepción capturada
+        \Log::error('Error deleting address: ' . $e->getMessage());
+        dd($e);
+        return redirect()->back()->with('error', 'Error deleting address: ' . $e->getMessage());
+    }
+}
+
 
 }
