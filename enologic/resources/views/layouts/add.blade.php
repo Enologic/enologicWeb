@@ -31,7 +31,7 @@
             </div>
         </div>
 
-        <table class="table">
+        <table class="table table-responsive">
             <thead>
                 <tr>
                     <th scope="col">Name</th>
@@ -189,6 +189,8 @@
                 <!-- Puedes agregar más filas según sea necesario -->
             </tbody>
         </table>
+        {{ $products->links('pagination::bootstrap-5') }}
+
     </div>
 
 
@@ -261,6 +263,7 @@
             </div>
         </div>
     </div>
+
 
     <div class="container mb-5">
     <h2>Top 3 Favorite Products</h2>
