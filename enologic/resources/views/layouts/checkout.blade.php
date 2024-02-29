@@ -53,22 +53,83 @@ $totalQuantity += $product->pivot->quantity;
                 @endforeach
             </ul>
 
-            <!-- Mostrar el precio total -->
-            <div class="d-flex justify-content-between">
-                <strong> Total {{ number_format($totalPrice, 2) }}€</strong>
-            </div>
+         <!-- Mostrar el precio total -->
+<div id="totalContainer" class="d-flex justify-content-between">
+    <strong><p id="total">Total: <span id="totalAmount">{{ number_format($totalPrice, 2) }}</span> €</p></strong>
+</div>
+<div id="discountApplied" style="display: none;">
+    <p>Descuento aplicado</p>
+</div>
+<div id="invalidCoupon" style="display: none;">
+    <p style="color: red;">El cupón no existe</p>
+</div>
 
 
-            <form class="card p-2">
-                <div class="input-group">
-                    <input type="text" class="form-control" placeholder="Promo code">
-                    <button type="submit" class="btn btn-secondary">Redeem</button>
-                </div>
-                <div class="text-center">
-                    <!-- Botón para vaciar el carrito -->
-                    <button class="col-3 col-md-5 col-lg-4 btn btn-danger mt-3" onclick="clearCart()">Remove</button>
-                </div>
-            </form>
+<form class="card p-2" id="couponForm">
+    <div id="redeemButton" class="input-group">
+        <input type="text" class="form-control" id="couponCode" placeholder="Promo code" required>
+        <button type="submit" class="btn btn-secondary">Redeem</button>
+    </div>
+    <div class="text-center">
+        <button style="display: none;" id="removeButton" type="button" class="col-3 col-md-5 col-lg-4 btn btn-danger">Remove</button>
+    </div>
+</form>
+
+<script>
+    $(document).ready(function() {
+        // Manejar clics en el botón "Remove"
+        $('#removeButton').click(function() {
+            // Ocultar el mensaje de descuento aplicado
+            $('#discountApplied').hide();
+            // Mostrar el botón "Redeem" y ocultar el botón "Remove"
+            $('#redeemButton').show();
+            $('#removeButton').hide();
+            // Restaurar el total original
+            let originalTotal = parseFloat('{{ $totalPrice }}');
+            $('#totalAmount').text(originalTotal.toFixed(2));
+        });
+
+        // Manejar el envío del formulario
+        $('#couponForm').submit(function(event) {
+            event.preventDefault();
+            let couponCode = $('#couponCode').val();
+            
+            // Realizar la solicitud AJAX para aplicar el cupón
+            $.ajax({
+                type: 'POST',
+                url: '{{ route("apply.coupon") }}',
+                data: {
+                    _token: '{{ csrf_token() }}',
+                    coupon_code: couponCode
+                },
+                success: function(response) {
+                    // Manejar la respuesta del servidor
+                    if (response.discount_percentage) {
+                        // Mostrar el mensaje de descuento aplicado
+                        $('#discountApplied').show();
+                        $('#removeButton').show();
+                        $('#redeemButton').hide();
+                        $('#invalidCoupon').hide();
+
+                        // Obtener el total actual y el nuevo total con descuento aplicado
+                        let currentTotal = parseFloat($('#totalAmount').text());
+                        let discount = currentTotal * (response.discount_percentage / 100);
+                        let newTotal = currentTotal - discount;
+                        
+                        // Actualizar el HTML para mostrar el nuevo total con descuento aplicado
+                        $('#totalAmount').html('<del style="color: black;">' + currentTotal.toFixed(2) + '</del> <span style="color: red;">' + newTotal.toFixed(2) + '</span>');
+
+                    } else {
+                        $('#invalidCoupon').show();
+                    }
+                },
+                error: function(xhr, status, error) {
+                    alert('Se produjo un error al aplicar el cupón. Por favor, inténtalo de nuevo.');
+                }
+            });
+        });
+    });
+</script>
 
         </div>
         <div class="col-md-7 col-lg-8">

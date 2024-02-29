@@ -12,7 +12,7 @@ $(document).ready(function () {
         let unitDeleteSpan = $('#units-delete');
         let subtotalModal = $(`#subtotalModal${productId}`); 
         let quantityModal = $(`#quantityModal${productId}`); 
-
+        let quantityDeleteModal = $(`#quantityDeleteModal${productId}`);
 
         // Realizar la solicitud AJAX para disminuir la cantidad
         $.post(decreaseUrl.replace("?", productId), function (data) {
@@ -44,6 +44,7 @@ $(document).ready(function () {
             });
             $("h5#total").text("Total" + ": " + total + " €");
             quantityModal.text(newQuantity);
+            quantityDeleteModal.text("x"+newQuantity);
             updateTotal()
         }
     });
@@ -70,7 +71,9 @@ $(document).ready(function () {
                 quantityInput.val(newQuantity);
                 unitDeleteSpan.text("x"+newQuantity);
                 let quantityModal = $(`#quantityModal${productId}`); 
+                let quantityDeleteModal = $(`#quantityDeleteModal${productId}`);
                 quantityModal.text(newQuantity);
+                quantityDeleteModal.text("x"+newQuantity);
                 let subtotalModal = $(`#subtotalModal${productId}`); 
 
                 // Actualizar el subtotal
