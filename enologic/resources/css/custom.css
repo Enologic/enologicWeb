@@ -4,12 +4,15 @@ body {
     min-height: 100vh;
     margin: 0;
     background-color: rgb(241, 232, 213);
+    background-image: url('../../public/img/bg-bodega.jpg');
+    background-size: cover;
 }
 
 /* NAVBAR */
 
 .navbar {
-    background-color: rgb(148, 148, 130);
+    background-color: rgb(94, 11, 11);
+    color: #f1f1f1;
 }
 
 .dropdown-menu .dropdown-item:hover {
@@ -78,12 +81,12 @@ footer {
 /* CARDS */
 
 .card-header {
-    background-color: rgb(148, 148, 130);
+    background-color: rgb(94, 11, 11);
     color: white;
 }
 
 .card-body {
-    background-color: rgb(128, 153, 137);
+    background-color: rgb(128, 117, 94);
     color: white;
 }
 
