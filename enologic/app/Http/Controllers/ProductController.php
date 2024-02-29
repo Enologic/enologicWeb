@@ -34,10 +34,15 @@ class ProductController extends Controller
 
             // Obtener los productos más añadidos y el total
             $mostAddedProducts = $mostAddedProductsData['mostAddedProducts'];
+            $mostAddedProductsDetails = $mostAddedProductsData['mostAddedProductsDetails'];
             $totalMostAddedProducts = $mostAddedProductsData['totalMostAddedProducts'];
 
             // Pasar los productos, tipos de uva, tipos de vino y productos más añadidos a la vista
-            return view('layouts.add', compact('products', 'grapeTypes', 'wineTypes', 'mostAddedProducts', 'totalMostAddedProducts'));
+          
+            //Paginacion
+            $products = Product::paginate(10);
+
+            return view('layouts.add', compact('products', 'grapeTypes', 'wineTypes', 'mostAddedProducts', 'totalMostAddedProducts', 'mostAddedProductsDetails'));
         } catch (\Exception $e) {
             // Manejar el error apropiadamente, por ejemplo, redirigiendo con un mensaje de error
             return redirect()->back()->with('error', 'Error: ' . $e->getMessage());
@@ -52,6 +57,9 @@ class ProductController extends Controller
         $grapeTypes = Product::getGrapeTypes();
         $wineTypes = Product::getWineTypes();
 
+    //Paginacion
+    $products = Product::paginate(10);
+    
         return view('layouts.show', compact('products',  'grapeTypes', 'wineTypes',));
     }
 
@@ -158,13 +166,14 @@ class ProductController extends Controller
         $category = $request->input('category');
 
         if ($category === "All Categories") {
-            $products = Product::all();
+            $products = Product::paginate(10);
 
             $grapeTypes = Product::getGrapeTypes();
             $wineTypes = Product::getWineTypes();
         } else {
-            $products = Product::where('grape_type', $category)->get();
+            $products = Product::where('grape_type', $category)->paginate(10);
             // Obtener los tipos de uva y tipos de vino
+
             $grapeTypes = Product::getGrapeTypes();
             array_unshift($grapeTypes, 'All Categories');
             $grapeTypes = array_diff($grapeTypes, [$category]);

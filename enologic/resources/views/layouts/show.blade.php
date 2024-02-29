@@ -208,6 +208,7 @@
                 <!-- Puedes agregar más filas según sea necesario -->
             </tbody>
         </table>
+        {{ $products->links('pagination::bootstrap-5') }}
     </div>
 
     <script>

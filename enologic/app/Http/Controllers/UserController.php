@@ -20,10 +20,10 @@ class UserController extends Controller
     }
 
     // Obtener la dirección del usuario
-    $address = $user->address;
+    $addresses = $user->address;
 
     // Devolver los datos del usuario y la dirección
-    return view('layouts.profile', compact('user', 'address'));
+   return view('layouts.profile', compact('user', 'addresses'));
 }
 public function editUser(Request $request)
 {
