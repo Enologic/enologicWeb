@@ -56,8 +56,6 @@ body {
     margin-bottom: 0px;
 }
 
-/* TABLA PRODUCTS*/
-
 
 /* FOOTER */
 footer {
@@ -130,9 +128,9 @@ footer {
     padding-right: 16px;
 }
 
-/* FOCUS FORM-CONTROL */
+/* FOCUS FORM-CONTROL,SELECT */
 
-.form-control:focus {
+.form-control:focus, .form-select:focus {
     border-color: rgb(75, 46, 14);
     /* Cambiar el color del borde */
     background-color: rgb(218, 216, 208);
