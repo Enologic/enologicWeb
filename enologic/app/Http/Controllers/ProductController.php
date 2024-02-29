@@ -34,6 +34,7 @@ class ProductController extends Controller
 
             // Obtener los productos más añadidos y el total
             $mostAddedProducts = $mostAddedProductsData['mostAddedProducts'];
+            $mostAddedProductsDetails = $mostAddedProductsData['mostAddedProductsDetails'];
             $totalMostAddedProducts = $mostAddedProductsData['totalMostAddedProducts'];
 
             // Pasar los productos, tipos de uva, tipos de vino y productos más añadidos a la vista
@@ -41,7 +42,7 @@ class ProductController extends Controller
             //Paginacion
             $products = Product::paginate(10);
 
-            return view('layouts.add', compact('products', 'grapeTypes', 'wineTypes', 'mostAddedProducts', 'totalMostAddedProducts'));
+            return view('layouts.add', compact('products', 'grapeTypes', 'wineTypes', 'mostAddedProducts', 'totalMostAddedProducts', 'mostAddedProductsDetails'));
         } catch (\Exception $e) {
             // Manejar el error apropiadamente, por ejemplo, redirigiendo con un mensaje de error
             return redirect()->back()->with('error', 'Error: ' . $e->getMessage());

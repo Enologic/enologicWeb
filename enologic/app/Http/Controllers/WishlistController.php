@@ -94,11 +94,12 @@ public function mostAddedProductsInWishlists()
 
         // Obtener los detalles de los productos más añadidos
         $productIds = $mostAddedProducts->pluck('product_id')->toArray();
-        $products = Product::whereIn('id', $productIds)->get();
+        $mostAddedProductsDetails = Product::whereIn('id', $productIds)->get();
 
         // Devolver los productos más añadidos y el total
         return [
             'mostAddedProducts' => $mostAddedProducts,
+            'mostAddedProductsDetails' => $mostAddedProductsDetails,
             'totalMostAddedProducts' => $mostAddedProducts->count(),
         ];
     } catch (\Exception $e) {
