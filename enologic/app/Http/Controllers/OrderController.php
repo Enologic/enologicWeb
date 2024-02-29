@@ -70,8 +70,9 @@ class OrderController extends Controller
 
         // Obtener los productos asociados al carrito
         $products = $cart->products;
-
-        return view('layouts.checkout', compact('products'));
+        // Obtener la dirección del usuario
+        $addresses = $user->address;
+        return view('layouts.checkout', compact('products', 'addresses'));
     }
 
     public function viewUserOrders()
