@@ -96,5 +96,7 @@ Route::prefix('')->middleware('auth', 'verified')->group(function () {
 
     Route::post('/apply-coupon', [CouponController::class, 'applyCoupon'])->name('apply.coupon');
 
+    Route::get('/coupons', [CouponController::class, 'viewCoupons'])->name('coupon.viewCoupons');
+    
     
 });

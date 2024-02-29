@@ -19,39 +19,41 @@ class OrderController extends Controller
 
     public function confirmOrder(Request $request){
         try {
-
             DB::beginTransaction();
-
+    
             $user = Auth::user();
-
+    
             $productsInCart = $user->cart->products;
-
-            $order = Order::create(['user_id' => $user->id]);
-
+    
+            $order = Order::create([
+                'user_id' => $user->id,
+                'total' => $request->input('total'),
+                'total_discounted' => $request->input('totalDiscounted')
+            ]);
+    
             foreach ($productsInCart as $product) {
                 $quantity = $product->pivot->quantity;
                 $product->stock -= $quantity;
                 $product->save();
                 $order->products()->attach($product, ['quantity' => $quantity]);
             }
-
+    
             $user->cart->products()->detach($productsInCart);
-
-            // Mail::to($order->user->email)->send(new OrderConfirmation($order));
-
+    
+            // Guardar la dirección de envío
             $addressController = new AddressController();
             $addressController->saveAddress($request);
-
+    
             DB::commit();
-
+    
             return redirect()->route('show')->with('success', 'Order added successfully');
         } catch (\Exception $e) {
-
             DB::rollBack();
             \Log::error('Error confirming order: ' . $e->getMessage());
             return redirect()->route('show')->with('error', 'Error confirming order: ' . $e->getMessage());
         }
     }
+    
 
 
     public function viewCheckout()

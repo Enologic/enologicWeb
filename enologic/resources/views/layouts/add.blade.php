@@ -13,6 +13,9 @@
                 <a class="btn btn-dark mb-3" href="{{ url('/home') }}">
                     <i class="fa-solid fa-rotate-left"></i>
                 </a>
+                <a class="btn btn-dark mb-3" href="{{ url('/coupons') }}">
+                    <i class="fa-solid fa-ticket"></i>      
+                </a>
                 <a class="btn btn-dark mb-3" href="{{ url('/profile') }}">
                     <i class="fa-solid fa-user"></i>
                 </a>
