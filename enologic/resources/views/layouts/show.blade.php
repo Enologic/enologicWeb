@@ -1,56 +1,56 @@
 @extends('layouts.general')
 
 @section('show')
-    <div class="container mt-5">
+    <div class="container mt-3">
 
-        <div class="container d-flex">
+        <h1 class="text-center pb-1"><span class="rounded-pill title-custom px-3">Market</span></h1>
+        <div class="container d-flex align-items-center justify-content-between">
 
-            <h1 class="col-9">Products - USER</h1>
+            <!-- Agregar el campo de filtrado por categorías -->
+            <div class="col-5 mb-3">
+                <label for="category" class="fw-medium">Filter by Category</label>
+                <select id="category" class="form-select" onchange="filterByCategory()">
+                    <option value="">{{ isset($category) ? $category : 'All Categories' }}</option>
+                    {{-- Aquí puedes iterar sobre las categorías disponibles y mostrarlas como opciones --}}
+                    @foreach ($grapeTypes as $grapeType)
+                        <option value="{{ $grapeType }}">{{ $grapeType }}</option>
+                    @endforeach
+                </select>
+            </div>
 
-            <div class="col-3 text-end">
+            <div class="col-6 text-end ">
                 {{-- Boton para volver a DASHBOARD --}}
-                <a class="btn btn-dark mb-3" href="{{ url('/home') }}">
+                <a class="btn btn-dark" href="{{ url('/home') }}">
                     <i class="fa-solid fa-rotate-left"></i>
                 </a>
-                <a class="btn btn-dark mb-3" href="{{ url('/profile') }}">
+                {{-- Botón PROFILE --}}
+                <a class="btn btn-dark custom-alert" href="{{ url('/profile') }}">
                     <i class="fa-solid fa-user"></i>
                 </a>
-                <a class="btn btn-dark mb-3" href="{{ url('/wishlist') }}">
+                {{-- Botón WISHLIST --}}
+                <a class="btn btn-dark" href="{{ url('/wishlist') }}">
                     <i class="fa-solid fa-heart"></i>
                 </a>
 
-
-
                 {{-- Boton para ir a CART --}}
-                <a class="btn btn-secondary mb-3" href="{{ url('/cart') }}">
+                <a class="btn btn-secondary" href="{{ url('/cart') }}">
                     <i class="fa-solid fa-cart-shopping"></i>
                 </a>
 
-                <!-- Agregar el campo de filtrado por categorías -->
-                <div class="mb-3">
-                    <label for="category" class="fw-medium">Filter by Category:</label>
-                    <select id="category" class="form-select" onchange="filterByCategory()">
-                        <option value="">{{ isset($category) ? $category : 'All Categories' }}</option>
-                        {{-- Aquí puedes iterar sobre las categorías disponibles y mostrarlas como opciones --}}
-                        @foreach ($grapeTypes as $grapeType)
-                            <option value="{{ $grapeType }}">{{ $grapeType }}</option>
-                        @endforeach
-                    </select>
-                </div>
             </div>
 
         </div>
-        <table class="table">
-            <thead>
-                <tr class="">
+        <table class="table mb-3">
+            <thead >
+                <tr >
                     <th scope="col">Name</th>
                     {{-- <th scope="col">Description</th> --}}
-                    <th scope="col">Price</th>
-                    <th scope="col">Age</th>
-                    <th scope="col">Country</th>
-                    <th scope="col">Origin</th>
-                    <th scope="col">Grape</th>
-                    <th scope="col">Wine</th>
+                    <th scope="col">Price(€)</th>
+                    <th scope="col">Age(y)</th>
+                    <th scope="col" class="text-center">Country</th>
+                    {{-- <th scope="col" class="text-center">Origin</th> --}}
+                    {{-- <th scope="col" class="text-center">Grape</th> --}}
+                    <th scope="col" class="text-center">Wine</th>
                     <th class="text-center" scope="col">Actions</th>
                 </tr>
             </thead>
@@ -59,12 +59,12 @@
                     <tr class="align-middle">
                         <td class="">{{ $product->product_name }}</td>
                         {{-- <td class="">{{ $product->description }}</td> --}}
-                        <td class="">{{ $product->price }} €</td>
-                        <td class="">{{ $product->age }} years</td>
-                        <td class="">{{ $product->country }}</td>
-                        <td class="">{{ $product->origin }}</td>
-                        <td>{{ $product->grape_type }}</td>
-                        <td>{{ $product->wine_type }}</td>
+                        <td class="text-center">{{ $product->price }}</td>
+                        <td class="text-center">{{ $product->age }}</td>
+                        <td class="text-center">{{ $product->country }}</td>
+                        {{-- <td class="text-center">{{ $product->origin }}</td> --}}
+                        {{-- <td class="text-center">{{ $product->grape_type }}</td> --}}
+                        <td class="text-center">{{ $product->wine_type }}</td>
 
                         <td class="">
                             <div class="d-flex justify-content-center">
@@ -207,8 +207,11 @@
 
                 <!-- Puedes agregar más filas según sea necesario -->
             </tbody>
+
         </table>
-        {{ $products->links('pagination::bootstrap-5') }}
+        <div class="container pagination-custom pb-2">
+            {{ $products->links('pagination::bootstrap-5') }}
+           </div>
     </div>
 
     <script>

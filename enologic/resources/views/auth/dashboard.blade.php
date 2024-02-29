@@ -7,7 +7,7 @@
                 @if (session('alert'))
                     <div class="container d-flex justify-content-center">
                         <div id="success-alert"
-                            class="col-6 alert alert-info fw-medium alert-{{ session('alert.type') }} alert-dismissible fade show text-center"
+                            class="col-6 alert custom-alert fw-medium alert-{{ session('alert.type') }} alert-dismissible fade show text-center"
                             role="alert">
                             <strong>{{ session('alert.message') }}</strong>
                             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
@@ -16,7 +16,7 @@
                 @endif
 
                 <div class="card mt-2 border-dark">
-                    <div class="card-header bg-warning fw-medium border-dark">
+                    <div class="card-header fw-medium border-dark">
                         Vistas
                     </div>
 
@@ -24,7 +24,7 @@
 
                         <div class="col-6 text-center">
                             {{-- USER --}}
-                            <a class="btn btn-dark mb-3" href="{{ route('show') }}">
+                            <a class="btn btn-dark text-white mb-3" href="{{ route('show') }}">
                                 {{ __('Blade show') }}
                             </a>
                             <p>Vista para el user</p>
@@ -32,7 +32,7 @@
 
                         <div class="col-6 text-center">
                             {{-- ADMIN --}}
-                            <a class="btn btn-dark mb-3" href="{{ route('add') }}">
+                            <a class="btn btn-dark text-white mb-3" href="{{ route('add') }}">
                                 {{ __('Blade add') }}
                             </a>
                             <p>Vista para el admin</p>

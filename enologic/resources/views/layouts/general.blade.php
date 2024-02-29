@@ -2,7 +2,7 @@
 
 @section('general')
     {{-- HEADER --}}
-    <nav class="navbar navbar-expand navbar-light bg-warning shadow-sm">
+    <nav class="navbar navbar-expand navbar-light shadow-sm">
         <div class="container">
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
                 aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -47,7 +47,7 @@
 
     {{-- Vista principal --}}
     {{-- Aquí irán todos los yields de las vistas que tengamos. --}}
-    <main>
+    <main class="mb-5">
         @yield('add')
         @yield('cart')
         @yield('checkout')
@@ -60,7 +60,7 @@
 
     {{-- FOOTER --}}
     <footer>
-        <div class="text-center py-3 border-1 bg-warning">
+        <div class="text-center py-3 border-1">
             <span class="fw-medium">
                 Proyecto E-commerce - Enologic, 2º DAW
             </span>

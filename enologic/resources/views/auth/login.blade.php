@@ -6,7 +6,7 @@
 
             @if (session('alert'))
                 <div class="container d-flex justify-content-center text-center">
-                    <div class="col-11 col-md-7 fw-medium alert alert-info alert-dismissible fade show alert-{{ session('alert.type') }}"
+                    <div class="col-11 col-md-7 fw-medium alert custom-alert alert-dismissible fade show alert-{{ session('alert.type') }}"
                         role="alert">
                         {{ session('alert.message') }}
                         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
@@ -16,7 +16,7 @@
 
             <div class="col-md-8">
                 <div class="card border-dark">
-                    <div class="card-header bg-warning fw-medium border-dark">{{ __('Login') }}</div>
+                    <div class="card-header fw-medium border-dark">{{ __('Login') }}</div>
 
                     <div class="card-body">
                         <form method="POST" id="login-form" action="{{ route('login') }}">
@@ -76,7 +76,7 @@
                                     </button>
 
                                     @if (Route::has('password.request'))
-                                        <a class="btn btn-link text-secondary" href="{{ route('password.request') }}">
+                                        <a class="btn btn-link" href="{{ route('password.request') }}">
                                             {{ __('Forgot Your Password?') }}
                                         </a>
                                     @endif

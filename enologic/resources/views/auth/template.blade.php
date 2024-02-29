@@ -27,7 +27,7 @@
 
 <body>
     <div id="app">
-        <nav class="navbar navbar-expand navbar-light bg-warning shadow-sm">
+        <nav class="navbar navbar-expand navbar-light shadow-sm">
             <div class="container">
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                     data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
@@ -50,7 +50,7 @@
                             @endif
                         @else
                             {{-- @if (Auth::user()->email_verified_at) --}}
-                            <div class="dropdown">
+                            <div class="dropdown me-3">
                                 <button class="btn btn-dark dropdown-toggle" type="button" id="dropdownMenuButton1"
                                     data-bs-toggle="dropdown" aria-expanded="false">
                                     {{ Auth::user()->name }}
@@ -77,7 +77,7 @@
     </div>
     {{-- FOOTER --}}
     <footer>
-        <div class="text-center py-3 border-1 bg-warning">
+        <div class="text-center py-3 border-1">
             <span class="fw-medium">
                 Proyecto E-commerce - Enologic, 2º DAW
             </span>
