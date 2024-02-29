@@ -71,6 +71,7 @@
                                 @csrf
 
                                 <input type="hidden" name="action" value="redirect_here">
+                                <input type="hidden" name="address_id" value="{{ $address->id }}">
 
                                 <div class="form-group mb-3">
                                     <label for="street" class="fw-medium">Street:</label>
