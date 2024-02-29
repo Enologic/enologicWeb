@@ -1,12 +1,15 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use Illuminate\Http\Request;
 use App\Models\Coupon;
 
-class CouponController extends Controller{
-   
-    public function create(Request $request){
+class CouponController extends Controller
+{
+
+    public function create(Request $request)
+    {
         $request->validate([
             'name' => 'required|string|unique:coupons,name',
             'percentage' => 'required|numeric|min:0|max:100',
@@ -19,22 +22,45 @@ class CouponController extends Controller{
             'uses' => $request->uses,
         ]);
 
-        return view('layouts.add');   
-     }
+        return view('layouts.add');
+    }
 
-    public function delete($id){
+    public function delete($id)
+    {
         $coupon = Coupon::findOrFail($id);
         $coupon->delete();
 
-        return view('layouts.add'); 
-       }
+        return view('layouts.add');
+    }
 
-    
-    public function increaseUses($id) {
+
+    public function increaseUses($id)
+    {
         $coupon = Coupon::findOrFail($id);
         $coupon->increment('uses');
 
-        return view('layouts.add');   
-      }
+        return view('layouts.add');
+    }
+
+    public function applyCoupon(Request $request)
+    {
+        $request->validate([
+            'coupon_code' => 'required|string',
+        ]);
+    
+        $couponCode = $request->coupon_code;
+        $coupon = Coupon::where('name', $couponCode)->first();
+    
+        if ($coupon) {
+
+            $discountPercentage = $coupon->percentage;
+    
+            return response()->json(['message' => 'Cupón aplicado correctamente', 'discount_percentage' => $discountPercentage], 200);
+        } else {
+            return response()->json(['message' => 'El cupón no existe'], 200);
+        }
+    }
+    
+
 
 }

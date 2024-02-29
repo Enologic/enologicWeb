@@ -59,16 +59,46 @@ $totalQuantity += $product->pivot->quantity;
             </div>
 
 
-            <form class="card p-2">
-                <div class="input-group">
-                    <input type="text" class="form-control" placeholder="Promo code">
-                    <button type="submit" class="btn btn-secondary">Redeem</button>
-                </div>
-                <div class="text-center">
-                    <!-- Botón para vaciar el carrito -->
-                    <button class="col-3 col-md-5 col-lg-4 btn btn-danger mt-3" onclick="clearCart()">Remove</button>
-                </div>
-            </form>
+            <form class="card p-2" id="couponForm">
+    <div class="input-group">
+        <input type="text" class="form-control" id="couponCode" placeholder="Promo code" required>
+        <button type="submit" class="btn btn-secondary">Redeem</button>
+    </div>
+    <div class="text-center">
+        <button type="button" class="col-3 col-md-5 col-lg-4 btn btn-danger mt-3">Remove</button>
+    </div>
+</form>
+
+<script>
+    $(document).ready(function() {
+        $('#couponForm').submit(function(event) {
+            event.preventDefault();
+            let couponCode = $('#couponCode').val();
+            
+            // Realizar la solicitud AJAX para aplicar el cupón
+            $.ajax({
+                type: 'POST',
+                url: '{{ route("apply.coupon") }}',
+                data: {
+                    _token: '{{ csrf_token() }}',
+                    coupon_code: couponCode
+                },
+                success: function(response) {
+                    // Manejar la respuesta del servidor
+                    if (response.discount_percentage) {
+                        alert('Cupón aplicado correctamente. Descuento: ' + response.discount_percentage + '%');
+                        // Aquí puedes realizar acciones adicionales, como actualizar el total del carrito con el descuento aplicado
+                    } else {
+                        alert('El cupón ingresado es inválido.');
+                    }
+                },
+                error: function(xhr, status, error) {
+                    alert('Se produjo un error al aplicar el cupón. Por favor, inténtalo de nuevo.');
+                }
+            });
+        });
+    });
+</script>
 
         </div>
         <div class="col-md-7 col-lg-8">
