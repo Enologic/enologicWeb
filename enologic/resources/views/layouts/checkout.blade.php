@@ -53,145 +53,161 @@ $totalQuantity += $product->pivot->quantity;
                 @endforeach
             </ul>
 
-         <!-- Mostrar el precio total -->
-<div id="totalContainer" class="d-flex justify-content-between">
-    <strong><p id="total">Total: <span id="totalAmount">{{ number_format($totalPrice, 2) }}</span> €</p></strong>
-</div>
-<div id="discountApplied" style="display: none;">
-    <p>Descuento aplicado</p>
-</div>
-<div id="invalidCoupon" style="display: none;">
-    <p style="color: red;">El cupón no existe</p>
-</div>
+            <!-- Mostrar el precio total -->
+            <div id="totalContainer" class="d-flex justify-content-between">
+                <strong>
+                    <p id="total">Total: <span id="totalAmount">{{ number_format($totalPrice, 2) }}</span> €</p>
+                </strong>
+            </div>
+            <div id="discountApplied" style="display: none;">
+                <p>Descuento aplicado</p>
+            </div>
+            <div id="invalidCoupon" style="display: none;">
+                <p style="color: red;">El cupón no existe</p>
+            </div>
 
 
-<form class="card p-2" id="couponForm">
-    <div id="redeemButton" class="input-group">
-        <input type="text" class="form-control" id="couponCode" placeholder="Promo code" required>
-        <button type="submit" class="btn btn-secondary">Redeem</button>
-    </div>
-    <div class="text-center">
-        <button style="display: none;" id="removeButton" type="button" class="col-3 col-md-5 col-lg-4 btn btn-danger">Remove</button>
-    </div>
-</form>
+            <form class="card p-2" id="couponForm">
+                <div id="redeemButton" class="input-group">
+                    <input type="text" class="form-control" id="couponCode" placeholder="Promo code" required>
+                    <button type="submit" class="btn btn-secondary">Redeem</button>
+                </div>
+                <div class="text-center">
+                    <button style="display: none;" id="removeButton" type="button" class="col-3 col-md-5 col-lg-4 btn btn-danger">Remove</button>
+                </div>
+            </form>
 
-<script>
-    $(document).ready(function() {
-        // Manejar clics en el botón "Remove"
-        $('#removeButton').click(function() {
-            // Ocultar el mensaje de descuento aplicado
-            $('#discountApplied').hide();
-            // Mostrar el botón "Redeem" y ocultar el botón "Remove"
-            $('#redeemButton').show();
-            $('#removeButton').hide();
-            // Restaurar el total original
-            let originalTotal = parseFloat('{{ $totalPrice }}');
-            $('#totalAmount').text(originalTotal.toFixed(2));
-        });
-
-        // Manejar el envío del formulario
-        $('#couponForm').submit(function(event) {
-            event.preventDefault();
-            let couponCode = $('#couponCode').val();
-            
-            // Realizar la solicitud AJAX para aplicar el cupón
-            $.ajax({
-                type: 'POST',
-                url: '{{ route("apply.coupon") }}',
-                data: {
-                    _token: '{{ csrf_token() }}',
-                    coupon_code: couponCode
-                },
-                success: function(response) {
-                    // Manejar la respuesta del servidor
-                    if (response.discount_percentage) {
-                        // Mostrar el mensaje de descuento aplicado
-                        $('#discountApplied').show();
-                        $('#removeButton').show();
-                        $('#redeemButton').hide();
-                        $('#invalidCoupon').hide();
-
-                        // Obtener el total actual y el nuevo total con descuento aplicado
-                        let currentTotal = parseFloat($('#totalAmount').text());
-                        let discount = currentTotal * (response.discount_percentage / 100);
-                        let newTotal = currentTotal - discount;
+            <script>
+                $(document).ready(function() {
+                    // Manejar clics en el botón "Remove"
+                    $('#removeButton').click(function() {
                         
-                        // Actualizar el HTML para mostrar el nuevo total con descuento aplicado
-                        $('#totalAmount').html('<del style="color: black;">' + currentTotal.toFixed(2) + '</del> <span style="color: red;">' + newTotal.toFixed(2) + '</span>');
+                        // Ocultar el mensaje de descuento aplicado
+                        $('#discountApplied').hide();
+                        // Mostrar el botón "Redeem" y ocultar el botón "Remove"
+                        $('#redeemButton').show();
+                        $('#removeButton').hide();
+                        // Restaurar el total original
+                        let originalTotal = parseFloat('{{ $totalPrice }}');
+                        $('#totalAmount').text(originalTotal.toFixed(2));
+                        
+                        $('#discountInput').val('false');
+                        $('#totalDiscountedInput').val(originalTotal);
+                       
+                    });
 
-                    } else {
-                        $('#invalidCoupon').show();
-                    }
-                },
-                error: function(xhr, status, error) {
-                    alert('Se produjo un error al aplicar el cupón. Por favor, inténtalo de nuevo.');
-                }
-            });
-        });
-    });
-</script>
+                    // Manejar el envío del formulario
+                    $('#couponForm').submit(function(event) {
+                        event.preventDefault();
+                        let couponCode = $('#couponCode').val();
+
+                        // Realizar la solicitud AJAX para aplicar el cupón
+                        $.ajax({
+                            type: 'POST',
+                            url: '{{ route("apply.coupon") }}',
+                            data: {
+                                _token: '{{ csrf_token() }}',
+                                coupon_code: couponCode
+                            },
+                            success: function(response) {
+                                // Manejar la respuesta del servidor
+                                if (response.discount_percentage) {
+                                    // Mostrar el mensaje de descuento aplicado
+                                    $('#discountApplied').show();
+                                    $('#removeButton').show();
+                                    $('#redeemButton').hide();
+                                    $('#invalidCoupon').hide();
+                                   
+                                  
+                                    // Obtener el total actual y el nuevo total con descuento aplicado
+                                    let currentTotal = parseFloat($('#totalAmount').text());
+                                    let discount = currentTotal * (response.discount_percentage / 100);
+                                    let newTotal = currentTotal - discount;
+
+                                    $('#discountInput').val('true');
+                                    $('#totalDiscountedInput').val(newTotal);
+
+                                    // Actualizar el HTML para mostrar el nuevo total con descuento aplicado
+                                    $('#totalAmount').html('<del style="color: black;">' + currentTotal.toFixed(2) + '</del> <span style="color: red;">' + newTotal.toFixed(2) + '</span>');
+
+                                } else {
+                                    $('#invalidCoupon').show();
+                                }
+                            },
+                            error: function(xhr, status, error) {
+                                alert('Se produjo un error al aplicar el cupón. Por favor, inténtalo de nuevo.');
+                            }
+                        });
+                    });
+                });
+            </script>
 
         </div>
         <div class="col-md-7 col-lg-8">
-        <h4 class="mb-3">Billing address</h4>
+            <h4 class="mb-3">Billing address</h4>
 
-<select id="selectDireccion">
-    @foreach($addresses as $address)
-        <option value="{{ $address->id }}">{{ $address->street }}</option>
-    @endforeach
-</select>
+            <select id="selectDireccion">
+                @foreach($addresses as $address)
+                <option value="{{ $address->id }}">{{ $address->street }}</option>
+                @endforeach
+            </select>
 
-<form class="needs-validation" method="POST" action="{{ route('confirmar.pedido') }}">
-    @csrf
-    <div class="row g-3">
-        <div class="col-12">
-            <label for="street" class="form-label">Street</label>
-            <input type="text" class="form-control direccion" id="street" name="street" value="{{ $addresses->isNotEmpty() ? $addresses->first()->street : '' }}" required="">
-            <div class="invalid-feedback">
-                Please enter your shipping street.
-            </div>
-        </div>
+            <form class="needs-validation" method="POST" action="{{ route('confirmar.pedido') }}">
+                @csrf
+                <div class="row g-3">
+                    <div class="col-12">
 
-        <div class="col-md-6">
-            <label for="country" class="form-label">Country</label>
-            <input type="text" class="form-control direccion" id="country" name="country" value="{{ $addresses->isNotEmpty() ? $addresses->first()->country : '' }}" required="">
-            <div class="invalid-feedback">
-                Please select a valid country.
-            </div>
-        </div>
+                        <input type="hidden" id="totalInput" name="total" value="{{ $totalPrice }}">
+                        <input type="hidden" id="discountInput" name="discount" value="false">
+                        <input type="hidden" id="totalDiscountedInput" name="totalDiscounted" value="{{ $totalPrice }}">
 
-        <div class="col-md-6">
-            <label for="city" class="form-label">City</label>
-            <input type="text" class="form-control direccion" id="city" name="city" value="{{ $addresses->isNotEmpty() ? $addresses->first()->city : '' }}" required="">
-            <div class="invalid-feedback">
-                Please provide a valid city.
-            </div>
-        </div>
+                        <label for="street" class="form-label">Street</label>
+                        <input type="text" class="form-control direccion" id="street" name="street" value="{{ $addresses->isNotEmpty() ? $addresses->first()->street : '' }}" required="">
+                        <div class="invalid-feedback">
+                            Please enter your shipping street.
+                        </div>
+                    </div>
 
-        <div class="col-md-6">
-            <label for="zipcode" class="form-label">Zipcode</label>
-            <input type="text" class="form-control direccion" id="zipcode" name="zipcode" value="{{ $addresses->isNotEmpty() ? $addresses->first()->zipcode : '' }}" required="">
-            <div class="invalid-feedback">
-                Zip code required.
-            </div>
-        </div>
-    </div>
-</form>
+                    <div class="col-md-6">
+                        <label for="country" class="form-label">Country</label>
+                        <input type="text" class="form-control direccion" id="country" name="country" value="{{ $addresses->isNotEmpty() ? $addresses->first()->country : '' }}" required="">
+                        <div class="invalid-feedback">
+                            Please select a valid country.
+                        </div>
+                    </div>
 
-<script>
-    $(document).ready(function() {
-        $('#selectDireccion').change(function() {
-            let selectedAddressId = $(this).val();
-            let selectedAddress = {!! json_encode($addresses) !!}.find(address => address.id == selectedAddressId);
-            if (selectedAddress) {
-                $('#street').val(selectedAddress.street);
-                $('#country').val(selectedAddress.country);
-                $('#city').val(selectedAddress.city);
-                $('#zipcode').val(selectedAddress.zipcode);
-            }
-        });
-    });
-</script>
+                    <div class="col-md-6">
+                        <label for="city" class="form-label">City</label>
+                        <input type="text" class="form-control direccion" id="city" name="city" value="{{ $addresses->isNotEmpty() ? $addresses->first()->city : '' }}" required="">
+                        <div class="invalid-feedback">
+                            Please provide a valid city.
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label for="zipcode" class="form-label">Zipcode</label>
+                        <input type="text" class="form-control direccion" id="zipcode" name="zipcode" value="{{ $addresses->isNotEmpty() ? $addresses->first()->zipcode : '' }}" required="">
+                        <div class="invalid-feedback">
+                            Zip code required.
+                        </div>
+                    </div>
+                </div>
+
+
+                <script>
+                    $(document).ready(function() {
+                        $('#selectDireccion').change(function() {
+                            let selectedAddressId = $(this).val();
+                            let selectedAddress = {!!json_encode($addresses) !!}.find(address => address.id == selectedAddressId);
+                            if (selectedAddress) {
+                                $('#street').val(selectedAddress.street);
+                                $('#country').val(selectedAddress.country);
+                                $('#city').val(selectedAddress.city);
+                                $('#zipcode').val(selectedAddress.zipcode);
+                            }
+                        });
+                    });
+                </script>
 
                 <hr class="my-4">
 
