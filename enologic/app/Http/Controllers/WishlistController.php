@@ -10,8 +10,7 @@ use Illuminate\Support\Facades\DB;
 class WishlistController extends Controller
 {
    
-    public function viewWishlist()
-{
+    public function viewWishlist(){
     try {
         $user = Auth::user();
 

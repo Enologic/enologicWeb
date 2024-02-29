@@ -65,8 +65,12 @@ class AuthenticatedSessionController extends Controller
                 'message' => 'Login successful'
             ]);
 
-            // Retornar una respuesta de inicio de sesión
-            return app(LoginResponse::class);
+            // Lógica de redirección personalizada
+            if ($request->user()->id == 1) {
+                return redirect('/home');
+            } else {
+                return redirect()->route('show');
+            }
         });
     }
 

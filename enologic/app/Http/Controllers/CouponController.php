@@ -8,8 +8,21 @@ use App\Models\Coupon;
 class CouponController extends Controller
 {
 
-    public function create(Request $request)
-    {
+    public function viewCoupons(){
+        try {
+            // Obtener todos los cupones
+            $coupons = Coupon::all();
+    
+            // Devolver la vista con los cupones
+            return view('layouts.coupons', compact('coupons'));
+        } catch (\Exception $e) {
+            // Maneja adecuadamente la excepción, por ejemplo, mostrando un mensaje de error
+            return view('layouts.coupons')->with('error', 'Error al cargar la lista de cupones: ' . $e->getMessage());
+        }
+    }
+    
+  
+    public function create(Request $request){
         $request->validate([
             'name' => 'required|string|unique:coupons,name',
             'percentage' => 'required|numeric|min:0|max:100',
