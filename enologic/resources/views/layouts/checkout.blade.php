@@ -53,24 +53,43 @@ $totalQuantity += $product->pivot->quantity;
                 @endforeach
             </ul>
 
-            <!-- Mostrar el precio total -->
-            <div class="d-flex justify-content-between">
-                <strong> Total {{ number_format($totalPrice, 2) }}€</strong>
-            </div>
+         <!-- Mostrar el precio total -->
+<div id="totalContainer" class="d-flex justify-content-between">
+    <strong><p id="total">Total: <span id="totalAmount">{{ number_format($totalPrice, 2) }}</span> €</p></strong>
+</div>
+<div id="discountApplied" style="display: none;">
+    <p>Descuento aplicado</p>
+</div>
+<div id="invalidCoupon" style="display: none;">
+    <p style="color: red;">El cupón no existe</p>
+</div>
 
 
-            <form class="card p-2" id="couponForm">
-    <div class="input-group">
+<form class="card p-2" id="couponForm">
+    <div id="redeemButton" class="input-group">
         <input type="text" class="form-control" id="couponCode" placeholder="Promo code" required>
         <button type="submit" class="btn btn-secondary">Redeem</button>
     </div>
     <div class="text-center">
-        <button type="button" class="col-3 col-md-5 col-lg-4 btn btn-danger mt-3">Remove</button>
+        <button style="display: none;" id="removeButton" type="button" class="col-3 col-md-5 col-lg-4 btn btn-danger">Remove</button>
     </div>
 </form>
 
 <script>
     $(document).ready(function() {
+        // Manejar clics en el botón "Remove"
+        $('#removeButton').click(function() {
+            // Ocultar el mensaje de descuento aplicado
+            $('#discountApplied').hide();
+            // Mostrar el botón "Redeem" y ocultar el botón "Remove"
+            $('#redeemButton').show();
+            $('#removeButton').hide();
+            // Restaurar el total original
+            let originalTotal = parseFloat('{{ $totalPrice }}');
+            $('#totalAmount').text(originalTotal.toFixed(2));
+        });
+
+        // Manejar el envío del formulario
         $('#couponForm').submit(function(event) {
             event.preventDefault();
             let couponCode = $('#couponCode').val();
@@ -86,10 +105,22 @@ $totalQuantity += $product->pivot->quantity;
                 success: function(response) {
                     // Manejar la respuesta del servidor
                     if (response.discount_percentage) {
-                        alert('Cupón aplicado correctamente. Descuento: ' + response.discount_percentage + '%');
-                        // Aquí puedes realizar acciones adicionales, como actualizar el total del carrito con el descuento aplicado
+                        // Mostrar el mensaje de descuento aplicado
+                        $('#discountApplied').show();
+                        $('#removeButton').show();
+                        $('#redeemButton').hide();
+                        $('#invalidCoupon').hide();
+
+                        // Obtener el total actual y el nuevo total con descuento aplicado
+                        let currentTotal = parseFloat($('#totalAmount').text());
+                        let discount = currentTotal * (response.discount_percentage / 100);
+                        let newTotal = currentTotal - discount;
+                        
+                        // Actualizar el HTML para mostrar el nuevo total con descuento aplicado
+                        $('#totalAmount').html('<del style="color: black;">' + currentTotal.toFixed(2) + '</del> <span style="color: red;">' + newTotal.toFixed(2) + '</span>');
+
                     } else {
-                        alert('El cupón ingresado es inválido.');
+                        $('#invalidCoupon').show();
                     }
                 },
                 error: function(xhr, status, error) {
