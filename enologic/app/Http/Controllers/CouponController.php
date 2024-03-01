@@ -38,14 +38,25 @@ class CouponController extends Controller
         return view('layouts.add');
     }
 
-    public function delete($id)
-    {
-        $coupon = Coupon::findOrFail($id);
+   
+public function delete(Request $request)
+{
+    try {
+        $couponId = $request->input('coupon_id');
+        $coupon = Coupon::findOrFail($couponId);
         $coupon->delete();
 
-        return view('layouts.add');
-    }
+        // Obtener todos los cupones después de eliminar uno
+        $coupons = Coupon::all();
 
+        // Redirigir a la página anterior con los cupones actualizados
+        return back()->with('coupons', $coupons)->with('success', 'Coupon deleted successfully');
+    } catch (\Exception $e) {
+        // Maneja adecuadamente la excepción, por ejemplo, mostrando un mensaje de error
+        return back()->with('error', 'Error deleting coupon: ' . $e->getMessage());
+    }
+}
+    
 
     public function increaseUses($id)
     {

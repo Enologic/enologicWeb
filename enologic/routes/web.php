@@ -98,5 +98,6 @@ Route::prefix('')->middleware('auth', 'verified')->group(function () {
 
     Route::get('/coupons', [CouponController::class, 'viewCoupons'])->name('coupon.viewCoupons');
     
-    
+    Route::post('/coupon/delete', [CouponController::class, 'delete'])->name('coupon.delete');
+
 });
