@@ -14,7 +14,7 @@
 
             <div class="col-md-8">
                 <div class="card border-dark">
-                    <div class="card-header bg-warning border-dark fw-medium">{{ __('Email Verification') }}</div>
+                    <div class="card-header border-dark fw-medium">{{ __('Email Verification') }}</div>
 
                     <div class="card-body">
                         <p class="fst-italic text-center">You must verify your email address. Please, check your email for a

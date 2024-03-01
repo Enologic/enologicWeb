@@ -14,7 +14,7 @@
 
             <div class="col-md-8">
                 <div class="card border-dark">
-                    <div class="card-header bg-warning fw-medium border-dark">{{ __('Reset password') }}</div>
+                    <div class="card-header fw-medium border-dark">{{ __('Reset password') }}</div>
 
                     <div class="card-body">
                         <form method="POST" id="forgot-form" action="{{ route('password.request') }}">

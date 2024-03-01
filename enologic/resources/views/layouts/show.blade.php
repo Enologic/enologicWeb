@@ -8,7 +8,7 @@
 
             <!-- Agregar el campo de filtrado por categorías -->
             <div class="col-5 mb-3">
-                <label for="category" class="fw-medium">Filter by Category</label>
+                <label for="category" class="fw-medium filter-custom">Filter by Category</label>
                 <select id="category" class="form-select" onchange="filterByCategory()">
                     <option value="">{{ isset($category) ? $category : 'All Categories' }}</option>
                     {{-- Aquí puedes iterar sobre las categorías disponibles y mostrarlas como opciones --}}
@@ -18,7 +18,7 @@
                 </select>
             </div>
 
-            <div class="col-6 text-end ">
+            <div class="col-6 text-end">
                 {{-- Boton para volver a DASHBOARD --}}
                 <a class="btn btn-dark" href="{{ url('/home') }}">
                     <i class="fa-solid fa-rotate-left"></i>
@@ -31,18 +31,16 @@
                 <a class="btn btn-dark" href="{{ url('/wishlist') }}">
                     <i class="fa-solid fa-heart"></i>
                 </a>
-
                 {{-- Boton para ir a CART --}}
                 <a class="btn btn-secondary" href="{{ url('/cart') }}">
                     <i class="fa-solid fa-cart-shopping"></i>
                 </a>
-
             </div>
-
         </div>
+
         <table class="table mb-3">
-            <thead >
-                <tr >
+            <thead>
+                <tr class="custom-th">
                     <th scope="col">Name</th>
                     {{-- <th scope="col">Description</th> --}}
                     <th scope="col">Price(€)</th>
@@ -56,7 +54,7 @@
             </thead>
             <tbody>
                 @foreach ($products as $product)
-                    <tr class="align-middle">
+                    <tr class="align-middle custom-td">
                         <td class="">{{ $product->product_name }}</td>
                         {{-- <td class="">{{ $product->description }}</td> --}}
                         <td class="text-center">{{ $product->price }}</td>
@@ -90,14 +88,18 @@
                                                     <button type="button" class="btn-close bg-danger rounded-5"
                                                         data-bs-dismiss="modal" aria-label="Close"></button>
                                                 </div>
+                                                {{-- IMG DE PRUEBA --}}
+                                          <div class="container product-img-custom mt-3"></div>
                                                 <div class="modal-body d-flex align-items-center justify-content-center">
                                                     <div class="col-12 fw-medium text-center">
-                                                        <h5>Are you sure you want to remove this product from your wishlist?
-                                                        </h5>
-                                                        <p>Product Name: {{ $product->product_name }}</p>
+                                                        <h5 class="fst-italic">{{ $product->product_name }}</h5>
                                                     </div>
                                                 </div>
                                                 <div class="container pb-3 px-3 text-center">
+                                                    <div class="container d-flex justify-content-evenly mb-3">
+                                                        <span class="badge bg-warning text-dark rounded-pill fs-6">{{ $product->origin }}</span>
+                                                        <span class="badge bg-info text-white rounded-pill fs-6">{{ $product->grape_type }}</span>
+                                                    </div>
                                                     {{ $product->description }}
                                                 </div>
                                                 <div class="modal-footer justify-content-center bg-dark">
@@ -131,16 +133,20 @@
                                                     <button type="button" class="btn-close bg-danger rounded-5"
                                                         data-bs-dismiss="modal" aria-label="Close"></button>
                                                 </div>
+                                                   {{-- IMG DE PRUEBA --}}
+                                          <div class="container product-img-custom mt-3"></div>
                                                 <div class="modal-body d-flex align-items-center justify-content-center">
                                                     <!-- You can show more product details here if you want -->
                                                     <div class="col-12 fw-medium text-center">
-                                                        <h5>Are you sure you want to add this product to your wishlist?</h5>
-
-                                                        Product Name: {{ $product->product_name }}
+                                                        <h5 class="fst-italic">{{ $product->product_name }}</h5>
                                                     </div>
                                                     <!-- You can add more product details here -->
                                                 </div>
                                                 <div class="container pb-3 px-3 text-center">
+                                                    <div class="container d-flex justify-content-evenly mb-3">
+                                                        <span class="badge bg-warning text-dark rounded-pill fs-6">{{ $product->origin }}</span>
+                                                        <span class="badge bg-info text-white rounded-pill fs-6">{{ $product->grape_type }}</span>
+                                                    </div>
                                                     {{ $product->description }}
                                                 </div>
                                                 <div class="modal-footer justify-content-center bg-dark">
@@ -173,7 +179,10 @@
                                                     <button type="button" class="btn-close bg-danger rounded-5"
                                                         data-bs-dismiss="modal" aria-label="Close"></button>
                                                 </div>
+                                                {{-- IMG DE PRUEBA --}}
+                                                <div class="container product-img-custom mt-3"></div>
                                                 <div class="modal-body d-flex align-items-center justify-content-center">
+                                                    
                                                     <div class="col-4 m-0 fw-medium text-center">
                                                         Choose quantity:
                                                     </div>
@@ -188,6 +197,10 @@
                                                     </div>
                                                 </div>
                                                 <div class="container pb-3 px-3 text-center">
+                                                    <div class="container d-flex justify-content-evenly mb-3">
+                                                        <span class="badge bg-warning text-dark rounded-pill fs-6">{{ $product->origin }}</span>
+                                                        <span class="badge bg-info text-white rounded-pill fs-6">{{ $product->grape_type }}</span>
+                                                    </div>
                                                     {{ $product->description }}
                                                 </div>
                                                 <div class="modal-footer justify-content-center bg-dark">
@@ -211,7 +224,7 @@
         </table>
         <div class="container pagination-custom pb-2">
             {{ $products->links('pagination::bootstrap-5') }}
-           </div>
+        </div>
     </div>
 
     <script>
