@@ -100,4 +100,6 @@ Route::prefix('')->middleware('auth', 'verified')->group(function () {
     
     Route::post('/coupon/delete', [CouponController::class, 'delete'])->name('coupon.delete');
 
+    Route::post('/coupon/save', [CouponController::class, 'save'])->name('coupon.save');
+
 });

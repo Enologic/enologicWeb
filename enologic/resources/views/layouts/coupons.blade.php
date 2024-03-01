@@ -12,6 +12,14 @@
             <a class="btn btn-dark" href="{{ url('/show') }}">
                 <i class="fa-solid fa-rotate-left"></i>
             </a>
+            {{-- Botón para añadir un producto --}}
+            <div class="">
+                <div class="d-inline-block"> <!-- Contenedor adicional para limitar el tamaño -->
+                    <a href="#" class="btn btn-success mx-1" data-bs-toggle="modal" data-bs-target="#addCouponModal">
+                        <i class="fa-solid fa-plus"></i>
+                    </a>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -71,6 +79,40 @@
         </table>
     </div>
 </div>
+{{-- Modal para agregar un cupón --}}
+<div class="modal fade" id="addCouponModal" tabindex="-1" aria-labelledby="addCouponModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-dark text-white">
+                <h5 class="modal-title" id="addCouponModalLabel">Add Coupon</h5>
+                <button type="button" class="btn-close bg-danger rounded-5" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form action="{{ route('coupon.save') }}" method="POST">
+                    @csrf
+                    <div class="form-group mb-3">
+                        <label for="name" class="fw-medium">Name:</label>
+                        <input type="text" name="name" class="form-control" required>
+                    </div>
+                    <div class="form-group mb-3">
+                        <label for="percentage" class="fw-medium">Percentage:</label>
+                        <input type="number" name="percentage" class="form-control" min="1" max="100" required>
+                        <small class="text-muted">Enter a value between 1 and 100.</small>
+                    </div>
+                    <div class="form-group mb-3">
+                        <label for="uses" class="fw-medium">Uses:</label>
+                        <input type="number" name="uses" class="form-control" min="0" required>
+                        <small class="text-muted">Enter a positive value.</small>
+                    </div>
+            </div>
+            <div class="modal-footer justify-content-center bg-dark">
+                <button type="submit" class="btn btn-success">Add Coupon</button>
+            </div>
+            </form>
+        </div>
+    </div>
+</div>
+
 
 {{-- FOOTER --}}
 <footer>

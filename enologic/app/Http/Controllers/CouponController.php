@@ -22,7 +22,7 @@ class CouponController extends Controller
     }
     
   
-    public function create(Request $request){
+    public function save(Request $request){
         $request->validate([
             'name' => 'required|string|unique:coupons,name',
             'percentage' => 'required|numeric|min:0|max:100',
@@ -35,7 +35,9 @@ class CouponController extends Controller
             'uses' => $request->uses,
         ]);
 
-        return view('layouts.add');
+         $coupons = Coupon::all();
+
+         return back()->with('coupons', $coupons)->with('success', 'Coupon added successfully');
     }
 
    
