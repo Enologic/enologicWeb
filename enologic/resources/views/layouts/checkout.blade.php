@@ -82,34 +82,6 @@
                     </div>
                 </form>
 
-            <!-- Mostrar el precio total -->
-            <div id="totalContainer" class="d-flex justify-content-between">
-                <strong>
-                    <p id="total">Total: <span id="totalAmount">{{ number_format($totalPrice, 2) }}</span> €</p>
-                </strong>
-            </div>
-            <div id="discountApplied" style="display: none;">
-                <p>Descuento aplicado</p>
-            </div>
-            <div id="invalidCoupon" style="display: none;">
-                <p style="color: red;">El cupón no existe</p>
-            </div>
-
-                        // Manejar el envío del formulario
-                        $('#couponForm').submit(function(event) {
-                            event.preventDefault();
-                            let couponCode = $('#couponCode').val();
-
-            <form class="card p-2" id="couponForm">
-                <div id="redeemButton" class="input-group">
-                    <input type="text" class="form-control" id="couponCode" placeholder="Promo code" required>
-                    <button type="submit" class="btn btn-secondary">Redeem</button>
-                </div>
-                <div class="text-center">
-                    <button style="display: none;" id="removeButton" type="button" class="col-3 col-md-5 col-lg-4 btn btn-danger">Remove</button>
-                </div>
-            </form>
-
             <script>
                 $(document).ready(function() {
                     // Manejar clics en el botón "Remove"
