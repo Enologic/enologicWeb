@@ -25,6 +25,10 @@
                 </a>
                 {{-- Botón PROFILE --}}
                 <a class="btn btn-dark custom-alert" href="{{ url('/profile') }}">
+                <a class="btn btn-dark mb-3" href="{{ url('/coupons') }}">
+                    <i class="fa-solid fa-ticket"></i>      
+                </a>
+                <a class="btn btn-dark mb-3" href="{{ url('/profile') }}">
                     <i class="fa-solid fa-user"></i>
                 </a>
                 {{-- Botón para añadir un producto --}}
