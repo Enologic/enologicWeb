@@ -88,7 +88,7 @@
                     </div>
                     <div class="modal-footer justify-content-center bg-dark">
                         <button type="button" class="btn btn-success" data-bs-dismiss="modal">Close</button>
-                        <a href="{{ route('invoices.show', ['id' => $order->id]) }}" class="btn btn-sucess">Download Invoice</a>
+                        <a href="{{ route('invoices.show', ['id' => $order->id]) }}" class="btn btn-success">Download Invoice</a>
 
                     </div>
                 </div>
