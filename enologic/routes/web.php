@@ -8,6 +8,10 @@ use App\Http\Controllers\WishlistController;
 use App\Http\Controllers\CouponController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AddressController;
+use App\Http\Controllers\InvoiceController;
+use App\Http\Controllers\PDFController;
+
+
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 
@@ -101,5 +105,8 @@ Route::prefix('')->middleware('auth', 'verified')->group(function () {
     Route::post('/coupon/delete', [CouponController::class, 'delete'])->name('coupon.delete');
 
     Route::post('/coupon/save', [CouponController::class, 'save'])->name('coupon.save');
+
+
+    Route::get('/invoices/{id}', [PDFController::class, 'generateInvoicePDF'])->name('invoices.show');
 
 });
