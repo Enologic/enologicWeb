@@ -7,7 +7,7 @@ use App\Models\Invoice;
 use Illuminate\Http\Request;
 class InvoiceController extends Controller
 {
-   
+    
     public function createInvoice($orderId){
         try {
             $order = Order::findOrFail($orderId);
