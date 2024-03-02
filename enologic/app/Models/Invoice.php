@@ -10,7 +10,6 @@ class Invoice extends Model
     use HasFactory;
 
     protected $fillable = [
-        'total_amount',
         'order_id'
     ];
     

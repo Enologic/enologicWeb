@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use App\Models\Cart;
 use App\Models\Order;
 use App\Models\Product;
@@ -11,41 +12,53 @@ use App\Mail\OrderConfirmation;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Contracts\Mail\Mailable;
 use App\Http\Controllers\AddressController;
+use App\Http\Controllers\InvoiceController;
 use Illuminate\Support\Facades\DB;
 
 
 class OrderController extends Controller
 {
 
-    public function confirmOrder(Request $request){
+    public function confirmOrder(Request $request)
+    {
         try {
             DB::beginTransaction();
-    
+
             $user = Auth::user();
-    
+
             $productsInCart = $user->cart->products;
-    
+
             $order = Order::create([
                 'user_id' => $user->id,
                 'total' => $request->input('total'),
                 'total_discounted' => $request->input('totalDiscounted')
             ]);
-    
+
             foreach ($productsInCart as $product) {
                 $quantity = $product->pivot->quantity;
                 $product->stock -= $quantity;
                 $product->save();
                 $order->products()->attach($product, ['quantity' => $quantity]);
             }
-    
+
             $user->cart->products()->detach($productsInCart);
-    
+
             // Guardar la dirección de envío
             $addressController = new AddressController();
             $addressController->saveAddress($request);
-    
-            DB::commit();
-    
+
+            $invoiceController = new InvoiceController();
+            $result = $invoiceController->createInvoice($order->id);
+
+            if ($result === true) {
+                DB::commit();
+                return redirect()->route('show')->with('success', 'Order added successfully');
+            } else {
+                DB::rollBack();
+                \Log::error('Error creating invoice for order: ' . $order->id);
+                dd($result);
+            }
+
             return redirect()->route('show')->with('success', 'Order added successfully');
         } catch (\Exception $e) {
             DB::rollBack();
@@ -53,7 +66,7 @@ class OrderController extends Controller
             return redirect()->route('show')->with('error', 'Error confirming order: ' . $e->getMessage());
         }
     }
-    
+
 
 
     public function viewCheckout()
@@ -83,6 +96,4 @@ class OrderController extends Controller
 
         return view('layouts.viewOrders', compact('orders'));
     }
-
-
 }
