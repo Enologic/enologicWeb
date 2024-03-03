@@ -222,16 +222,7 @@
                                     </div>
                                 </div>
 
-                                <div class="modal-footer justify-content-center bg-dark">
-                                    <form action="{{ route('wishlist.add', ['productId' => $product->id]) }}"
-                                        method="post">
-                                        @csrf
-                                        <button type="submit" class="px-4 btn btn-success">Add to
-                                            Wishlist</button>
-                                    </form>
-                                    <button type="button" class="px-4 btn btn-secondary"
-                                        data-bs-dismiss="modal">Cancel</button>
-                                </div>
+                              
                             </div>
 
                         </td>
